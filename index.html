@@ -94,6 +94,11 @@ ul.plain{margin:6px 0;padding-left:20px}
 .sk::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:sh 1.2s infinite}
 @keyframes sh{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 @media (max-width:400px){#timer{gap:5px;padding-left:8px;padding-right:8px}.tbox{min-width:76px}.tbox b{font-size:26px}#timer button{padding:0 9px;font-size:14px}#timer button.primary{min-width:64px}}
+.demo{background:#f6f4ff;border-radius:18px;margin:12px 0 4px;border:2px solid #e4defc;overflow:hidden}
+.demo svg{display:block;width:100%;max-height:250px;cursor:pointer}
+.dbar{display:flex;align-items:center;justify-content:space-between;padding:0 8px 8px 14px;gap:8px}
+.dlab{font-size:16px;font-weight:800;color:#5b3df5}
+.dplay{min-height:44px;padding:0 14px;border-radius:12px;border:2px solid #5b3df5;background:#fff;color:#5b3df5;font-weight:700;font-size:15px}
 </style>
 </head>
 <body>
@@ -146,6 +151,7 @@ ul.plain{margin:6px 0;padding-left:20px}
 </div>
 <div id="toast" class="hidden"><span id="toastTxt"></span><button id="toastBtn" class="hidden">Undo</button></div>
 
+<script src="demos.js"></script>
 <script>
 (() => {
 const $ = id => document.getElementById(id);
@@ -181,6 +187,7 @@ function render(){
       <div class="body">
       <div class="meta">${e.sets} sets × ${esc(e.reps)} reps · rest ${e.restSec||W.defaultRestSec||90} sec · ${esc(e.muscles||'')}</div>
       <span class="pill">${bw?'Bodyweight':esc(e.weight)+' lb'}</span>${e.weightNote&&!/^bodyweight$/i.test(e.weightNote)?`<span class="pill o">${esc(e.weightNote)}</span>`:''}
+      ${window.Demos?Demos.html(e.demo||e.id,['#5b3df5','#c2338f','#1d8fe1','#e0532f','#13a36a'][i%5]):''}
       ${e.lastTime?`<div class="last">${esc(e.lastTime)}</div>`:''}
       <ol class="cues">${(e.cues||[]).map(c=>`<li>${esc(c)}</li>`).join('')}</ol>
       ${e.avoid?`<div class="avoid"><b>Avoid:</b> ${esc(e.avoid)}</div>`:''}
@@ -194,6 +201,7 @@ function render(){
       <div class="row"><button class="btn s" data-skip="${i}">${s.skipped?'Undo skip':'Skip exercise'}</button></div>
       ${s.skipped?`<div class="field"><label for="note${i}">Why skipped? (optional)</label><input id="note${i}" data-note="${i}" value="${esc(s.note)}" placeholder="e.g. shoulder felt off"></div>`:''}
     </section>`;}).join('');
+  if(window.Demos) Demos.mount($('exercises'));
   progress();
 }
 function counts(){ let tot=0,d=0,sk=0; state.ex.forEach(x=>{ if(x.skipped){ sk+=x.sets.length; return; } x.sets.forEach(s=>{tot++; if(s.done)d++;}); }); return {tot,d,sk}; }
