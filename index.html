@@ -13,222 +13,281 @@
 <link rel="icon" href="icons/icon-192.png">
 <title>Workout</title>
 <style>
-:root{--card:rgba(255,255,255,.94);--ink:#1d1b2e;--sub:#5b5872;--acc:#5b3df5;--ok:#13a36a;--warn:#e0532f;--bar:72px}
+:root{--card:rgba(255,255,255,.95);--ink:#1d1b2e;--sub:#4f4c66;--acc:#5b3df5;--ok:#13a36a;--warn:#d4472a;--bar:76px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
 body{font:17px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;color:var(--ink);min-height:100vh;
  background:linear-gradient(160deg,#ff7a59 0%,#c2338f 35%,#5b3df5 70%,#1d8fe1 100%) fixed;
  padding:calc(var(--bar) + env(safe-area-inset-top) + 14px) 14px calc(40px + env(safe-area-inset-bottom))}
+button{font-family:inherit;cursor:pointer}
+/* fixed rest timer bar */
 #timer{position:fixed;top:0;left:0;right:0;z-index:50;padding:calc(env(safe-area-inset-top) + 8px) 12px 8px;
- background:rgba(25,18,60,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;display:flex;align-items:center;gap:8px;box-shadow:0 4px 18px rgba(0,0,0,.25)}
-#timer .t{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;min-width:78px}
-#timer.done{background:rgba(19,163,106,.95);animation:pulse 1s infinite}
+ background:rgba(25,18,60,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;display:flex;align-items:center;gap:8px;box-shadow:0 4px 18px rgba(0,0,0,.25);transition:background .3s}
+#timer.running{background:rgba(91,61,245,.95)}
+#timer.done{background:rgba(19,163,106,.97);animation:pulse 1s infinite}
+#timer.flash{animation:flash .6s}
 @keyframes pulse{50%{filter:brightness(1.25)}}
-#timer button{min-height:48px;min-width:48px;padding:0 10px;flex:0 0 auto;border-radius:12px;border:0;font-size:16px;font-weight:700;background:rgba(255,255,255,.18);color:#fff}
-#timer button.primary{background:#fff;color:#3b2a8a}
+@keyframes flash{0%{transform:scale(1)}40%{transform:scale(1.03);filter:brightness(1.4)}100%{transform:scale(1)}}
+.tbox{display:flex;flex-direction:column;line-height:1.05;min-width:86px}
+.tbox small{font-size:13px;font-weight:700;opacity:.85;text-transform:uppercase;letter-spacing:.5px}
+.tbox b{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums}
+#timer button{min-height:48px;padding:0 12px;border-radius:12px;border:0;font-size:15px;font-weight:700;background:rgba(255,255,255,.2);color:#fff;flex:0 0 auto}
+#timer button.primary{background:#fff;color:#3b2a8a;min-width:76px}
 #timer .sp{flex:1;min-width:0}
-#sync{font-size:11px;flex:0 0 auto;font-weight:700;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.18);white-space:nowrap}
-#sync.ok{background:#13a36a}#sync.pend{background:#e0a12f}#sync.err{background:#e0532f}
+#count{font-size:14px;font-weight:800;text-align:right;line-height:1.1;flex:0 0 auto}
+#count small{display:block;font-size:13px;font-weight:600;opacity:.85}
 .wrap{max-width:760px;margin:0 auto}
-.hero{color:#fff;padding:8px 4px 16px}
-.hero .k{font-size:13px;font-weight:800;letter-spacing:1.2px;opacity:.9;text-transform:uppercase}
+.hero{color:#fff;padding:4px 4px 14px}
+.hero .k{font-size:14px;font-weight:800;letter-spacing:1.2px;opacity:.95;text-transform:uppercase}
 .hero h1{font-size:38px;line-height:1.1;margin:6px 0 8px}
-.prog{height:12px;background:rgba(255,255,255,.3);border-radius:99px;overflow:hidden;margin-top:10px}
+.hint{background:rgba(255,255,255,.2);color:#fff;border-radius:14px;padding:10px 12px;font-size:15px;font-weight:600;margin-top:12px;display:flex;gap:10px;align-items:center}
+.hint button{margin-left:auto;background:none;border:0;color:#fff;font-size:22px;min-width:44px;min-height:44px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#3b2a8a;border-radius:999px;padding:4px 4px 4px 14px;font-size:15px;font-weight:700;margin-top:12px;border:0}
+.chip .x{background:#eee;border-radius:999px;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;font-size:18px}
+.prog{height:18px;background:rgba(255,255,255,.3);border-radius:99px;overflow:hidden;margin-top:12px;display:flex}
 .prog i{display:block;height:100%;background:#ffd54a;width:0;transition:width .3s}
-.card{background:var(--card);border-radius:22px;padding:18px;margin:0 0 14px;box-shadow:0 8px 28px rgba(20,10,60,.18)}
+.prog s{display:block;height:100%;background:rgba(255,255,255,.55);width:0;text-decoration:none}
+.progtxt{color:#fff;margin-top:6px;font-size:15px;font-weight:600}
+.rest{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center}
+.rest span{color:#fff;font-size:14px;font-weight:700}
+.rest button{min-height:48px;padding:0 14px;border-radius:14px;border:2px solid rgba(255,255,255,.6);background:rgba(255,255,255,.15);color:#fff;font-weight:700;font-size:16px}
+.rest button.on{background:#fff;color:#3b2a8a}
+.card{background:var(--card);border-radius:22px;padding:18px;margin:0 0 14px;box-shadow:0 8px 28px rgba(20,10,60,.18);transition:opacity .2s}
 .card h2{margin:0 0 4px;font-size:23px}
 .meta{color:var(--sub);font-size:15px}
-.pill{display:inline-block;background:var(--acc);color:#fff;border-radius:999px;padding:5px 12px;font-size:14px;font-weight:700;margin:8px 6px 0 0}
+.pill{display:inline-block;background:var(--acc);color:#fff;border-radius:999px;padding:5px 12px;font-size:15px;font-weight:700;margin:8px 6px 0 0}
 .pill.o{background:transparent;color:var(--acc);border:2px solid var(--acc)}
+.last{background:#f1edff;border-radius:12px;padding:8px 12px;margin-top:10px;font-size:15px;color:#3b2a8a}
 ol.cues{padding-left:22px;margin:12px 0 8px}ol.cues li{margin:4px 0}
 .avoid{border-left:4px solid var(--warn);padding-left:10px;color:var(--sub);font-size:15px}
 .avoid b{color:var(--warn)}
-.set{display:grid;grid-template-columns:52px 1fr 1fr 64px;gap:8px;align-items:center;margin-top:10px}
-.set .n{font-weight:800;color:var(--sub);text-align:center}
-.set label{font-size:11px;color:var(--sub);font-weight:700;display:block;margin-bottom:2px;text-transform:uppercase}
-.set input[type=number]{width:100%;min-height:52px;font-size:22px;font-weight:700;text-align:center;border:2px solid #d9d5ee;border-radius:14px;background:#fff;color:var(--ink)}
-.chk{width:64px;height:64px;border-radius:18px;border:3px solid #cfc8f3;background:#fff;font-size:30px;color:#fff;display:flex;align-items:center;justify-content:center}
-.chk.on{background:var(--ok);border-color:var(--ok)}
+.set{display:grid;grid-template-columns:56px 1fr 1fr 76px;gap:8px;align-items:end;margin-top:10px}
+.set.bw{grid-template-columns:56px 1fr 76px}
+.set .n{font-weight:800;color:var(--sub);text-align:center;padding-bottom:16px;font-size:15px}
+.set label{font-size:13px;color:var(--sub);font-weight:700;display:block;margin-bottom:2px}
+.set input{width:100%;min-height:56px;font-size:22px;font-weight:700;text-align:center;border:2px solid #d9d5ee;border-radius:14px;background:#fff;color:var(--ink)}
+.chk{width:76px;height:64px;border-radius:16px;border:3px solid #b9aff0;background:#fff;color:#5b3df5;font-size:14px;font-weight:800;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
+.chk .bx{font-size:24px}
+.chk.on{background:var(--ok);border-color:var(--ok);color:#fff}
 .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
 .btn{min-height:54px;padding:0 20px;border-radius:16px;border:2px solid var(--acc);background:#fff;color:var(--acc);font-size:17px;font-weight:700}
 .btn.p{background:var(--acc);color:#fff}.btn.g{background:var(--ok);border-color:var(--ok);color:#fff}
-.btn.s{border-color:#bbb;color:#666}.btn.s.on{background:#666;color:#fff}
-.skipped{opacity:.6}
-textarea,.field input{width:100%;font-size:16px;padding:12px;border-radius:12px;border:2px solid #d9d5ee;font-family:inherit}
-.field{margin:12px 0}.field label{font-weight:700;display:block;margin-bottom:4px}
+.btn.s{border-color:#888;color:#444}
+.card.skipped{opacity:1;background:rgba(255,255,255,.82)}
+.card.skipped .body{opacity:.65}
+.skipbadge{display:inline-block;background:#444;color:#fff;border-radius:999px;padding:4px 12px;font-size:14px;font-weight:800;margin-left:6px;vertical-align:middle}
+textarea,.field input{width:100%;font-size:16px;padding:12px;border-radius:12px;border:2px solid #d9d5ee;font-family:inherit;color:var(--ink);background:#fff}
+.field{margin:12px 0}.field label{font-weight:700;display:block;margin-bottom:4px;font-size:15px}
 ul.plain{margin:6px 0;padding-left:20px}
 .hidden{display:none!important}
-.small{font-size:13px;color:var(--sub)}
-.banner{background:#fff3cd;color:#6b4e00;border-radius:14px;padding:12px;margin-bottom:14px;font-weight:600}
-@media (max-width:430px){#tpre{display:none}}@media (max-width:360px){#timer .t{font-size:26px;min-width:64px}#timer{gap:4px;padding-left:8px;padding-right:8px}}
-.rest{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.rest button{min-height:48px;padding:0 16px;border-radius:14px;border:2px solid rgba(255,255,255,.6);background:rgba(255,255,255,.15);color:#fff;font-weight:700;font-size:16px}.rest button.on{background:#fff;color:#3b2a8a}
+.small{font-size:14px;color:var(--sub)}
+.danger{background:none;border:0;color:#fff;text-decoration:underline;font-size:14px;font-weight:600;padding:12px;opacity:.9;display:block;margin:10px auto 0}
+/* settings modal */
+#overlay{position:fixed;inset:0;z-index:100;background:rgba(10,6,30,.55);display:flex;align-items:center;justify-content:center;padding:20px}
+#overlay .card{width:100%;max-width:520px;margin:0;position:relative}
+#overlay .close{position:absolute;top:10px;right:10px;width:48px;height:48px;border-radius:24px;border:0;background:#eee;font-size:22px}
+/* toast */
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:90;background:#1d1b2e;color:#fff;border-radius:16px;padding:10px 10px 10px 16px;display:flex;gap:12px;align-items:center;font-size:16px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:92vw}
+#toast button{min-height:44px;padding:0 14px;border-radius:12px;border:0;background:#ffd54a;color:#1d1b2e;font-weight:800;font-size:16px}
+/* skeleton */
+.sk{background:rgba(255,255,255,.55);border-radius:22px;height:180px;margin-bottom:14px;position:relative;overflow:hidden}
+.sk::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:sh 1.2s infinite}
+@keyframes sh{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+@media (max-width:400px){#timer{gap:5px;padding-left:8px;padding-right:8px}.tbox{min-width:76px}.tbox b{font-size:26px}#timer button{padding:0 9px;font-size:14px}#timer button.primary{min-width:64px}}
 </style>
 </head>
 <body>
-<div id="timer">
-  <div class="t" id="tval">1:30</div>
+<div id="timer" role="timer" aria-label="Rest timer">
+  <div class="tbox"><small>Rest</small><b id="tval">1:30</b></div>
   <button class="primary" id="tstart">Start</button>
-  <button id="treset" aria-label="Reset">↺</button>
-  <button id="tpre">90s</button>
+  <button id="treset">Reset</button>
   <span class="sp"></span>
-  <span id="sync" title="Sync status">—</span>
-  <button id="gear" aria-label="Settings">⚙︎</button>
+  <div id="count">0/0<small>sets done</small></div>
+  <button id="gear" aria-label="Settings">⚙ Settings</button>
 </div>
 
 <div class="wrap">
-  <div id="setupBanner" class="banner hidden">Tap ⚙︎ to paste your webhook URL once so your sets send to Grok Bot.</div>
-
-  <section id="settings" class="card hidden">
-    <h2>Settings</h2>
-    <p class="meta">Paste these from your Grok Bot routine panel. They're saved only on this device.</p>
-    <div class="field"><label for="sUrl">Webhook URL</label><input id="sUrl" type="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://..."></div>
-    <div class="field"><label for="sAuth">Authorization header value</label><input id="sAuth" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Bearer ..."></div>
-    <div class="row"><button class="btn p" id="sSave">Save</button><button class="btn" id="sClose">Close</button><button class="btn s" id="sClear">Clear</button></div>
-    <p class="small" id="sMsg"></p>
-  </section>
-
   <div class="hero">
-    <div class="k" id="kicker">Loading…</div>
-    <h1 id="title">Workout</h1>
-    <div id="sub"></div>
-    <div class="prog"><i id="progbar"></i></div>
-    <div class="small" style="color:#fff;margin-top:6px" id="progtxt"></div>
-    <div class="rest" id="rest"><button data-rest="60000">Rest 60s</button><button data-rest="90000">Rest 90s</button><button data-rest="120000">Rest 2 min</button></div>
+    <div class="k" id="kicker">&nbsp;</div>
+    <h1 id="title">Today's workout</h1>
+    <div id="sub">Loading your exercises…</div>
+    <div class="prog" aria-hidden="true"><i id="progbar"></i><s id="progskip"></s></div>
+    <div class="progtxt" id="progtxt"></div>
+    <div class="rest" id="rest"><span>Rest:</span><button data-rest="60">60 sec</button><button data-rest="90">90 sec</button><button data-rest="120">2 min</button></div>
+    <div class="hint hidden" id="hint">👉 Do a set, then tap its box. Rest timer starts automatically.<button id="hintX" aria-label="Hide tip">✕</button></div>
+    <button class="chip hidden" id="syncChip">Turn on auto-sync in ⚙ Settings <span class="x" id="syncChipX" aria-label="Dismiss">✕</span></button>
   </div>
 
   <section class="card" id="notesCard"><h2>Lift smart</h2><ul class="plain" id="notes"></ul></section>
   <section class="card" id="warmCard"><h2>Warm-up</h2><ul class="plain" id="warmup"></ul></section>
-  <div id="exercises"></div>
+  <div id="exercises"><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>
   <section class="card" id="coolCard"><h2>Cool-down</h2><ul class="plain" id="cooldown"></ul></section>
 
   <section class="card">
     <h2>Finish</h2>
     <div class="row"><button class="btn g" id="finish">Finish workout</button><button class="btn" id="copy">Copy my log</button></div>
     <p class="small" id="finMsg"></p>
-    <textarea id="logtxt" rows="6" readonly></textarea>
-    <div class="row"><button class="btn s" id="resetDay">Clear today's entries</button></div>
+    <textarea id="logtxt" rows="9" readonly aria-label="Your log"></textarea>
+  </section>
+  <button class="danger" id="resetDay">Clear today's entries…</button>
+</div>
+
+<div id="overlay" class="hidden" role="dialog" aria-modal="true" aria-label="Settings">
+  <section class="card">
+    <button class="close" id="sClose" aria-label="Close settings">✕</button>
+    <h2>Auto-sync</h2>
+    <p class="meta" style="padding-right:50px">Paste the two values from your Grok Bot routine panel. Each set you finish is sent automatically. They're saved only on this device.</p>
+    <div class="field"><label for="sUrl">Webhook URL</label><input id="sUrl" type="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://..."></div>
+    <div class="field"><label for="sAuth">Authorization header value</label><input id="sAuth" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Bearer ..."></div>
+    <div class="row"><button class="btn p" id="sSave">Save</button><button class="btn s" id="sClear">Clear</button></div>
+    <p class="small" id="sMsg"></p>
+    <p class="small">Sync status: <b id="syncTxt">—</b></p>
   </section>
 </div>
+<div id="toast" class="hidden"><span id="toastTxt"></span><button id="toastBtn" class="hidden">Undo</button></div>
 
 <script>
 (() => {
 const $ = id => document.getElementById(id);
-const LS = { url:'wk.webhookUrl', auth:'wk.authHeader', queue:'wk.queue' };
+const LS = { url:'wk.webhookUrl', auth:'wk.authHeader', queue:'wk.queue', hint:'wk.hintSeen', chip:'wk.chipHidden' };
 let W = null, state = null, stateKey = '';
 
-// ---------- load workout ----------
 async function loadWorkout(){
-  try {
-    const r = await fetch('workout.json?t=' + Date.now(), {cache:'no-store'});
-    if(!r.ok) throw new Error(r.status);
-    W = await r.json();
-  } catch(e){
-    const c = await caches.match('workout.json').catch(()=>null);
-    if(c) W = await c.json(); else { $('title').textContent='Could not load workout'; return; }
-  }
+  try { const r = await fetch('workout.json?t=' + Date.now(), {cache:'no-store'}); if(!r.ok) throw 0; W = await r.json(); }
+  catch(e){ const c = await (window.caches ? caches.match('workout.json') : null); if(c) W = await c.json(); else { $('title').textContent='Could not load workout'; $('sub').textContent='Check your connection and reopen.'; return; } }
   stateKey = 'wk.log.' + (W.id || W.date);
   state = JSON.parse(localStorage.getItem(stateKey) || 'null') || {
     finished:false,
-    ex: W.exercises.map(e => ({ skipped:false, note:'', sets: Array.from({length:e.sets}, () => ({weight: e.weight ?? '', reps: e.reps ?? '', done:false})) }))
+    ex: W.exercises.map(e => ({ skipped:false, note:'', sets: Array.from({length:e.sets}, () => ({weight: e.weight ? e.weight : '', reps: e.reps ?? '', done:false})) }))
   };
+  dur = (W.defaultRestSec||90)*1000; left = dur; paint();
   render();
 }
 const save = () => localStorage.setItem(stateKey, JSON.stringify(state));
-
-// ---------- render ----------
+const isBW = e => !e.weight;
 function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-function list(id, arr, card){ $(id).innerHTML=(arr||[]).map(x=>`<li>${esc(x)}</li>`).join(''); if(!(arr&&arr.length)) $(card).classList.add('hidden'); }
+function list(id, arr, card){ $(id).innerHTML=(arr||[]).map(x=>`<li>${esc(x)}</li>`).join(''); $(card).classList.toggle('hidden',!(arr&&arr.length)); }
+
 function render(){
   document.title = W.title + ' · ' + (W.dateLabel||W.date);
   $('kicker').textContent = W.dateLabel || W.date;
   $('title').textContent = W.title;
   $('sub').textContent = W.subtitle || '';
   list('notes',W.notes,'notesCard'); list('warmup',W.warmup,'warmCard'); list('cooldown',W.cooldown,'coolCard');
-  dur = (W.defaultRestSec||90)*1000; if(!running) {left=dur; paint();}
   $('exercises').innerHTML = W.exercises.map((e,i)=>{
-    const s = state.ex[i];
+    const s = state.ex[i], bw = isBW(e);
     return `<section class="card ${s.skipped?'skipped':''}" id="ex${i}">
-      <h2>${i+1}. ${esc(e.name)}</h2>
-      <div class="meta">${e.sets} × ${esc(e.reps)} · rest ${e.restSec||W.defaultRestSec||90}s · ${esc(e.muscles||'')}</div>
-      <span class="pill">${e.weight?esc(e.weight)+' lb':'Bodyweight'}</span>${e.weightNote?`<span class="pill o">${esc(e.weightNote)}</span>`:''}
+      <h2>${i+1}. ${esc(e.name)}${s.skipped?'<span class="skipbadge">Skipped</span>':''}</h2>
+      <div class="body">
+      <div class="meta">${e.sets} sets × ${esc(e.reps)} reps · rest ${e.restSec||W.defaultRestSec||90} sec · ${esc(e.muscles||'')}</div>
+      <span class="pill">${bw?'Bodyweight':esc(e.weight)+' lb'}</span>${e.weightNote&&!/^bodyweight$/i.test(e.weightNote)?`<span class="pill o">${esc(e.weightNote)}</span>`:''}
+      ${e.lastTime?`<div class="last">${esc(e.lastTime)}</div>`:''}
       <ol class="cues">${(e.cues||[]).map(c=>`<li>${esc(c)}</li>`).join('')}</ol>
       ${e.avoid?`<div class="avoid"><b>Avoid:</b> ${esc(e.avoid)}</div>`:''}
-      <div class="${s.skipped?'hidden':''}">
-      ${s.sets.map((st,j)=>`<div class="set">
+      ${s.skipped?'':s.sets.map((st,j)=>`<div class="set ${bw?'bw':''}">
         <div class="n">Set ${j+1}</div>
-        <div><label>lb</label><input type="number" inputmode="decimal" data-i="${i}" data-j="${j}" data-f="weight" value="${esc(st.weight)}"></div>
-        <div><label>reps</label><input type="number" inputmode="numeric" data-i="${i}" data-j="${j}" data-f="reps" value="${esc(st.reps)}"></div>
-        <button class="chk ${st.done?'on':''}" data-chk="${i},${j}" aria-label="Set done">${st.done?'✓':''}</button>
+        ${bw?'':`<div><label>Weight (lb)</label><input type="number" inputmode="decimal" data-i="${i}" data-j="${j}" data-f="weight" value="${esc(st.weight)}"></div>`}
+        <div><label>Reps</label><input type="number" inputmode="numeric" data-i="${i}" data-j="${j}" data-f="reps" value="${esc(st.reps)}"></div>
+        <button class="chk ${st.done?'on':''}" data-chk="${i},${j}" aria-pressed="${st.done}" aria-label="Set ${j+1} done"><span class="bx">${st.done?'✓':'☐'}</span>Done</button>
       </div>`).join('')}
       </div>
-      <div class="row"><button class="btn s ${s.skipped?'on':''}" data-skip="${i}">${s.skipped?'Skipped · undo':'Skip exercise'}</button></div>
-      <div class="field ${s.skipped?'':'hidden'}"><label>Why skipped?</label><input data-note="${i}" value="${esc(s.note)}" placeholder="e.g. shoulder felt off"></div>
+      <div class="row"><button class="btn s" data-skip="${i}">${s.skipped?'Undo skip':'Skip exercise'}</button></div>
+      ${s.skipped?`<div class="field"><label for="note${i}">Why skipped? (optional)</label><input id="note${i}" data-note="${i}" value="${esc(s.note)}" placeholder="e.g. shoulder felt off"></div>`:''}
     </section>`;}).join('');
   progress();
 }
+function counts(){ let tot=0,d=0,sk=0; state.ex.forEach(x=>{ if(x.skipped){ sk+=x.sets.length; return; } x.sets.forEach(s=>{tot++; if(s.done)d++;}); }); return {tot,d,sk}; }
 function progress(){
-  let tot=0,d=0; state.ex.forEach(x=>{ if(x.skipped) return; x.sets.forEach(s=>{tot++; if(s.done)d++;}); });
-  $('progbar').style.width = (tot? d/tot*100:0)+'%';
-  $('progtxt').textContent = `${d} of ${tot} sets done` + (state.finished?' · finished ✓':'');
+  const {tot,d,sk} = counts(), all = tot+sk;
+  $('progbar').style.width = (all? d/all*100:0)+'%';
+  $('progskip').style.width = (all? sk/all*100:0)+'%';
+  $('progtxt').textContent = `${d} of ${tot} sets done` + (sk?` · ${sk} skipped`:'') + (state.finished?' · finished ✓':'');
+  $('count').innerHTML = `${d}/${tot}<small>sets done</small>`;
   $('logtxt').value = logText();
+  if(!localStorage.getItem(LS.hint) && d===0) $('hint').classList.remove('hidden'); else $('hint').classList.add('hidden');
 }
 
-// ---------- events ----------
+// toast
+let toastT=null, undoFn=null;
+function toast(msg, undo){ $('toastTxt').textContent=msg; undoFn=undo||null; $('toastBtn').classList.toggle('hidden',!undo); $('toast').classList.remove('hidden'); clearTimeout(toastT); toastT=setTimeout(()=>$('toast').classList.add('hidden'), undo?5000:2200); }
+$('toastBtn').onclick = () => { if(undoFn) undoFn(); undoFn=null; $('toast').classList.add('hidden'); };
+
 document.addEventListener('input', ev => {
   const t = ev.target;
-  if(t.dataset.f){ state.ex[t.dataset.i].sets[t.dataset.j][t.dataset.f] = t.value===''?'':Number(t.value); save(); progress(); }
-  if(t.dataset.note!==undefined){ state.ex[t.dataset.note].note = t.value; save(); progress(); }
+  if(t.dataset.f){ state.ex[t.dataset.i].sets[t.dataset.j][t.dataset.f] = t.value===''?'':Number(t.value); save(); $('logtxt').value=logText(); }
+  if(t.dataset.note!==undefined){ state.ex[t.dataset.note].note = t.value; save(); $('logtxt').value=logText(); }
 });
+document.addEventListener('change', ev => { if(ev.target.dataset.note!==undefined) send(payload('set',{exercise:W.exercises[ev.target.dataset.note].id, skipped:true})); });
+function setDone(i,j,val){ state.ex[i].sets[j].done=val; save(); render(); send(payload('set',{exercise:W.exercises[i].id, set:j+1})); }
 document.addEventListener('click', ev => {
   const b = ev.target.closest('button'); if(!b) return;
   if(b.dataset.chk){
     const [i,j] = b.dataset.chk.split(',').map(Number);
-    const st = state.ex[i].sets[j]; st.done = !st.done; save(); render();
-    if(st.done){ unlockAudio(); startRest((W.exercises[i].restSec||W.defaultRestSec||90)*1000); send(payload('set', {exercise:W.exercises[i].id, set:j+1})); }
+    const was = state.ex[i].sets[j].done;
+    setDone(i,j,!was);
+    if(!was){
+      localStorage.setItem(LS.hint,'1'); unlockAudio();
+      const sec = W.exercises[i].restSec||W.defaultRestSec||90;
+      startRest(sec*1000); toast(`Set ${j+1} done ✓ Rest ${fmt(sec*1000)} started`);
+    } else {
+      toast(`Set ${j+1} unmarked`, () => setDone(i,j,true));
+    }
   }
-  if(b.dataset.rest){ dur=+b.dataset.rest; stop(); left=dur; $('timer').classList.remove('done'); paint(); }
-  if(b.dataset.skip!==undefined){ const s=state.ex[b.dataset.skip]; s.skipped=!s.skipped; save(); render(); send(payload('set',{exercise:W.exercises[b.dataset.skip].id, skipped:s.skipped})); }
+  if(b.dataset.rest){ dur=+b.dataset.rest*1000; stop(); left=dur; $('timer').classList.remove('done'); paint(); }
+  if(b.dataset.skip!==undefined){
+    const i=+b.dataset.skip, s=state.ex[i];
+    if(!s.skipped && !confirm(`Skip ${W.exercises[i].name}?`)) return;
+    s.skipped=!s.skipped; save(); render(); send(payload('set',{exercise:W.exercises[i].id, skipped:s.skipped}));
+    if(s.skipped) document.getElementById('note'+i)?.focus({preventScroll:true});
+  }
 });
+$('hintX').onclick = () => { localStorage.setItem(LS.hint,'1'); $('hint').classList.add('hidden'); };
 
-// ---------- log / payload ----------
+// log / payload
 function exercisesOut(){
   return W.exercises.map((e,i)=>{ const s=state.ex[i]; return {
     id:e.id, name:e.name, plannedWeight:e.weight, plannedReps:e.reps, skipped:s.skipped, note:s.note||'',
-    sets:s.sets.map((x,j)=>({set:j+1, weight:x.weight===''?null:x.weight, reps:x.reps===''?null:x.reps, done:x.done}))
+    sets:s.sets.map((x,j)=>({set:j+1, weight:isBW(e)?0:(x.weight===''?null:x.weight), reps:x.reps===''?null:x.reps, done:x.done}))
   };});
 }
 function payload(event, extra){
   return Object.assign({event, date:W.date, workout:W.title, workoutId:W.id||W.date, sentAt:new Date().toISOString()}, extra||{}, {exercises:exercisesOut()});
 }
 function logText(){
-  return `${W.title}, ${W.dateLabel||W.date}: ` + exercisesOut().map(e => e.skipped ? `${e.name} skipped${e.note?' ('+e.note+')':''}` :
-    `${e.name} ` + e.sets.filter(s=>s.done).map(s=>`${s.weight??'?'} lb×${s.reps??'?'}`).join(', ') + ` (${e.sets.filter(s=>s.done).length}/${e.sets.length} sets)`).join('; ');
+  const {tot,d,sk}=counts();
+  const lines = [`${W.title} · ${W.dateLabel||W.date}`, `${d} of ${tot} sets done${sk?`, ${sk} skipped`:''}`, ''];
+  W.exercises.forEach((e,i)=>{ const s=state.ex[i];
+    if(s.skipped){ lines.push(`• ${e.name}: skipped${s.note?` (${s.note})`:''}`); return; }
+    const done=s.sets.filter(x=>x.done);
+    lines.push(`• ${e.name}: ` + (done.length ? done.map(x=>isBW(e)?`${x.reps??'?'} reps`:`${x.weight??'?'} lb × ${x.reps??'?'}`).join(', ') : 'not done'));
+  });
+  return lines.join('\n');
 }
 $('copy').onclick = async () => {
   try { await navigator.clipboard.writeText(logText()); $('finMsg').textContent='Copied! Paste it in my chat.'; }
   catch(e){ $('logtxt').select(); $('finMsg').textContent='Press and hold the text below to copy.'; }
 };
 $('finish').onclick = () => { state.finished=true; save(); progress(); send(payload('finished',{finishedAt:new Date().toISOString(), log:logText()})); $('finMsg').textContent='Workout finished. Nice work!'; };
-$('resetDay').onclick = () => { if(confirm("Clear today's entries on this device?")){ localStorage.removeItem(stateKey); state=null; loadWorkout(); } };
+$('resetDay').onclick = () => { if(confirm("Clear everything you entered today on this device? This can't be undone.")){ localStorage.removeItem(stateKey); state=null; loadWorkout(); toast('Today\'s entries cleared'); } };
 
-// ---------- sync queue ----------
+// sync queue
 let flushing=false;
 const getQ = () => JSON.parse(localStorage.getItem(LS.queue)||'[]');
 const setQ = q => localStorage.setItem(LS.queue, JSON.stringify(q));
 function send(body){
   const q = getQ();
-  // collapse: a newer 'set' snapshot supersedes queued 'set' snapshots of the same workout
   const keep = body.event==='set' ? q.filter(x=>!(x.event==='set' && x.workoutId===body.workoutId)) : q;
   keep.push(body); setQ(keep); flush();
 }
-function syncUI(cls, txt){ const s=$('sync'); s.className=cls; s.textContent=txt; }
+function syncUI(txt){ $('syncTxt').textContent=txt; }
 async function flush(){
   const url = localStorage.getItem(LS.url), auth = localStorage.getItem(LS.auth);
   let q = getQ();
-  if(!url){ syncUI('err', q.length?`Setup · ${q.length}`:'Setup'); $('setupBanner').classList.remove('hidden'); return; }
-  $('setupBanner').classList.add('hidden');
-  if(!q.length){ syncUI('ok','✓ Synced'); return; }
-  if(flushing) return; flushing=true; syncUI('pend',`↑ ${q.length}`);
+  const g = $('gear');
+  if(!url){ syncUI('Off (not set up)'); g.textContent='⚙ Settings'; $('syncChip').classList.toggle('hidden', !!localStorage.getItem(LS.chip)); return; }
+  $('syncChip').classList.add('hidden');
+  if(!q.length){ syncUI('Synced ✓'); g.textContent='✓ Synced'; return; }
+  if(flushing) return; flushing=true; syncUI(`Sending ${q.length}…`); g.textContent='Syncing…';
   try{
     while(q.length){
       const headers = {'Content-Type':'application/json'}; if(auth) headers['Authorization']=auth;
@@ -236,46 +295,50 @@ async function flush(){
       if(!r.ok) throw new Error('HTTP '+r.status);
       q = getQ(); q.shift(); setQ(q);
     }
-    syncUI('ok','✓ Synced');
-  }catch(e){ syncUI('pend',`Queued ${getQ().length}`); setTimeout(flush, 15000); }
+    syncUI('Synced ✓'); g.textContent='✓ Synced';
+  }catch(e){ const n=getQ().length; syncUI(`${n} waiting, will retry`); g.textContent=`⏳ ${n} to sync`; setTimeout(flush, 15000); }
   finally{ flushing=false; }
 }
 window.addEventListener('online', flush);
 document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) flush(); });
 
-// ---------- settings ----------
-function openSettings(){ $('sUrl').value=localStorage.getItem(LS.url)||''; $('sAuth').value=localStorage.getItem(LS.auth)||''; $('settings').classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); }
-$('gear').onclick = () => $('settings').classList.contains('hidden') ? openSettings() : $('settings').classList.add('hidden');
-$('setupBanner').onclick = openSettings;
-$('sClose').onclick = () => $('settings').classList.add('hidden');
+// settings modal
+function openSettings(){ $('sUrl').value=localStorage.getItem(LS.url)||''; $('sAuth').value=localStorage.getItem(LS.auth)||''; $('sMsg').textContent=''; $('overlay').classList.remove('hidden'); }
+const closeSettings = () => $('overlay').classList.add('hidden');
+$('gear').onclick = openSettings;
+$('syncChip').onclick = ev => { if(ev.target.id==='syncChipX'){ localStorage.setItem(LS.chip,'1'); $('syncChip').classList.add('hidden'); } else openSettings(); };
+$('sClose').onclick = closeSettings;
+$('overlay').onclick = ev => { if(ev.target.id==='overlay') closeSettings(); };
 $('sSave').onclick = () => {
-  const u=$('sUrl').value.trim(); if(u && !/^https:\/\//i.test(u) && !/^http:\/\/(localhost|127\.)/.test(u)){ $('sMsg').textContent='URL must start with https://'; return; }
+  const u=$('sUrl').value.trim(); if(u && !/^https:\/\//i.test(u) && !/^http:\/\/(localhost|127\.)/.test(u)){ $('sMsg').textContent='The URL must start with https://'; return; }
   localStorage.setItem(LS.url,u); localStorage.setItem(LS.auth,$('sAuth').value.trim());
-  $('sMsg').textContent='Saved on this device.'; setTimeout(()=>$('settings').classList.add('hidden'),700); flush();
+  closeSettings(); toast(u?'Auto-sync is on':'Saved'); flush();
 };
 $('sClear').onclick = () => { localStorage.removeItem(LS.url); localStorage.removeItem(LS.auth); $('sUrl').value=''; $('sAuth').value=''; $('sMsg').textContent='Cleared.'; flush(); };
 
-// ---------- rest timer ----------
+// rest timer
 let dur=90000, left=90000, endAt=null, running=false, tick=null, actx=null;
-const presets=[60000,90000,120000];
 function fmt(ms){const s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
-function paint(){ document.querySelectorAll('[data-rest]').forEach(b=>b.classList.toggle('on',+b.dataset.rest===dur)); $('tval').textContent=fmt(left); $('tstart').textContent=running?'Pause':(left<dur&&left>0?'Resume':'Start'); $('tpre').textContent=(dur/1000)+'s'; }
+function paint(){
+  document.querySelectorAll('[data-rest]').forEach(b=>b.classList.toggle('on',+b.dataset.rest*1000===dur));
+  if(!$('timer').classList.contains('done')) $('tval').textContent=fmt(left);
+  $('tstart').textContent=running?'Pause':(left<dur&&left>0?'Resume':'Start');
+  $('timer').classList.toggle('running',running);
+}
 function unlockAudio(){ try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)(); if(actx.state==='suspended') actx.resume(); }catch(e){} }
 function beep(){ try{ unlockAudio(); [0,0.35,0.7].forEach(t=>{ const o=actx.createOscillator(), g=actx.createGain(); o.frequency.value=880; o.connect(g); g.connect(actx.destination);
   g.gain.setValueAtTime(0.0001,actx.currentTime+t); g.gain.exponentialRampToValueAtTime(0.5,actx.currentTime+t+0.02); g.gain.exponentialRampToValueAtTime(0.0001,actx.currentTime+t+0.28);
   o.start(actx.currentTime+t); o.stop(actx.currentTime+t+0.3); }); }catch(e){} try{ navigator.vibrate && navigator.vibrate([300,120,300,120,300]); }catch(e){} }
 function loop(){ left=endAt-Date.now(); if(left<=0){ left=0; stop(); $('timer').classList.add('done'); $('tval').textContent='Go!'; beep(); return; } paint(); }
 function stop(){ running=false; endAt=null; clearInterval(tick); paint(); }
-function startRest(ms){ dur=ms; left=ms; go(); }
+function startRest(ms){ dur=ms; left=ms; go(); const t=$('timer'); t.classList.remove('flash'); void t.offsetWidth; t.classList.add('flash'); }
 function go(){ $('timer').classList.remove('done'); if(left<=0) left=dur; endAt=Date.now()+left; running=true; clearInterval(tick); tick=setInterval(loop,200); paint(); }
-$('tstart').onclick = () => { unlockAudio(); running ? (left=endAt-Date.now(), stop()) : go(); };
+$('tstart').onclick = () => { unlockAudio(); if($('timer').classList.contains('done')){ left=dur; } running ? (left=endAt-Date.now(), stop()) : go(); };
 $('treset').onclick = () => { stop(); left=dur; $('timer').classList.remove('done'); paint(); };
-$('tpre').onclick = () => { const k=(presets.indexOf(dur)+1)%presets.length; dur=presets[k]; stop(); left=dur; $('timer').classList.remove('done'); paint(); };
 
-// ---------- boot ----------
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 paint(); loadWorkout().then(flush);
-window.__wk = { payload, flush, getQ };
+window.__wk = { payload, flush, getQ, logText, state:()=>({dur,left,running}) };
 })();
 </script>
 </body>
