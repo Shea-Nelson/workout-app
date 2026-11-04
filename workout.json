@@ -1,0 +1,69 @@
+{
+  "id": "2026-11-06-full",
+  "date": "2026-11-06",
+  "dateLabel": "Fri Nov 6",
+  "title": "Full Body Day",
+  "subtitle": "Day 3 of the rotation · about 35 min · dumbbells + bench",
+  "defaultRestSec": 90,
+  "notes": [
+    "Keep a quick carb nearby (glucose tabs or juice). Stop if you feel dizzy or have chest pain.",
+    "After lifting, a short rise in sugar is common. An easy 10-minute walk afterward helps.",
+    "First set of each move on the light end. Slow, clean reps beat heavy ones."
+  ],
+  "warmup": [
+    "5-minute easy walk on the Peloton Tread",
+    "10 bodyweight squats to the bench",
+    "10 arm circles each direction",
+    "10 floor glute bridges, no weight"
+  ],
+  "exercises": [
+    {
+      "id": "goblet-squat", "name": "Goblet squat", "sets": 3, "reps": 10, "weight": 20,
+      "weightNote": "One dumbbell held at your chest", "muscles": "Thighs, glutes, core", "restSec": 90,
+      "cues": ["Hold one dumbbell upright against your chest", "Feet shoulder-width, toes slightly out", "Sit back and down, then drive up through your whole foot"],
+      "avoid": "Knees caving in. Push them out over your toes."
+    },
+    {
+      "id": "bench-press", "name": "Dumbbell bench press", "sets": 3, "reps": 10, "weight": 20,
+      "weightNote": "Per hand · same as Mon", "muscles": "Chest, front shoulders, triceps", "restSec": 90,
+      "cues": ["Lie flat, feet planted, shoulder blades pinched back", "Lower the dumbbells to chest level, elbows about 45° from your sides", "Press up and slightly together, don't clank them"],
+      "avoid": "Flaring elbows straight out to the sides."
+    },
+    {
+      "id": "one-arm-row", "name": "One-arm dumbbell row", "sets": 3, "reps": 10, "weight": 25,
+      "weightNote": "Per side · down from 30 on Mon", "muscles": "Upper back, lats, biceps", "restSec": 75,
+      "cues": ["One knee and one hand on the bench, back flat like a table", "Pull the dumbbell toward your hip, not your chest", "Lower slowly until your arm is straight"],
+      "avoid": "Twisting your torso to heave the weight up."
+    },
+    {
+      "id": "rdl", "name": "Dumbbell Romanian deadlift", "sets": 3, "reps": 10, "weight": 20,
+      "weightNote": "Per hand", "muscles": "Hamstrings, glutes, lower back", "restSec": 90,
+      "cues": ["Soft bend in the knees, then keep them still", "Push your hips back like closing a car door with your butt", "Slide the dumbbells down your thighs to mid-shin, squeeze glutes to stand"],
+      "avoid": "Rounding your back to reach lower."
+    },
+    {
+      "id": "seated-press", "name": "Seated shoulder press", "sets": 3, "reps": 10, "weight": 15,
+      "weightNote": "Per hand · same as Mon", "muscles": "Shoulders, triceps", "restSec": 75,
+      "cues": ["Bench upright, back against the pad", "Start with dumbbells at ear height, palms forward", "Press straight up, then lower under control"],
+      "avoid": "Arching your lower back off the pad."
+    },
+    {
+      "id": "glute-bridge", "name": "Floor glute bridge", "sets": 3, "reps": 12, "weight": 25,
+      "weightNote": "One dumbbell on your hip bones", "muscles": "Glutes, hamstrings", "restSec": 60,
+      "cues": ["Lie on your back on the floor, knees bent, feet flat", "Rest the dumbbell on your hip bones, hold it with both hands", "Drive your hips up, squeeze 1 second, lower slowly"],
+      "avoid": "Arching your lower back at the top. Finish with your glutes."
+    },
+    {
+      "id": "dead-bug", "name": "Dead bug (core finisher)", "sets": 2, "reps": 8, "weight": 0,
+      "weightNote": "Bodyweight · reps per side", "muscles": "Deep core", "restSec": 45,
+      "cues": ["Lie on your back, arms up, knees bent 90° over your hips", "Press your lower back into the floor", "Slowly reach one arm back and the opposite leg out, then switch"],
+      "avoid": "Letting your lower back pop off the floor."
+    }
+  ],
+  "cooldown": [
+    "3-minute easy walk",
+    "Chest stretch in a doorway, 30 s",
+    "Hamstring stretch, heel on the bench, 30 s each",
+    "Figure-4 glute stretch, 30 s each"
+  ]
+}
