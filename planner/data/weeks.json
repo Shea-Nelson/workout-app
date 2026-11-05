@@ -1,0 +1,23 @@
+{
+  "schema": "kitchen.weeks",
+  "schemaVersion": 1,
+  "authoring": "Dinner names for Sun Nov 8 through Sat Nov 14, 2026 were confirmed. Amounts live on the recipe records and were newly written for this app. This file does not invent meals for other weeks and does not include nutrition figures.",
+  "household": "Family of 5. Each dinner is written for about 6 adult portions. Plates are low-carb for the adults. Optional starch is listed on its own for kids and is not required.",
+  "weeks": [
+    {
+      "id": "2026-11-08",
+      "startsOn": "2026-11-08",
+      "endsOn": "2026-11-14",
+      "title": "Sun Nov 8 – Sat Nov 14, 2026",
+      "days": [
+        { "date": "2026-11-08", "weekday": "Sunday", "title": "Steak bites", "recipeId": "steak-bites", "servings": 6 },
+        { "date": "2026-11-09", "weekday": "Monday", "title": "Broccoli ham bake", "recipeId": "broccoli-ham-bake", "servings": 6 },
+        { "date": "2026-11-10", "weekday": "Tuesday", "title": "Egg roll in a bowl", "recipeId": "egg-roll-bowl", "servings": 6 },
+        { "date": "2026-11-11", "weekday": "Wednesday", "title": "Kids' pizza night with keto pizza bowls", "recipeId": "keto-pizza-bowls", "servings": 6 },
+        { "date": "2026-11-12", "weekday": "Thursday", "title": "Pork carnitas", "recipeId": "pork-carnitas", "servings": 6 },
+        { "date": "2026-11-13", "weekday": "Friday", "title": "Shrimp scampi", "recipeId": "shrimp-scampi", "servings": 6 },
+        { "date": "2026-11-14", "weekday": "Saturday", "title": "Tuscan chicken", "recipeId": "tuscan-chicken", "servings": 6 }
+      ]
+    }
+  ]
+}
