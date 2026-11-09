@@ -499,8 +499,15 @@
     };
   }
 
+  function ingredientBucket(group) {
+    if (group === 'kids-starch' || group === 'kids') return 'kids-starch';
+    if (group === 'pantry') return 'pantry';
+    if (group === 'on-hand') return 'on-hand';
+    return 'shop';
+  }
+
   function aggregateGrocery(week, recipesById, dayStates) {
-    const buckets = { shop: new Map(), pantry: new Map(), 'kids-starch': new Map() };
+    const buckets = { shop: new Map(), pantry: new Map(), 'kids-starch': new Map(), 'on-hand': new Map() };
     const unscaled = [];
     (week.days || []).forEach(function (day) {
       const state = (dayStates && dayStates[day.date]) || {};
@@ -510,7 +517,7 @@
       const servings = state.servings || day.servings || recipe.servings;
       const scale = recipe.servings ? servings / recipe.servings : 1;
       (recipe.ingredients || []).forEach(function (ing) {
-        const group = ing.group === 'kids-starch' ? 'kids-starch' : (ing.group === 'pantry' ? 'pantry' : 'shop');
+        const group = ingredientBucket(ing.group);
         if (ing.scalable === false || typeof ing.amount !== 'number' || !ing.unit) {
           unscaled.push({
             key: 'plain|' + recipe.id + '|' + ing.id,
@@ -553,8 +560,69 @@
       shop: pack(buckets.shop),
       pantry: pack(buckets.pantry),
       kidsStarch: pack(buckets['kids-starch']),
+      onHand: pack(buckets['on-hand']),
       unscaled: unscaled
     };
+  }
+
+  function easternISODate(date) {
+    const value = date || new Date();
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).formatToParts(value);
+    function piece(type) {
+      const found = parts.find(function (part) { return part.type === type; });
+      return found ? found.value : '';
+    }
+    return piece('year') + '-' + piece('month') + '-' + piece('day');
+  }
+
+  function weekContaining(iso, weeksDoc) {
+    const weeks = (weeksDoc && weeksDoc.weeks) || [];
+    for (let i = 0; i < weeks.length; i++) {
+      const week = weeks[i];
+      if (iso >= week.startsOn && iso <= week.endsOn) return week;
+    }
+    return null;
+  }
+
+  function defaultWeekId(weeksDoc, iso) {
+    const today = iso || easternISODate(new Date());
+    const weeks = (weeksDoc && weeksDoc.weeks) || [];
+    const containing = weekContaining(today, weeksDoc);
+    if (containing) return containing.id;
+    let best = weeks[0];
+    let bestDistance = Infinity;
+    weeks.forEach(function (week) {
+      const distance = Math.abs(Date.parse(week.startsOn) - Date.parse(today));
+      if (distance < bestDistance) { best = week; bestDistance = distance; }
+    });
+    return best ? best.id : sundayOf(today);
+  }
+
+  function grocerySections(week) {
+    if (!week || !Array.isArray(week.grocery)) return [];
+    return week.grocery.map(function (section) {
+      const id = String(section.id || '');
+      const sectionPantry = section.pantry === true;
+      return {
+        id: id,
+        title: section.title || '',
+        pantry: sectionPantry,
+        items: (section.items || []).map(function (item) {
+          const itemId = String(item.id || '');
+          return {
+            id: itemId,
+            label: String(item.label || ''),
+            pantry: sectionPantry || item.pantry === true,
+            key: 'list|' + id + '|' + itemId
+          };
+        })
+      };
+    });
   }
 
   function localISODate(date) {
@@ -720,6 +788,10 @@
     scaleAmount: scaleAmount,
     formatIngredient: formatIngredient,
     aggregateGrocery: aggregateGrocery,
+    easternISODate: easternISODate,
+    weekContaining: weekContaining,
+    defaultWeekId: defaultWeekId,
+    grocerySections: grocerySections,
     localISODate: localISODate,
     addDays: addDays,
     sundayOf: sundayOf,

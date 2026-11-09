@@ -102,3 +102,9 @@ Do not program a bench hip thrust, a Bulgarian split squat, or any move where he
 ## Motion graphics
 
 Each exercise draws a side view and a second view (front, or from above when he is lying down). Dumbbells follow the grip: vertical at the chest for a goblet squat, horizontal for presses, rows, and flies, neutral (thumbs up) for hammer curls, at the sides for lunges and calf raises, across the hips for the floor bridge. The line under the figures is a form cue timed to the rep. If the phone asks for reduced motion, the figures start paused on that cue. Pause and play are saved on the device.
+
+## Family kitchen
+
+The meal planner (`planner/`) and recipes (`recipes/`) are separate from the workout app. They share a nav and a day strip, and "today" is the date in `America/New_York`.
+
+Adding next week's dinners does not require a code change. Append a week to `planner/data/weeks.json` and any new recipes to `recipes/data/recipes.json`. The exact fields, grocery sections, timers, and photo rules are in [`kitchen/README.md`](kitchen/README.md). Past weeks stay in the file and stay browsable.

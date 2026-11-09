@@ -2,12 +2,21 @@
   'use strict';
   const K = window.KitchenState;
   const $ = id => document.getElementById(id);
+  const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
   let catalog = {};
   let weeksDoc = { weeks: [] };
   let session = null;
   let recovery = '';
 
   function announce(text) { $('live').textContent = text; }
+
+  function easternToday() { return K.easternISODate(new Date()); }
+
+  function scrollToNode(node, immediate) {
+    if (!node) return;
+    const reduce = immediate || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    node.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
+  }
 
   function allowedLink(url) {
     return /^https:\/\/(commons\.wikimedia\.org|creativecommons\.org)\//.test(url || '');
@@ -26,17 +35,7 @@
   }
 
   function defaultWeekId() {
-    const today = K.localISODate();
-    const weeks = weeksDoc.weeks || [];
-    const containing = weeks.find(function (week) { return today >= week.startsOn && today <= week.endsOn; });
-    if (containing) return containing.id;
-    let best = weeks[0];
-    let bestDistance = Infinity;
-    weeks.forEach(function (week) {
-      const distance = Math.abs(Date.parse(week.startsOn) - Date.parse(today));
-      if (distance < bestDistance) { best = week; bestDistance = distance; }
-    });
-    return best ? best.id : K.sundayOf(today);
+    return K.defaultWeekId(weeksDoc, easternToday());
   }
 
   function viewSunday() {
@@ -83,9 +82,9 @@
     const bucket = session.weeks[sunday];
     if (!bucket.days[date]) {
       if (!create && !record) return null;
-      const recipe = record ? catalog[record.recipeId] : null;
+      const recipe = record && record.recipeId ? catalog[record.recipeId] : null;
       bucket.days[date] = {
-        plannedRecipeId: record ? record.recipeId : null,
+        plannedRecipeId: record && record.recipeId ? record.recipeId : null,
         overrideRecipeId: null,
         servings: record ? record.servings : 6,
         notes: '',
@@ -98,7 +97,7 @@
       };
       if (recipe) recipe.tasks.forEach(function (task) { bucket.days[date].tasks[task.id] = { checked: false }; });
     } else if (record) {
-      bucket.days[date].plannedRecipeId = record.recipeId;
+      bucket.days[date].plannedRecipeId = record.recipeId || null;
       const recipeId = K.effectiveRecipeId(record, bucket.days[date]);
       const recipe = catalog[recipeId];
       if (recipe) recipe.tasks.forEach(function (task) {
@@ -120,43 +119,43 @@
     return { done: done, total: total };
   }
 
+  function renderTabs(dates, week) {
+    const slot = $('day-tabs');
+    if (!slot) return;
+    const today = easternToday();
+    slot.innerHTML = '<div class="day-tabs" role="tablist" aria-label="Days this week">' + dates.map(function (date) {
+      const record = dayRecord(week, date);
+      const selected = session.selectedDate === date;
+      const dow = date === today ? 'Today' : K.weekdayName(date).slice(0, 3);
+      const name = record ? record.title : 'Nothing planned';
+      return '<button type="button" role="tab" class="' + (date === today ? 'is-today' : '') + '" data-act="select" data-date="' + date + '" aria-selected="' + selected + '" aria-label="' + K.esc(K.formatLong(date) + '. ' + name) + '"><span class="dow">' + K.esc(dow) + '</span><span class="dom">' + Number(date.slice(8)) + '</span></button>';
+    }).join('') + '</div>';
+  }
+
   function render() {
     const sunday = viewSunday();
     session.viewWeekId = sunday;
     const week = publishedWeek(sunday);
     const dates = Array.from({ length: 7 }, function (_, index) { return K.addDays(sunday, index); });
     if (!session.selectedDate || dates.indexOf(session.selectedDate) === -1) {
-      const today = K.localISODate();
+      const today = easternToday();
       session.selectedDate = dates.indexOf(today) !== -1 ? today : dates[0];
     }
     dates.forEach(function (date) { if (dayRecord(week, date)) stateFor(date, true); });
-    const today = K.localISODate();
+    renderTabs(dates, week);
+    const today = easternToday();
     const todayInside = today >= sunday && today <= K.addDays(sunday, 6);
     let intro = week
       ? week.title + '. ' + (weeksDoc.household || '')
       : 'No meals are published for ' + K.formatLong(sunday) + ' through ' + K.formatLong(K.addDays(sunday, 6)) + '. Empty days are not filled with guessed dinners.';
     if (week && !todayInside) intro = 'Showing the published week of ' + week.title + '. Today is ' + K.formatLong(today) + '.';
-    const cards = dates.map(function (date) {
-      const record = dayRecord(week, date);
-      const state = record ? stateFor(date, false) : (session.weeks[sunday] && session.weeks[sunday].days[date]);
-      const recipeId = record ? K.effectiveRecipeId(record, state) : null;
-      const recipe = recipeId ? catalog[recipeId] : null;
-      const title = record ? (record.title || (recipe ? recipe.title : 'Dinner')) : 'Nothing planned';
-      const counts = state && recipe ? checkedCount(state, recipe) : { done: 0, total: 0 };
-      const pressed = session.selectedDate === date;
-      const image = recipe ? '<img src="' + K.esc(photoSrc(recipe)) + '" alt="">' : '';
-      const swapped = state && state.overrideRecipeId;
-      const extra = !recipe ? '<span class="meta">No dinner in the cookbook for this date.</span>'
-        : (swapped || recipe.title !== title ? '<span class="meta">' + K.esc(recipe.title) + (swapped ? ' · swapped' : '') + '</span>' : '');
-      return '<button type="button" class="day' + (recipe ? '' : ' empty') + '" data-act="select" data-date="' + date + '" aria-pressed="' + pressed + '">' + image + '<div><span class="meta">' + K.esc(K.formatLong(date)) + '</span><strong>' + K.esc(title) + '</strong>' + extra + (counts.total ? '<span class="meta">' + counts.done + ' of ' + counts.total + ' prep tasks</span>' : '') + (state && state.cookedAt ? '<span class="meta">Cooked</span>' : '') + '</div></button>';
-    }).join('');
     $('app').innerHTML =
       (recovery ? '<div class="banner" role="alert">' + K.esc(recovery) + '</div>' : '') +
-      '<p class="banner"><strong>Saved on this device only.</strong> Download the planner JSON and share that file if Scorpy should read your checks, swaps, notes, or ratings. Keeping them here does not sync another device, and this public page cannot store them for you.</p>' +
-      '<p class="lede">' + K.esc(intro) + '</p>' +
-      '<div class="row"><button type="button" class="btn-quiet" data-act="prev-week">Previous week</button><strong>' + K.esc(K.formatLong(sunday)) + ' – ' + K.esc(K.formatLong(K.addDays(sunday, 6))) + '</strong><button type="button" class="btn-quiet" data-act="next-week">Next week</button><button type="button" class="btn herb" data-act="published">Published week</button></div>' +
-      '<div class="days" id="days">' + cards + '</div>' +
+      '<details class="banner device-note"><summary>Saved on this phone only</summary><p>Download the planner JSON and share that file if Scorpy should read your checks, swaps, notes, or ratings. Keeping them here does not sync another device, and this public page cannot store them for you.</p></details>' +
+      '<div class="week-bar row"><button type="button" class="btn-quiet" data-act="prev-week">Previous week</button><strong>' + K.esc(K.formatLong(sunday)) + ' – ' + K.esc(K.formatLong(K.addDays(sunday, 6))) + '</strong><button type="button" class="btn-quiet" data-act="next-week">Next week</button><button type="button" class="btn herb" data-act="published">This week</button></div>' +
+      printRoster(dates, week) +
       detailHtml(sunday, week) +
+      '<p class="lede">' + K.esc(intro) + '</p>' +
       groceryHtml(sunday, week) +
       historyHtml() +
       savePanel();
@@ -170,15 +169,33 @@
     if (stamp) stamp.textContent = 'Saved on this device at ' + new Date(session.updatedAt).toLocaleString() + '. Not sent anywhere.';
   }
 
+  function mealBlock(record) {
+    if (!record) return '';
+    return '<div class="meal-strip"><div class="meal"><b>Breakfast</b><span>' + K.esc(record.breakfast || 'Not listed') + '</span></div><div class="meal"><b>Lunch</b><span>' + K.esc(record.lunch || 'Not listed') + '</span></div><div class="meal"><b>Dinner</b><span>' + K.esc(record.dinnerNote || record.title || '') + '</span></div></div>';
+  }
+
+  function printRoster(dates, week) {
+    const lines = dates.map(function (date) {
+      const record = dayRecord(week, date);
+      if (!record) return '<li>' + K.esc(K.formatLong(date)) + ': nothing planned</li>';
+      return '<li><strong>' + K.esc(K.formatLong(date)) + '</strong> Breakfast: ' + K.esc(record.breakfast || '') + '. Lunch: ' + K.esc(record.lunch || '') + '. Dinner: ' + K.esc(record.dinnerNote || record.title || '') + '</li>';
+    }).join('');
+    return '<section class="print-only"><h1>' + K.esc(week ? week.title : 'Week plan') + '</h1><ul>' + lines + '</ul></section>';
+  }
+
   function detailHtml(sunday, week) {
     const date = session.selectedDate;
     const record = dayRecord(week, date);
     const state = stateFor(date, false);
     if (!record || !state) {
-      return '<section class="card"><h2>' + K.esc(K.formatLong(date)) + '</h2><p>Nothing is planned. The week file has no dinner for this date, so this page does not invent one.</p><label class="field">Note for this date<textarea id="day-notes" maxlength="' + K.NOTE_MAX + '"></textarea></label></section>';
+      return '<section class="card" id="day-detail"><h2>' + K.esc(K.formatLong(date)) + '</h2><p>Nothing is planned. The week file has no dinner for this date, so this page does not invent one.</p><label class="field">Note for this date<textarea id="day-notes" maxlength="' + K.NOTE_MAX + '"></textarea></label></section>';
     }
     const recipeId = K.effectiveRecipeId(record, state);
-    const recipe = catalog[recipeId];
+    const recipe = recipeId ? catalog[recipeId] : null;
+    const cookHref = '../recipes/?date=' + encodeURIComponent(date) + (recipeId ? '&recipe=' + encodeURIComponent(recipeId) : '');
+    const cook = recipe
+      ? '<a class="cook-launch" href="' + cookHref + '">Cook ' + K.esc(recipe.title) + '</a>'
+      : '<a class="btn-quiet" href="' + cookHref + '">Open this day in recipes</a>';
     const options = Object.keys(catalog).map(function (id) {
       return '<option value="' + K.esc(id) + '"' + (id === recipeId ? ' selected' : '') + '>' + K.esc(catalog[id].title) + '</option>';
     }).join('');
@@ -193,20 +210,52 @@
       return '<button type="button" data-act="rate" data-score="' + score + '" aria-pressed="' + (state.rating === score) + '" aria-label="' + score + ' star' + (score > 1 ? 's' : '') + '">' + score + '</button>';
     }).join('');
     const swapNote = state.overrideRecipeId ? '<p class="meta">The published plan says ' + K.esc(record.title) + '.</p>' : '';
-    return '<section class="card"><p class="kicker">' + K.esc(K.formatLong(date)) + '</p><h2>' + K.esc(record.title) + '</h2>' +
-      (recipe ? '<div class="frame"><img src="' + K.esc(photoSrc(recipe)) + '" alt="' + K.esc(recipe.photo.alt) + '"></div><p class="caption">' + K.esc(recipe.photo.caption) + '</p><p class="credit">Photo: ' + creditHtml(recipe.photo) + '</p>' : '') +
-      '<label class="field">Dinner<select id="swap">' + options + '</select></label>' + swapNote +
-      '<label class="field">Servings<input id="servings" inputmode="numeric" value="' + state.servings + '"></label>' +
-      '<p class="meta">' + K.esc(recipe ? recipe.summary : '') + '</p>' +
-      '<div class="row"><a class="btn herb" href="../recipes/?recipe=' + encodeURIComponent(recipeId) + '">Cook in the recipe app</a><button type="button" class="btn-quiet" data-act="favorite" aria-pressed="' + state.favorite + '">' + (state.favorite ? 'Favorited' : 'Favorite') + '</button><button type="button" class="btn" data-act="cooked">' + (state.cookedAt ? 'Clear cooked mark' : 'Mark cooked') + '</button></div>' +
+    const swap = recipe ? '<label class="field">Dinner<select id="swap">' + options + '</select></label>' + swapNote + '<label class="field">Servings<input id="servings" inputmode="numeric" value="' + state.servings + '"></label>' : '';
+    const counts = recipe ? checkedCount(state, recipe) : { done: 0, total: 0 };
+    const heading = recipe
+      ? '<h2><a href="' + cookHref + '">' + K.esc(recipe.title) + '</a></h2>'
+      : '<h2>' + K.esc(record.title) + '</h2>';
+    return '<section class="card" id="day-detail"><p class="kicker">' + K.esc(K.formatLong(date)) + (date === easternToday() ? ' · today' : '') + '</p>' + heading +
+      cook + mealBlock(record) +
+      (counts.total ? '<p class="meta">' + counts.done + ' of ' + counts.total + ' prep tasks</p>' : '') +
+      (recipe ? '<div class="frame"><img src="' + K.esc(photoSrc(recipe)) + '" alt="' + K.esc(recipe.photo.alt) + '"></div><p class="caption">' + K.esc(recipe.photo.caption) + '</p><p class="credit">Image: ' + creditHtml(recipe.photo) + '</p><p class="meta">' + K.esc(recipe.summary) + '</p>' + (recipe.safety ? '<p class="safety">' + K.esc(recipe.safety) + '</p>' : '') : '<p>' + K.esc(record.dinnerNote || 'No dinner is planned.') + '</p>') +
+      swap +
+      '<div class="row"><button type="button" class="btn-quiet" data-act="favorite" aria-pressed="' + state.favorite + '">' + (state.favorite ? 'Favorited' : 'Favorite') + '</button><button type="button" class="btn" data-act="cooked">' + (state.cookedAt ? 'Clear cooked mark' : 'Mark cooked') + '</button></div>' +
       '<div class="stars row" role="group" aria-label="Rating">' + stars + '</div>' +
-      '<h3 class="group-label">Prep tasks</h3>' + tasks + custom +
+      (recipe ? '<h3 class="group-label">Prep tasks</h3>' + tasks : '') + custom +
       '<div class="row"><input id="new-task" type="text" maxlength="160" placeholder="Add a prep task" aria-label="New prep task"><button type="button" class="btn-quiet" data-act="add-task">Add task</button></div>' +
       '<label class="field">Notes for this dinner<textarea id="day-notes" maxlength="' + K.NOTE_MAX + '"></textarea></label></section>';
   }
 
+  function pantrySelect(key) {
+    const value = session.pantry[key] || 'unsure';
+    return '<label class="meta">Pantry <select data-pantry="' + K.esc(key) + '"><option value="unsure"' + (value === 'unsure' ? ' selected' : '') + '>Not sure</option><option value="have"' + (value === 'have' ? ' selected' : '') + '>In the pantry</option><option value="need"' + (value === 'need' ? ' selected' : '') + '>Need to buy</option></select></label>';
+  }
+
+  function curatedGrocery(sunday, week) {
+    const sections = K.grocerySections(week);
+    if (!session.groceryChecked[sunday]) session.groceryChecked[sunday] = {};
+    const checks = session.groceryChecked[sunday];
+    const swapped = (week.days || []).some(function (day) {
+      const state = session.weeks[sunday] && session.weeks[sunday].days[day.date];
+      return state && state.overrideRecipeId;
+    });
+    const body = sections.map(function (section) {
+      const rows = section.items.map(function (item) {
+        const checked = !!checks[item.key];
+        const pantry = item.pantry ? pantrySelect(item.key) : '';
+        return '<label class="check' + (checked ? ' on' : '') + '"><input type="checkbox" data-kind="grocery" data-key="' + K.esc(item.key) + '"' + (checked ? ' checked' : '') + '><span>' + K.esc(item.label) + '</span></label>' + pantry;
+      }).join('');
+      return '<h3 class="group-label">' + K.esc(section.title) + '</h3>' + rows;
+    }).join('');
+    return '<section class="card grocery-block" id="grocery"><div class="row"><h2>Grocery list</h2><button type="button" class="btn-quiet no-print" data-act="print">Print list</button></div><p class="meta">' + K.esc(week.groceryNote || 'Nothing here orders food.') + '</p>' +
+      (swapped ? '<p class="meta">A dinner on this phone is swapped. This is still the published list, not the swap. Open that recipe before you shop for it.</p>' : '') +
+      body + '<label class="field">Notes for the week<textarea id="week-notes" maxlength="' + K.NOTE_MAX + '"></textarea></label></section>';
+  }
+
   function groceryHtml(sunday, week) {
-    if (!week) return '<section class="card"><h2>Grocery checklist</h2><p>No published plan for this week, so there is no grocery list to build. This checklist never orders food.</p></section>';
+    if (!week) return '<section class="card" id="grocery"><h2>Grocery list</h2><p>No published plan for this week, so there is no grocery list to build. This checklist never orders food.</p></section>';
+    if (K.grocerySections(week).length) return curatedGrocery(sunday, week);
     const dayStates = {};
     (session.weeks[sunday] ? Object.keys(session.weeks[sunday].days) : []).forEach(function (date) {
       const state = session.weeks[sunday].days[date];
@@ -228,7 +277,7 @@
       const checked = !!checks[item.key];
       return '<label class="check' + (checked ? ' on' : '') + '"><input type="checkbox" data-kind="grocery" data-key="' + K.esc(item.key) + '"' + (checked ? ' checked' : '') + '><span>' + K.esc(item.name) + (item.detail ? ' · ' + K.esc(item.detail) : '') + '</span></label>';
     }).join('');
-    return '<section class="card"><h2>Grocery checklist</h2><p class="meta">Amounts add up only when the cookbook lists a number and the same unit. Optional kid starch stays in its own list. Nothing here orders food.</p><h3 class="group-label">Shop</h3>' + (rows(list.shop, 'shop') || '<p>No numbered shop items.</p>') + '<h3 class="group-label">Pantry</h3>' + (rows(list.pantry, 'pantry') || '<p>No pantry items.</p>') + '<h3 class="group-label">Optional starch for kids</h3>' + (rows(list.kidsStarch, 'kids') || '<p>No optional starch on this plan.</p>') + (plain ? '<h3 class="group-label">Listed without a sum</h3>' + plain : '') + '<label class="field">Notes for the week<textarea id="week-notes" maxlength="' + K.NOTE_MAX + '"></textarea></label></section>';
+    return '<section class="card grocery-block" id="grocery"><h2>Grocery checklist</h2><p class="meta">Amounts add up only when the cookbook lists a number and the same unit. Optional kid starch stays in its own list. Nothing here orders food.</p><h3 class="group-label">Shop</h3>' + (rows(list.shop, 'shop') || '<p>No numbered shop items.</p>') + '<h3 class="group-label">Pantry</h3>' + (rows(list.pantry, 'pantry') || '<p>No pantry items.</p>') + '<h3 class="group-label">Optional starch for kids</h3>' + (rows(list.kidsStarch, 'kids') || '<p>No optional starch on this plan.</p>') + (plain ? '<h3 class="group-label">Listed without a sum</h3>' + plain : '') + '<label class="field">Notes for the week<textarea id="week-notes" maxlength="' + K.NOTE_MAX + '"></textarea></label></section>';
   }
 
   function historyHtml() {
@@ -331,21 +380,32 @@
     const act = button.dataset.act;
     if (act === 'select') {
       session.selectedDate = button.dataset.date;
+      const url = new URL(location.href);
+      url.searchParams.set('date', session.selectedDate);
+      history.replaceState(null, '', url);
       render();
       persist();
+      scrollToNode($('day-detail'));
     }
     if (act === 'prev-week' || act === 'next-week') {
       session.viewWeekId = K.addDays(viewSunday(), act === 'next-week' ? 7 : -7);
       session.selectedDate = session.viewWeekId;
+      const url = new URL(location.href);
+      url.searchParams.set('date', session.selectedDate);
+      history.replaceState(null, '', url);
       render();
       persist();
     }
     if (act === 'published') {
       session.viewWeekId = defaultWeekId();
-      session.selectedDate = null;
+      session.selectedDate = easternToday();
+      const url = new URL(location.href);
+      url.searchParams.delete('date');
+      history.replaceState(null, '', url);
       render();
       persist();
     }
+    if (act === 'print') window.print();
     if (act === 'favorite') {
       const state = stateFor(session.selectedDate, true);
       state.favorite = !state.favorite;
@@ -455,9 +515,19 @@
     weeksDoc = await responses[1].json();
     recipesDoc.recipes.forEach(function (item) { catalog[item.id] = item; });
     session = loadSession();
-    if (!session.viewWeekId) session.viewWeekId = defaultWeekId();
+    const params = new URLSearchParams(location.search);
+    const requested = params.get('date');
+    if (requested && DATE_RE.test(requested)) {
+      const containing = K.weekContaining(requested, weeksDoc);
+      session.viewWeekId = containing ? containing.id : K.sundayOf(requested);
+      session.selectedDate = requested;
+    } else {
+      session.viewWeekId = defaultWeekId();
+      session.selectedDate = easternToday();
+    }
     render();
     persist();
+    if (location.hash === '#grocery') scrollToNode($('grocery'), true);
     document.body.addEventListener('click', onClick);
     document.body.addEventListener('change', onChange);
     document.body.addEventListener('input', onInput);

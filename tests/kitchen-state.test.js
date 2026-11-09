@@ -25,24 +25,28 @@ test('seed dates and confirmed dinner names', () => {
   assert.equal(K.weekdayName('2026-11-14'), 'Saturday');
   assert.equal(schedule.days['2026-11-05'].recipeId, 'garlic-butter-salmon');
   assert.equal(K.recipeIdForDate('2026-11-05', schedule, weeksDoc), 'garlic-butter-salmon');
-  assert.equal(K.recipeIdForDate('2026-11-09', schedule, weeksDoc), 'broccoli-ham-bake');
+  assert.equal(K.recipeIdForDate('2026-11-08', schedule, weeksDoc), null);
+  assert.equal(K.recipeIdForDate('2026-11-09', schedule, weeksDoc), 'keto-pizza-bowls');
+  assert.equal(K.recipeIdForDate('2026-11-10', schedule, weeksDoc), 'garlic-parmesan-chicken');
+  assert.equal(K.recipeIdForDate('2026-11-14', schedule, weeksDoc), 'pork-carnitas');
   assert.equal(K.recipeIdForDate('2026-11-06', schedule, weeksDoc), null);
   const week = weeksDoc.weeks[0];
   assert.deepEqual(week.days.map(day => day.date), [
     '2026-11-08', '2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12', '2026-11-13', '2026-11-14'
   ]);
   assert.deepEqual(week.days.map(day => day.title), [
-    'Steak bites',
-    'Broccoli ham bake',
+    'No dinner',
+    'Crustless pizza bowls',
+    'Garlic Parmesan chicken',
+    'Garlic butter steak bites',
+    'Cheesy broccoli ham bake',
     'Egg roll in a bowl',
-    "Kids' pizza night with keto pizza bowls",
-    'Pork carnitas',
-    'Shrimp scampi',
-    'Tuscan chicken'
+    'Pork carnitas lettuce cups'
   ]);
+  assert.equal(week.days[0].recipeId, null);
   week.days.forEach(day => {
     assert.equal(K.weekdayName(day.date), day.weekday);
-    assert.ok(catalog[day.recipeId], day.recipeId);
+    if (day.recipeId) assert.ok(catalog[day.recipeId], day.recipeId);
     assert.equal(day.servings, 6);
   });
 });
@@ -69,7 +73,7 @@ test('cookbook has no nutrition figures and real photo files', () => {
     assert.equal(bytes[0], 0xff);
     assert.equal(bytes[1], 0xd8);
     assert.equal(recipe.photo.src.startsWith('http'), false);
-    assert.match(recipe.authoring, /newly written|Household seed/);
+    assert.match(recipe.authoring, /newly written|Household seed|Household plan/);
   });
 });
 
@@ -78,20 +82,21 @@ test('grocery sums are reliable and optional starch stays separate', () => {
   const list = K.aggregateGrocery(week, catalog, {});
   const butter = list.shop.find(item => item.groceryKey === 'butter');
   const cream = list.shop.find(item => item.groceryKey === 'heavy-cream');
-  const lemons = list.shop.find(item => item.groceryKey === 'lemons');
-  assert.equal(butter.amount, 11);
+  const limes = list.shop.find(item => item.groceryKey === 'limes');
+  assert.equal(butter.amount, 7);
   assert.equal(butter.unit, 'tbsp');
-  assert.equal(cream.amount, 1.75);
-  assert.equal(lemons.amount, 2);
-  assert.equal(lemons.hasMax, false);
+  assert.equal(cream.amount, 1);
+  assert.equal(cream.unit, 'cup');
+  assert.equal(limes.amount, 3);
+  assert.equal(list.shop.some(item => item.groceryKey === 'chicken-breasts'), false);
+  assert.equal(list.onHand.find(item => item.groceryKey === 'chicken-breasts').amount, 3);
   assert.equal(list.shop.some(item => item.groceryKey === 'salt'), false);
-  assert.ok(list.pantry.some(item => item.groceryKey === 'salt'));
-  assert.equal(list.shop.some(item => item.groceryKey === 'spaghetti'), false);
-  assert.ok(list.kidsStarch.some(item => item.groceryKey === 'spaghetti'));
-  const potatoLines = list.kidsStarch.filter(item => item.groceryKey.startsWith('potatoes'));
-  assert.equal(potatoLines.length, 2);
-  const doubled = K.aggregateGrocery(week, catalog, { '2026-11-08': { servings: 12 } });
-  assert.equal(doubled.shop.find(item => item.groceryKey === 'butter').amount, 14);
+  assert.equal(list.shop.some(item => item.groceryKey === 'shrimp'), false);
+  assert.equal(list.shop.some(item => item.groceryKey === 'rice'), false);
+  assert.ok(list.unscaled.some(item => item.group === 'kids-starch' && /rice/i.test(item.name)));
+  assert.ok(list.pantry.some(item => item.groceryKey === 'oregano'));
+  const doubled = K.aggregateGrocery(week, catalog, { '2026-11-10': { servings: 12 } });
+  assert.equal(doubled.shop.find(item => item.groceryKey === 'butter').amount, 10);
 });
 
 test('portion scaling and clock formatting', () => {
@@ -168,7 +173,7 @@ test('export and import keep escaped notes and reject the other app', () => {
     days: {
       '2026-11-08': {
         plannedRecipeId: 'steak-bites',
-        overrideRecipeId: 'shrimp-scampi',
+        overrideRecipeId: 'pork-carnitas',
         servings: 6,
         notes: notes,
         favorite: true,
