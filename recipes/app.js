@@ -249,7 +249,7 @@
     });
     if (!day || (!day.breakfast && !day.lunch)) return '';
     const dinner = day.dinnerNote || day.title || '';
-    return '<div class="meal-strip card"><div class="meal"><b>Breakfast</b><span>' + K.esc(day.breakfast || '') + '</span></div><div class="meal"><b>Lunch</b><span>' + K.esc(day.lunch || '') + '</span></div><div class="meal"><b>Dinner</b><span>' + K.esc(dinner) + '</span></div></div>';
+    return '<div class="meal-strip"><div class="meal"><b>Breakfast</b><span>' + K.esc(day.breakfast || '') + '</span></div><div class="meal"><b>Lunch</b><span>' + K.esc(day.lunch || '') + '</span></div><div class="meal"><b>Dinner</b><span>' + K.esc(dinner) + '</span></div></div>';
   }
 
   function alsoHtml() {
@@ -339,10 +339,10 @@
       '<section class="hero"><div class="frame"><img src="' + K.esc(rec.photo.src) + '" alt="' + K.esc(rec.photo.alt) + '"></div><div class="title-block"><h1>' + K.esc(rec.title) + '</h1><p class="lede">' + K.esc(rec.summary) + '</p>' +
       (rec.safety ? '<p class="safety">' + K.esc(rec.safety) + '</p>' : '') +
       (rec.kidSide ? '<p class="kid-side">' + K.esc(rec.kidSide) + '</p>' : '') +
-      '<p class="meta">' + K.esc(rec.style) + '</p></div></section>' +
+      '<p class="tag">' + K.esc(rec.style) + '</p></div></section>' +
       '<p class="caption">' + K.esc(rec.photo.caption) + '</p><p class="credit">Image: ' + creditHtml(rec.photo) + (rec.photo.changes ? ' ' + K.esc(rec.photo.changes) : '') + '</p>' +
       mealStripHtml() +
-      '<div class="intro-grid card"><div>' + Art.illustration(rec.illustration) + '</div><div><p>' + K.esc(rec.authoring) + '</p><p class="meta">' + K.esc(rec.servingsNote) + '</p>' + versionNote + '</div></div>' +
+      '<div class="intro-grid"><div>' + Art.illustration(rec.illustration) + '</div><div><p>' + K.esc(rec.authoring) + '</p><p class="meta">' + K.esc(rec.servingsNote) + '</p>' + versionNote + '</div></div>' +
       '<div class="row phase" role="group" aria-label="Cooking progress"><button type="button" class="btn-quiet" data-phase="prep" aria-pressed="' + (state.phase === 'prep') + '">Prep</button><button type="button" class="btn-quiet" data-phase="cooking" aria-pressed="' + (state.phase === 'cooking') + '">Cooking</button><button type="button" class="btn-quiet" data-phase="done" aria-pressed="' + (state.phase === 'done') + '">Done</button><button type="button" class="btn herb" data-act="cook" aria-pressed="' + state.cookingMode + '">' + (state.cookingMode ? 'Exit cooking mode' : 'Cooking mode') + '</button><button type="button" class="btn-quiet" data-act="today">Today</button></div>' +
       '<p id="progress" class="meta"></p>' +
       '<div class="cook-nav row"><button type="button" class="btn-quiet" data-act="prev">Previous step</button><button type="button" class="btn" data-act="next">Next step</button><button type="button" class="btn-quiet" data-act="cook">Exit</button></div>' +
