@@ -58,3 +58,10 @@ Only ids in `data/factbook.json` are used. They were looked up in Logos; **never
 - `mapDecor` accepts `viewBox`, `areas` (dashed shaded regions), `lakeStroke`, `riverWidth`, `riverFlow` (animated current), `pinSize`, `noLeaders`, and decorative labels (`"decor": true`).
 - `tools/canvas-to-json.js` now keeps every upper-case data array it finds, not only the known list.
 
+### Added with Episode 4
+
+- `tests`: three "test" cards from a `TESTS` array (`n, theme, emoji, color, title, offer, offerRef, answer, answerRef, src, srcBook, srcCh, srcText, misused?, israel, israelSrc, israelRefs, note`). Each card stamps "It is written" as it scrolls in. An optional `EDEN` object (`h, text, ref, book, ch, video, added, refs`) adds a Genesis card below, and `figures.tests` adds pictures.
+- `heroIcon: {"emoji": "📜", "orbit": ["🍞", "🏛️", "👑"], "gradient": "desert"}` shows any emoji hero with orbiting icons (hidden on phones) and a coral-gold-teal title.
+- Episodes without a Canvas: write a `tools/build_ep0N.py` like `build_ep04.py`. It builds the data and the copy-clean NOTES, then adds the hub, PDF and Factbook lines.
+- Offline copy and PDF: `python3 build/offline_gh.py matthew-N offline/<name>.html "<title>"`, then `node build/pdf.js offline/<name>.html offline/<name>.pdf`, then copy the PDF into `assets/` and rerun the builder with `--pages` and `--size`.
+

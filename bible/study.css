@@ -255,3 +255,29 @@ a.pncard:hover { border-color: var(--teal); }
 @media (max-width: 480px) { .voice.lock { grid-template-columns: 40px 1fr; } .dovewrap { right: 0; top: -8px; transform: scale(.7); } }
 @media (prefers-reduced-motion: reduce) { .dove, .ripple, .flow, .float, .voice.in .radar::before, .voice.in .radar::after { animation: none !important; } .ripple { display: none; } }
 @media print { .dovewrap { display: none; } .radar { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+
+/* Episode 4 extras: emoji hero, three tests with an "It is written" stamp */
+.hero-desert h1 em { background-image: linear-gradient(90deg, var(--coral), var(--gold), var(--teal), var(--coral)); background-size: 200% auto; }
+.heroemoji { position: absolute; right: 8%; top: 14px; width: 84px; height: 84px; display: grid; place-items: center; }
+.heroemoji .glyph { font-size: 46px; animation: wobble 4s ease-in-out infinite; filter: drop-shadow(0 4px 10px var(--tint-g)); }
+.heroemoji .orbit { position: absolute; left: 50%; top: 50%; font-size: 18px; margin: -11px 0 0 -9px; animation: orbit 9s linear infinite; animation-delay: calc(var(--i) * -3s); }
+@keyframes wobble { 0%, 100% { transform: rotate(-6deg) translateY(0); } 50% { transform: rotate(6deg) translateY(-6px); } }
+@keyframes orbit { from { transform: rotate(0) translateX(46px) rotate(0); } to { transform: rotate(360deg) translateX(46px) rotate(-360deg); } }
+.test { border-left: 6px solid var(--accent); position: relative; overflow: hidden; }
+.testtop { display: flex; gap: 14px; align-items: center; }
+.testtop h3 { margin: 0; }
+.testtop .kicker { margin: 0 0 2px; color: var(--accent); }
+.testbadge { flex: none; width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; font-size: 30px; background: var(--accent); box-shadow: 0 6px 0 rgba(0,0,0,.08); transform: rotate(-4deg); }
+.test.in .testbadge { animation: hop .7s ease .2s 2; }
+@keyframes hop { 50% { transform: translateY(-8px) rotate(5deg); } }
+.written { position: relative; margin-top: 10px; border-radius: 14px; padding: 12px 14px 12px; background: var(--tint-g); border: 1.5px dashed var(--gold); font-family: var(--serif); }
+.written b { display: block; font: 800 12px var(--sans); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; color: var(--gold); padding-right: 120px; }
+.stamp { position: absolute; right: 10px; top: 8px; font: 900 12px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--coral); border: 2.5px solid var(--coral); border-radius: 8px; padding: 3px 8px; transform: rotate(-8deg) scale(1); opacity: .9; }
+.test .stamp { opacity: 0; transform: rotate(-8deg) scale(2.2); transition: transform .35s cubic-bezier(.2,1.6,.4,1), opacity .2s; transition-delay: var(--delay, .4s); }
+.test.in .stamp { opacity: .9; transform: rotate(-8deg) scale(1); }
+.misuse, .test .small { margin: 10px 0 0; }
+.eden { margin-top: 14px; }
+@media (max-width: 560px) { .heroemoji { right: -6px; top: -14px; transform: scale(.6); } .heroemoji .orbit { display: none; } }
+@media (max-width: 480px) { .written b { padding-right: 0; } .stamp { position: static; display: inline-block; margin-bottom: 6px; } }
+@media (prefers-reduced-motion: reduce) { .heroemoji .glyph, .heroemoji .orbit, .test.in .testbadge { animation: none !important; } .test .stamp { opacity: .9; transform: rotate(-8deg); transition: none; } }
+@media print { .heroemoji { display: none; } .test .stamp { opacity: .9 !important; transform: rotate(-8deg) !important; } }

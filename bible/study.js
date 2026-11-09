@@ -225,7 +225,7 @@ function mapBlock() {
 }
 
 /* ---------- sections ---------- */
-const HANDLED = new Set(["summary", "passages", "tree", "fulfil", "exodus", "voices", "elijah", "people", "map", "terms", "words", "background", "timeline", "xrefs", "questions", "apply", "factbook", "export"]);
+const HANDLED = new Set(["summary", "passages", "tree", "fulfil", "exodus", "voices", "elijah", "tests", "israel", "people", "map", "terms", "words", "background", "timeline", "xrefs", "questions", "apply", "factbook", "export"]);
 function section(sid, n) {
   const sec = S[sid] || {};
   const node = el("section", "sec");
@@ -334,6 +334,67 @@ function section(sid, n) {
       rowWrap.append(c);
     });
     node.append(rowWrap);
+    if (sec.quote != null) node.append(quote(d.QUOTES[sec.quote], sec.quoteCite || "From the video", sec.quoteBg));
+  }
+
+  if (sid === "tests" && d.TESTS) {
+    const stack = el("div", "stack");
+    const tone = { coral: "var(--coral)", gold: "var(--gold)", violet: "var(--violet)", teal: "var(--teal)", sky: "var(--sky)" };
+    d.TESTS.forEach((t, i) => {
+      const c = el("article", "card test reveal");
+      c.style.setProperty("--accent", tone[t.color] || accents[i % 5]);
+      const top = el("div", "testtop");
+      const badge = hidden(el("div", "testbadge", t.emoji));
+      const hh = el("div");
+      hh.append(el("p", "kicker", "Test " + t.n + " · " + t.theme), el("h3", null, t.title));
+      top.append(badge, hh);
+      const pair = el("div", "pair");
+      const left = el("div", "tint-c");
+      const lb = el("b", null, "The tempter · ");
+      lb.style.color = "var(--coral)";
+      lb.append(lsbLink(t.offerRef, "Matthew", 4));
+      left.append(lb, "“" + t.offer + "”");
+      const right = el("div", "tint-t");
+      const rb = el("b", null, "Jesus · ");
+      rb.style.color = "var(--teal)";
+      rb.append(lsbLink(t.answerRef, "Matthew", 4));
+      right.append(rb, "“" + t.answer + "”");
+      pair.append(left, right);
+      const src = el("div", "written");
+      const stamp = hidden(el("span", "stamp", "It is written"));
+      stamp.style.setProperty("--delay", (0.35 + i * 0.15) + "s");
+      const sb = el("b", null, "📜 ");
+      sb.append(lsbLink(t.src, t.srcBook, t.srcCh), " (LSB)");
+      src.append(stamp, sb, el("span", "srctext", "“" + t.srcText + "”"));
+      const kids = [top, pair, src];
+      if (t.misused) {
+        const m = el("p", "small misuse");
+        m.append(el("span", "tag l", "Psalm in context"), " ", t.misused);
+        kids.push(m);
+      }
+      const isr = el("p", "small");
+      isr.append(el("span", "tag " + (t.israelSrc === "video" ? "v" : "b"), "Israel in the wilderness"), " " + t.israel + " ");
+      (t.israelRefs || []).forEach((r) => isr.append(lsbLink(r.label, r.book, r.ch, r.label, "mini"), " "));
+      kids.push(isr);
+      if (t.note) kids.push(el("p", "note", t.note));
+      kids.forEach((k) => c.append(k));
+      stack.append(c);
+    });
+    node.append(stack);
+    if (d.EDEN) {
+      const e = d.EDEN;
+      const h = el("h3", null, e.h);
+      const v = el("div", "verse");
+      v.append("“" + e.text + "”", el("br"), lsbLink(e.ref, e.book, e.ch));
+      const vp = el("p");
+      vp.append(el("span", "tag v", "Video"), " " + e.video);
+      const ap = el("p");
+      ap.append(el("span", "tag d", "Debated"), " " + e.added + " ");
+      (e.refs || []).forEach((r) => ap.append(lsbLink(r.label, r.book, r.ch, r.label, "mini"), " "));
+      node.append(card([h, v, vp, ap], "tint-g eden"));
+    }
+    const pics = figures(d.figures && d.figures.tests);
+    if (pics) node.append(pics);
     if (sec.quote != null) node.append(quote(d.QUOTES[sec.quote], sec.quoteCite || "From the video", sec.quoteBg));
   }
 
@@ -702,6 +763,12 @@ if (d.heroIcon === "dove") {
   const wrapD = hidden(el("div", "dovewrap"));
   wrapD.append(el("div", "dove", "🕊️"), el("div", "ripple"), el("div", "ripple r2"));
   hero.append(wrapD);
+} else if (d.heroIcon && d.heroIcon.emoji) {
+  if (d.heroIcon.gradient) hero.classList.add("hero-" + d.heroIcon.gradient);
+  const wrapE = hidden(el("div", "heroemoji"));
+  wrapE.append(el("div", "glyph", d.heroIcon.emoji));
+  (d.heroIcon.orbit || []).forEach((o, i) => { const sp = el("span", "orbit", o); sp.style.setProperty("--i", i); wrapE.append(sp); });
+  hero.append(wrapE);
 } else if (d.star) {
   hero.append(hidden(el("div", "star", "✦")));
 }
