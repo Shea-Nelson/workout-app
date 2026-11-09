@@ -4,7 +4,7 @@
   "kicker": "Study hub",
   "title": "The Gospel of Matthew, Every Word",
   "hand": "Every word, verse by verse.",
-  "intro": "A home base for the Every Word channel's verse-by-verse series through Matthew. Each card is one video from the playlist, in order. When a study page is ready, the card turns teal and opens it: summary, people, places, map, timeline, word studies and questions, with Scripture linked to the LSB.",
+  "intro": "A home base for the Every Word channel's verse-by-verse series through Matthew. Each card is one video from the playlist, in order. When a study page is ready, the card turns teal and opens it: summary, people, places, map, timeline, word studies and questions, with Scripture linked to the LSB, key names linked to the Logos Factbook, and a full-color PDF for Goodnotes.",
   "note": "Numbering note: the playlist places three Bible Night Live bonus videos (#38–40) after Episode 37, so from Episode 38 on, the playlist position runs three ahead of the episode number.",
   "foot": "Video titles and order from the Every Word playlist (https://www.youtube.com/playlist?list=PLfCJX3DN9tK5R8WTpXOtXerW3Oa9fzWhL). Scripture links open the Legacy Standard Bible at read.lsbible.org.",
   "episodes": [
@@ -16,7 +16,8 @@
       "id": "oSuB7gRvMjU",
       "len": "18:10",
       "bonus": false,
-      "page": "matthew-1/"
+      "page": "matthew-1/",
+      "pdf": "assets/Matthew-Ep01-Family-Tree.pdf"
     },
     {
       "n": 2,
@@ -26,7 +27,8 @@
       "id": "7DZpStdlUUU",
       "len": "20:00",
       "bonus": false,
-      "page": "matthew-2/"
+      "page": "matthew-2/",
+      "pdf": "assets/Matthew-Ep02-New-Moses-New-Exodus.pdf"
     },
     {
       "n": 3,
@@ -36,7 +38,8 @@
       "id": "Jksrb8bNEI0",
       "len": "21:02",
       "bonus": false,
-      "page": null
+      "page": "matthew-3/",
+      "pdf": "assets/Matthew-Ep03-Voice-in-the-Wilderness.pdf"
     },
     {
       "n": 4,
