@@ -155,7 +155,7 @@
       '<div class="week-bar row"><button type="button" class="btn-quiet" data-act="prev-week">Previous week</button><strong>' + K.esc(K.formatLong(sunday)) + ' – ' + K.esc(K.formatLong(K.addDays(sunday, 6))) + '</strong><button type="button" class="btn-quiet" data-act="next-week">Next week</button><button type="button" class="btn herb" data-act="published">This week</button></div>' +
       printRoster(dates, week) +
       detailHtml(sunday, week) +
-      '<p class="lede">' + K.esc(intro) + '</p>' +
+      '<p class="intro">' + K.esc(intro) + '</p>' +
       groceryHtml(sunday, week) +
       historyHtml() +
       savePanel();
@@ -188,7 +188,7 @@
     const record = dayRecord(week, date);
     const state = stateFor(date, false);
     if (!record || !state) {
-      return '<section class="card" id="day-detail"><h2>' + K.esc(K.formatLong(date)) + '</h2><p>Nothing is planned. The week file has no dinner for this date, so this page does not invent one.</p><label class="field">Note for this date<textarea id="day-notes" maxlength="' + K.NOTE_MAX + '"></textarea></label></section>';
+      return '<section class="card day-detail' + (date === easternToday() ? ' is-today' : '') + '" id="day-detail"><h2>' + K.esc(K.formatLong(date)) + '</h2><p>Nothing is planned. The week file has no dinner for this date, so this page does not invent one.</p><label class="field">Note for this date<textarea id="day-notes" maxlength="' + K.NOTE_MAX + '"></textarea></label></section>';
     }
     const recipeId = K.effectiveRecipeId(record, state);
     const recipe = recipeId ? catalog[recipeId] : null;
@@ -215,7 +215,7 @@
     const heading = recipe
       ? '<h2><a href="' + cookHref + '">' + K.esc(recipe.title) + '</a></h2>'
       : '<h2>' + K.esc(record.title) + '</h2>';
-    return '<section class="card" id="day-detail"><p class="kicker">' + K.esc(K.formatLong(date)) + (date === easternToday() ? ' · today' : '') + '</p>' + heading +
+    return '<section class="card day-detail' + (date === easternToday() ? ' is-today' : '') + '" id="day-detail"><p class="kicker">' + K.esc(K.formatLong(date)) + (date === easternToday() ? ' · today' : '') + '</p>' + heading +
       cook + mealBlock(record) +
       (counts.total ? '<p class="meta">' + counts.done + ' of ' + counts.total + ' prep tasks</p>' : '') +
       (recipe ? '<div class="frame"><img src="' + K.esc(photoSrc(recipe)) + '" alt="' + K.esc(recipe.photo.alt) + '"></div><p class="caption">' + K.esc(recipe.photo.caption) + '</p><p class="credit">Image: ' + creditHtml(recipe.photo) + '</p><p class="meta">' + K.esc(recipe.summary) + '</p>' + (recipe.safety ? '<p class="safety">' + K.esc(recipe.safety) + '</p>' : '') : '<p>' + K.esc(record.dinnerNote || 'No dinner is planned.') + '</p>') +
