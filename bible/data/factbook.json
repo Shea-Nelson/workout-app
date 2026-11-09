@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "about": "Logos Factbook ids verified in Logos. Link format: https://ref.ly/logos4/Factbook?ref=bk.<id>, or ?ref=<ref> when an entry has \"ref\" (opens in the Logos app). Add an entry only after looking the id up in Logos; never guess.",
+  "terms": {
+    "Jesus": {
+      "label": "Jesus Christ",
+      "id": "%23Jesus"
+    },
+    "Mary": {
+      "label": "Mary (mother of Jesus)",
+      "id": "%23Mary.1"
+    },
+    "Joseph": {
+      "label": "Joseph (husband of Mary)",
+      "id": "%23Joseph2.1"
+    },
+    "Abraham": {
+      "label": "Abraham",
+      "id": "%23Abraham"
+    },
+    "David": {
+      "label": "David",
+      "id": "%23David"
+    },
+    "Tamar": {
+      "label": "Tamar",
+      "id": "%23Tamar.1"
+    },
+    "Rahab": {
+      "label": "Rahab",
+      "id": "%23Rahab.1"
+    },
+    "Ruth": {
+      "label": "Ruth",
+      "id": "%23Ruth.1"
+    },
+    "Immanuel": {
+      "label": "Immanuel",
+      "id": "%23Immanuel"
+    },
+    "Joshua": {
+      "label": "Joshua (son of Nun)",
+      "id": "%23Joshua"
+    },
+    "Moses": {
+      "label": "Moses",
+      "id": "%23Moses"
+    },
+    "Herod": {
+      "label": "Herod the Great",
+      "id": "%23Herod.1"
+    },
+    "Archelaus": {
+      "label": "Archelaus",
+      "id": "%23Archelaus.1"
+    },
+    "Magi": {
+      "label": "Magi",
+      "id": "%23Magi"
+    },
+    "Bethlehem": {
+      "label": "Bethlehem (of Judah)",
+      "id": "%40BethlehemOfJudah"
+    },
+    "Egypt": {
+      "label": "Egypt",
+      "id": "%40Egypt"
+    },
+    "Ramah": {
+      "label": "Ramah (of Benjamin)",
+      "id": "%40RamahOfBenjamin"
+    },
+    "Nazareth": {
+      "label": "Nazareth",
+      "id": "%40Nazareth"
+    },
+    "John the Baptist": {
+      "label": "John the Baptist",
+      "id": "%23JohntheBaptist"
+    },
+    "Jordan": {
+      "label": "Jordan River",
+      "id": "%25Jordan_Place"
+    },
+    "Malachi": {
+      "label": "Malachi",
+      "id": "%23Malachi.1"
+    },
+    "Zechariah": {
+      "label": "Zechariah (father of John the Baptist)",
+      "id": "%23Zechariah3.2"
+    },
+    "Elizabeth": {
+      "label": "Elizabeth",
+      "id": "%23Elizabeth.1"
+    },
+    "Sarah": {
+      "label": "Sarah",
+      "id": "%23Sarah"
+    },
+    "Locust": {
+      "label": "Locust",
+      "id": "%24locust"
+    },
+    "Camel": {
+      "label": "Camel",
+      "id": "%24camel"
+    },
+    "Isaiah": {
+      "label": "Isaiah",
+      "id": "%23Isaiah"
+    },
+    "Wilderness": {
+      "label": "Wilderness",
+      "id": "%25wilderness"
+    },
+    "Exodus": {
+      "label": "The Exodus",
+      "id": "%25exodus"
+    },
+    "Temptation of Jesus": {
+      "label": "Temptation of Jesus",
+      "id": "%25temptationOfJesus"
+    },
+    "Essenes": {
+      "label": "Essenes",
+      "id": "%25Essenes_People"
+    },
+    "Qumran": {
+      "label": "Qumran",
+      "id": "%25KhirbetQumran_Place"
+    },
+    "Dead Sea Scrolls": {
+      "label": "Dead Sea Scrolls",
+      "id": "%25deadSeaScrolls_Writing"
+    },
+    "Pharisees": {
+      "label": "Pharisees",
+      "id": "%23Pharisees"
+    },
+    "Sadducees": {
+      "label": "Sadducees",
+      "id": "%23Sadducees"
+    },
+    "Josephus": {
+      "label": "Flavius Josephus",
+      "id": "%25FlaviusJosephus_Person"
+    },
+    "Repentance": {
+      "label": "Repentance",
+      "id": "%25repentance"
+    },
+    "Threshing floor": {
+      "label": "Threshing floor",
+      "id": "%24threshingFloor"
+    },
+    "Holy Spirit": {
+      "label": "Holy Spirit",
+      "id": "%23GodTheSpirit"
+    },
+    "Judgment": {
+      "label": "Judgment",
+      "id": "%25judgment"
+    },
+    "Baptism of Jesus": {
+      "label": "Baptism of Jesus",
+      "id": "%25baptismOfJesus"
+    },
+    "Trinity": {
+      "label": "Trinity",
+      "id": "%25trinity"
+    },
+    "Dove": {
+      "label": "Dove",
+      "id": "%24dove"
+    },
+    "Galilee": {
+      "label": "Galilee",
+      "id": "%25Galilee_Place"
+    },
+    "Pentecost": {
+      "label": "Pentecost",
+      "id": "*pentecostepisode"
+    },
+    "Ignatius": {
+      "label": "Ignatius of Antioch",
+      "id": "%25IgnatiusOfAntioch_Person"
+    },
+    "Baptism": {
+      "label": "Baptism",
+      "id": "%25baptism"
+    },
+    "Righteousness": {
+      "label": "Righteousness",
+      "id": "%25righteousness"
+    },
+    "Kingdom of heaven": {
+      "label": "Kingdom of heaven",
+      "ref": "lsto.KingdomOfGod"
+    }
+  },
+  "aliases": {
+    "David the king": "David",
+    "Jesus, who is called Christ": "Jesus"
+  }
+}
