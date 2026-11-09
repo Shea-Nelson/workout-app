@@ -1,7 +1,7 @@
 {
   "schema": "kitchen.recipes",
   "schemaVersion": 1,
-  "authoring": "Garlic-butter salmon matches the Thu Nov 5, 2026 household card, including 145°F in the thickest part. The Nov 8–14 dinners use the confirmed names. Their amounts were newly written for this app because a previous ingredient card was not provided. No nutrition figures are included.",
+  "authoring": "Garlic-butter salmon matches the Thu Nov 5, 2026 household card, including 145°F in the thickest part. Nov 8–14 dinners follow the final plan for that week. Sunday has no dinner. Shrimp scampi and Tuscan chicken are not on this week. No nutrition figures are included.",
   "recipes": [
     {
       "id": "garlic-butter-salmon",
@@ -13,6 +13,7 @@
       "style": "Sheet-pan dinner. Low-carb as written.",
       "illustration": "oven",
       "authoring": "Household seed for Thu Nov 5, 2026. Bake to 145°F in the thickest part.",
+      "safety": "Pull the salmon at 145°F in the thickest part.",
       "photo": {
         "src": "assets/photos/salmon-lemon-bake.jpg",
         "alt": "A side of salmon baked with lemon slices, parsley, and butter on a white platter.",
@@ -50,155 +51,21 @@
       ]
     },
     {
-      "id": "steak-bites",
-      "version": 1,
-      "title": "Steak bites",
-      "summary": "Seared sirloin cubes with garlic butter for Sunday, Nov 8. Newly written for this app. Whole-muscle beef can be cooked to your liking.",
-      "servings": 6,
-      "servingsNote": "About 6 adult portions.",
-      "style": "Skillet. Low-carb as written. Potatoes are an optional side for kids.",
-      "illustration": "skillet",
-      "authoring": "Confirmed dinner name. Amounts are newly written for this app, not a copy of an older plan.",
-      "photo": {
-        "src": "assets/photos/steak-bites.jpg",
-        "alt": "Seared steak cubes in a cast-iron skillet with garlic and parsley.",
-        "caption": "Original image made for this app. It is not a third-party stock photo.",
-        "author": "Original image for these kitchen apps",
-        "license": "Original work for this project",
-        "licenseUrl": "",
-        "sourceUrl": "",
-        "changes": ""
-      },
-      "ingredients": [
-        { "id": "sirloin", "name": "sirloin or ribeye, cut into 1-inch cubes", "amount": 2.5, "unit": "lb", "scalable": true, "group": "shop", "groceryKey": "sirloin", "groceryName": "sirloin or ribeye" },
-        { "id": "oil", "name": "olive oil", "amount": 2, "unit": "tbsp", "scalable": true, "group": "pantry", "groceryKey": "olive-oil", "groceryName": "olive oil" },
-        { "id": "salt", "name": "salt", "amount": 1.5, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "salt", "groceryName": "salt" },
-        { "id": "pepper", "name": "black pepper", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "black-pepper", "groceryName": "black pepper" },
-        { "id": "garlic-powder", "name": "garlic powder", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "garlic-powder", "groceryName": "garlic powder" },
-        { "id": "paprika", "name": "smoked paprika", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "smoked-paprika", "groceryName": "smoked paprika" },
-        { "id": "butter", "name": "butter", "amount": 3, "unit": "tbsp", "scalable": true, "group": "shop", "groceryKey": "butter", "groceryName": "butter" },
-        { "id": "garlic", "name": "garlic", "amount": 4, "unit": "cloves", "scalable": true, "group": "shop", "groceryKey": "garlic", "groceryName": "garlic" },
-        { "id": "parsley", "name": "fresh parsley", "amount": 1, "unit": "tbsp", "scalable": true, "group": "shop", "groceryKey": "parsley", "groceryName": "fresh parsley" },
-        { "id": "potatoes", "name": "small potatoes, only if kids want starch", "amount": 6, "unit": "potatoes", "note": "Optional. Not part of the low-carb plate.", "scalable": true, "group": "kids-starch", "groceryKey": "potatoes", "groceryName": "small potatoes" }
-      ],
-      "steps": [
-        { "id": "season", "text": "Pat the beef dry. Toss it with the oil, salt, pepper, garlic powder, and smoked paprika." },
-        { "id": "sear", "text": "Heat a large skillet over medium-high until it is very hot. Sear in two uncrowded batches, about 2 minutes without stirring, then about 1 minute more, until the outside is browned to your liking. Whole-muscle beef can be cooked to the doneness you want. Reset the timer for the second batch.", "timers": [{ "id": "sear-batch", "label": "Sear a batch", "seconds": 120, "note": "Reset and start again for the second batch." }] },
-        { "id": "rest", "text": "Move the steak to a plate and let it rest.", "timers": [{ "id": "rest-steak", "label": "Rest steak", "seconds": 180 }] },
-        { "id": "finish", "text": "In the same skillet, melt the butter with the garlic for about a minute. Pour it over the steak and add the parsley." },
-        { "id": "potatoes", "text": "Optional kid starch: bake the potatoes on a separate tray at 425°F. Keep them off the low-carb plates.", "timers": [{ "id": "potatoes", "label": "Kid potatoes", "seconds": 2700, "note": "Only if you are making the optional potatoes." }] }
-      ],
-      "tasks": [
-        { "id": "steak-cut", "label": "Cut the steak into 1-inch cubes and pat it dry" },
-        { "id": "steak-skillet", "label": "Set a large skillet over medium-high" },
-        { "id": "steak-starch", "label": "Start kid potatoes only if you are making them" }
-      ]
-    },
-    {
-      "id": "broccoli-ham-bake",
-      "version": 1,
-      "title": "Broccoli ham bake",
-      "summary": "A creamy broccoli and ham casserole for Monday, Nov 9. Newly written for this app. The ham is already cooked.",
-      "servings": 6,
-      "servingsNote": "About 6 adult portions.",
-      "style": "Oven casserole. Low-carb as written. Rolls are an optional side for kids.",
-      "illustration": "oven",
-      "authoring": "Confirmed dinner name. Amounts are newly written for this app, not a copy of an older plan.",
-      "photo": {
-        "src": "assets/photos/broccoli-ham-bake.jpg",
-        "alt": "A cheesy broccoli and ham casserole in a cream baking dish.",
-        "caption": "Original image made for this app. It is not a third-party stock photo.",
-        "author": "Original image for these kitchen apps",
-        "license": "Original work for this project",
-        "licenseUrl": "",
-        "sourceUrl": "",
-        "changes": ""
-      },
-      "ingredients": [
-        { "id": "broccoli", "name": "broccoli florets", "amount": 6, "unit": "cups", "note": "about 1.5 lb at 6 portions", "scalable": true, "group": "shop", "groceryKey": "broccoli", "groceryName": "broccoli florets" },
-        { "id": "ham", "name": "diced cooked ham", "amount": 12, "unit": "oz", "scalable": true, "group": "shop", "groceryKey": "ham", "groceryName": "diced cooked ham" },
-        { "id": "cream", "name": "heavy cream", "amount": 1, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "heavy-cream", "groceryName": "heavy cream" },
-        { "id": "cheddar", "name": "shredded cheddar", "amount": 6, "unit": "oz", "scalable": true, "group": "shop", "groceryKey": "cheddar", "groceryName": "shredded cheddar" },
-        { "id": "cream-cheese", "name": "cream cheese", "amount": 4, "unit": "oz", "scalable": true, "group": "shop", "groceryKey": "cream-cheese", "groceryName": "cream cheese" },
-        { "id": "garlic", "name": "garlic", "amount": 2, "unit": "cloves", "scalable": true, "group": "shop", "groceryKey": "garlic", "groceryName": "garlic" },
-        { "id": "onion-powder", "name": "onion powder", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "onion-powder", "groceryName": "onion powder" },
-        { "id": "mustard", "name": "dry mustard", "amount": 0.5, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "dry-mustard", "groceryName": "dry mustard" },
-        { "id": "salt", "name": "salt", "amount": 0.5, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "salt", "groceryName": "salt" },
-        { "id": "pepper", "name": "black pepper", "amount": 0.5, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "black-pepper", "groceryName": "black pepper" },
-        { "id": "rolls", "name": "dinner rolls, only if kids want starch", "amount": 6, "unit": "rolls", "note": "Optional. Not part of the low-carb plate.", "scalable": true, "group": "kids-starch", "groceryKey": "dinner-rolls", "groceryName": "dinner rolls" }
-      ],
-      "steps": [
-        { "id": "heat", "text": "Heat the oven to 375°F." },
-        { "id": "steam", "text": "Steam or microwave the broccoli until it is bright green and still crisp.", "timers": [{ "id": "steam-broccoli", "label": "Steam broccoli", "seconds": 240 }] },
-        { "id": "sauce", "text": "Warm the cream cheese, cream, garlic, onion powder, mustard, salt, and pepper until the sauce is smooth.", "timers": [{ "id": "warm-sauce", "label": "Warm sauce", "seconds": 180 }] },
-        { "id": "assemble", "text": "Fold in the ham, broccoli, and most of the cheddar. Spread it in a 9-by-13-inch dish and top with the rest of the cheese." },
-        { "id": "bake", "text": "Bake until the casserole is bubbling and the cheese is melted, about 25 minutes. The ham is already cooked.", "timers": [{ "id": "bake-casserole", "label": "Bake casserole", "seconds": 1500 }] }
-      ],
-      "tasks": [
-        { "id": "broccoli-cut", "label": "Cut the broccoli into florets" },
-        { "id": "broccoli-ham", "label": "Dice the cooked ham" },
-        { "id": "broccoli-cheese", "label": "Shred the cheddar if it is not already shredded" }
-      ]
-    },
-    {
-      "id": "egg-roll-bowl",
-      "version": 1,
-      "title": "Egg roll in a bowl",
-      "summary": "Ground pork and cabbage in a skillet for Tuesday, Nov 10. Newly written for this app. No wrappers in the pan.",
-      "servings": 6,
-      "servingsNote": "About 6 adult portions.",
-      "style": "Skillet. Low-carb as written. Rice is an optional side for kids.",
-      "illustration": "skillet",
-      "authoring": "Confirmed dinner name. Amounts are newly written for this app, not a copy of an older plan.",
-      "photo": {
-        "src": "assets/photos/egg-roll-bowl.jpg",
-        "alt": "Ground pork, cabbage, and carrots in a skillet with green onions.",
-        "caption": "Original image made for this app. It is not a third-party stock photo.",
-        "author": "Original image for these kitchen apps",
-        "license": "Original work for this project",
-        "licenseUrl": "",
-        "sourceUrl": "",
-        "changes": ""
-      },
-      "ingredients": [
-        { "id": "pork", "name": "ground pork", "amount": 2, "unit": "lb", "scalable": true, "group": "shop", "groceryKey": "ground-pork", "groceryName": "ground pork" },
-        { "id": "slaw", "name": "coleslaw mix", "amount": 1.5, "unit": "lb", "note": "cabbage and carrots", "scalable": true, "group": "shop", "groceryKey": "coleslaw-mix", "groceryName": "coleslaw mix" },
-        { "id": "garlic", "name": "garlic", "amount": 4, "unit": "cloves", "scalable": true, "group": "shop", "groceryKey": "garlic", "groceryName": "garlic" },
-        { "id": "ginger", "name": "fresh ginger", "amount": 1, "unit": "tbsp", "scalable": true, "group": "shop", "groceryKey": "ginger", "groceryName": "fresh ginger" },
-        { "id": "aminos", "name": "coconut aminos or tamari", "amount": 0.33, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "coconut-aminos", "groceryName": "coconut aminos or tamari" },
-        { "id": "vinegar", "name": "rice vinegar", "amount": 1, "unit": "tbsp", "scalable": true, "group": "pantry", "groceryKey": "rice-vinegar", "groceryName": "rice vinegar" },
-        { "id": "sesame", "name": "sesame oil", "amount": 2, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "sesame-oil", "groceryName": "sesame oil" },
-        { "id": "onions", "name": "green onions", "amount": 4, "unit": "onions", "scalable": true, "group": "shop", "groceryKey": "green-onions", "groceryName": "green onions" },
-        { "id": "oil", "name": "olive oil", "amount": 1, "unit": "tbsp", "scalable": true, "group": "pantry", "groceryKey": "olive-oil", "groceryName": "olive oil" },
-        { "id": "pepper", "name": "black pepper", "amount": 0.5, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "black-pepper", "groceryName": "black pepper" },
-        { "id": "rice", "name": "dry long-grain rice, only if kids want starch", "amount": 1.5, "unit": "cups", "note": "Optional. Cook it separately. The skillet has no rice.", "scalable": true, "group": "kids-starch", "groceryKey": "rice", "groceryName": "long-grain rice" }
-      ],
-      "steps": [
-        { "id": "pork", "text": "Brown the ground pork in the oil, breaking it up, until it is no longer pink.", "timers": [{ "id": "brown-pork", "label": "Brown pork", "seconds": 480, "note": "Cook ground pork until it is no longer pink." }] },
-        { "id": "aroma", "text": "Stir in the garlic and ginger for about a minute. Add the pepper." },
-        { "id": "cabbage", "text": "Add the coleslaw mix, coconut aminos or tamari, and vinegar. Cook until the cabbage wilts but still has some bite.", "timers": [{ "id": "wilt-cabbage", "label": "Wilt cabbage", "seconds": 240 }] },
-        { "id": "finish", "text": "Take the pan off the heat. Stir in the sesame oil and green onions. Serve rice on the side only for kids who want it." }
-      ],
-      "tasks": [
-        { "id": "eggroll-meat", "label": "Set the ground pork out so it is not ice cold" },
-        { "id": "eggroll-garlic", "label": "Mince the garlic and ginger" },
-        { "id": "eggroll-onions", "label": "Slice the green onions" }
-      ]
-    },
-    {
       "id": "keto-pizza-bowls",
-      "version": 1,
-      "title": "Keto pizza bowls",
-      "summary": "Crustless pepperoni pizza bowls for Wednesday, Nov 11, with optional pita pizzas for kids. Newly written for this app.",
+      "version": 2,
+      "title": "Crustless pizza bowls",
+      "summary": "Monday, Nov 9. Kids have takeout pizza. Grown-ups have crustless bowls with Italian sausage, pepperoni, mushrooms, green pepper, low-sugar marinara, and mozzarella.",
       "servings": 6,
-      "servingsNote": "About 6 adult bowls.",
-      "style": "Oven. The bowls are low-carb. Pita is an optional kid crust.",
+      "servingsNote": "The amounts below are the grown-up batch written in the plan, not a second pizza for the kids. The portion control scales this batch.",
+      "style": "Oven, 400°F. The bowls have no crust. Takeout pizza is the kids' dinner.",
       "illustration": "oven",
-      "authoring": "Confirmed dinner name: kids' pizza night with keto pizza bowls. Amounts are newly written for this app.",
+      "authoring": "Household plan for Mon Nov 9, 2026. Amounts and the 400°F bake are from that plan.",
+      "safety": "Cook the Italian sausage to 160°F before it goes into the bowls. The 15 to 20 minutes in the oven melts the cheese. It is not a substitute for that temperature.",
+      "kidSide": "Kids eat takeout pizza. The bowls have no crust.",
       "photo": {
         "src": "assets/photos/pizza-night.jpg",
-        "alt": "A supreme pizza with pepperoni, olives, peppers, and mushrooms on a wooden table.",
-        "caption": "Photograph is a supreme pizza from the USDA (public domain). Wednesday's written dinner is crustless pepperoni bowls, with optional pita pizzas for kids.",
+        "alt": "A sliced supreme pizza with pepperoni, mushrooms, and peppers on a wooden table.",
+        "caption": "Photograph is a supreme pizza by Scott Bauer, public domain (USDA). It matches the kids' takeout pizza, which has a crust. The grown-up dinner is crustless bowls and is not what this photograph shows.",
         "author": "Scott Bauer",
         "license": "Public domain",
         "licenseUrl": "",
@@ -206,43 +73,226 @@
         "changes": "Saved a JPEG whose longest side is 1600 pixels or less."
       },
       "ingredients": [
-        { "id": "sausage", "name": "Italian sausage or ground beef", "amount": 1.5, "unit": "lb", "scalable": true, "group": "shop", "groceryKey": "italian-sausage", "groceryName": "Italian sausage or ground beef" },
-        { "id": "sauce", "name": "no-sugar-added marinara", "amount": 1.5, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "marinara", "groceryName": "no-sugar-added marinara" },
-        { "id": "cheese", "name": "shredded mozzarella", "amount": 3, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "mozzarella", "groceryName": "shredded mozzarella" },
-        { "id": "pepperoni", "name": "pepperoni slices", "amount": 42, "unit": "slices", "note": "about 3 oz at 6 portions", "scalable": true, "group": "shop", "groceryKey": "pepperoni", "groceryName": "pepperoni slices" },
-        { "id": "seasoning", "name": "Italian seasoning", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "italian-seasoning", "groceryName": "Italian seasoning" },
-        { "id": "garlic-powder", "name": "garlic powder", "amount": 0.5, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "garlic-powder", "groceryName": "garlic powder" },
-        { "id": "salt", "name": "salt", "amount": 0.25, "unit": "tsp", "note": "skip if the sausage is already salty", "scalable": true, "group": "pantry", "groceryKey": "salt", "groceryName": "salt" },
-        { "id": "kid-cheese", "name": "extra mozzarella for kid pitas", "amount": 1, "unit": "cups", "note": "Optional.", "scalable": true, "group": "kids-starch", "groceryKey": "mozzarella-kids", "groceryName": "mozzarella for kid pitas" },
-        { "id": "pitas", "name": "small pitas, only if kids want a crust", "amount": 6, "unit": "pitas", "note": "Optional. Not part of the low-carb bowls.", "scalable": true, "group": "kids-starch", "groceryKey": "pita", "groceryName": "small pitas" }
+        { "id": "sausage", "name": "Italian sausage", "amount": 1, "unit": "lb", "note": "no added sugar", "scalable": true, "group": "shop", "groceryKey": "italian-sausage", "groceryName": "Italian sausage, no added sugar" },
+        { "id": "pepperoni", "name": "pepperoni", "amount": 4, "unit": "oz", "scalable": true, "group": "shop", "groceryKey": "pepperoni", "groceryName": "pepperoni" },
+        { "id": "mushrooms", "name": "mushrooms", "amount": 8, "unit": "oz", "scalable": true, "group": "shop", "groceryKey": "mushrooms", "groceryName": "mushrooms" },
+        { "id": "pepper", "name": "green pepper", "amount": 1, "unit": "pepper", "scalable": true, "group": "shop", "groceryKey": "green-pepper", "groceryName": "green pepper" },
+        { "id": "marinara", "name": "low-sugar marinara", "amount": 12, "unit": "oz", "note": "half of a 24 oz jar, such as Rao's", "scalable": true, "group": "shop", "groceryKey": "marinara", "groceryName": "low-sugar marinara" },
+        { "id": "mozzarella", "name": "mozzarella", "amount": 8, "unit": "oz", "scalable": true, "group": "shop", "groceryKey": "mozzarella", "groceryName": "mozzarella" },
+        { "id": "takeout", "name": "takeout pizza for the kids", "note": "Order it. It is not part of the crustless bowls.", "scalable": false, "group": "kids", "groceryKey": "takeout-pizza", "groceryName": "takeout pizza" }
       ],
       "steps": [
-        { "id": "heat", "text": "Heat the oven to 400°F." },
-        { "id": "meat", "text": "Brown the sausage or beef, breaking it up, until it is no longer pink. Drain the fat. Stir in the Italian seasoning, garlic powder, and salt if you are using it.", "timers": [{ "id": "brown-meat", "label": "Brown meat", "seconds": 480, "note": "Cook ground meat until it is no longer pink." }] },
-        { "id": "bowls", "text": "Divide the meat among 6 oven-safe bowls. Spoon on the marinara, mozzarella, and pepperoni." },
-        { "id": "bake", "text": "Bake until the cheese is bubbly.", "timers": [{ "id": "bake-bowls", "label": "Bake bowls", "seconds": 720 }] },
-        { "id": "kids", "text": "Optional kid crust: sauce, cheese, and pepperoni on the pitas. Bake them on a separate tray.", "timers": [{ "id": "kid-pitas", "label": "Kid pitas", "seconds": 480, "note": "Only if you are making the optional pitas." }] }
+        { "id": "heat", "text": "Heat the oven to 400°F.", "timers": [{ "id": "preheat", "label": "Oven preheat", "seconds": 600, "note": "A reminder while the oven heats. It is not a thermometer." }] },
+        { "id": "slice", "text": "Slice the mushrooms and the green pepper. Set out oven-safe bowls for the grown-ups." },
+        { "id": "sausage", "text": "Brown the Italian sausage in a skillet, breaking it up, until no pink remains and it reaches 160°F. Drain the fat.", "timers": [{ "id": "brown-sausage", "label": "Check sausage", "seconds": 480, "note": "The plan does not set a browning time. Ground sausage is done at 160°F. Keep cooking if it is not there yet." }] },
+        { "id": "assemble", "text": "Divide the sausage among the bowls. Add the mushrooms, green pepper, pepperoni, half a jar of low-sugar marinara (12 oz of a 24 oz jar), and the mozzarella." },
+        { "id": "bake", "text": "Bake at 400°F for 15 to 20 minutes, until the cheese is bubbly. The sausage should already be 160°F.", "timers": [{ "id": "bake-bowls", "label": "Bake bowls", "seconds": 900, "note": "Start with 15 minutes. It may need up to 20. The cheese should be bubbly." }] },
+        { "id": "kids", "text": "Serve the kids their takeout pizza. The bowls have no crust." }
       ],
       "tasks": [
-        { "id": "pizza-bowls", "label": "Set out 6 oven-safe bowls" },
-        { "id": "pizza-cheese", "label": "Shred the mozzarella if it is not already shredded" },
-        { "id": "pizza-kids", "label": "Set pitas aside only if kids want a crust" }
+        { "id": "pizza-bowls", "label": "Set out oven-safe bowls" },
+        { "id": "pizza-slice", "label": "Slice the mushrooms and green pepper" },
+        { "id": "pizza-order", "label": "Order the kids' takeout pizza" },
+        { "id": "pizza-sauce", "label": "Use a low-sugar marinara, and only half the jar" }
+      ]
+    },
+    {
+      "id": "garlic-parmesan-chicken",
+      "version": 1,
+      "title": "Garlic Parmesan chicken",
+      "summary": "Tuesday, Nov 10. Boneless chicken breasts coated with garlic butter, Parmesan, and oregano, with a side salad. The chicken is already on hand.",
+      "servings": 6,
+      "servingsNote": "About 6 adult portions from about 3 lb of chicken breasts.",
+      "style": "Oven, 400°F. Low-carb as written. Side salad for the table.",
+      "illustration": "oven",
+      "authoring": "Household plan for Tue Nov 10, 2026. The simple garlic-Parmesan coating is the one written for this week.",
+      "safety": "Chicken is done at 165°F in the thickest part.",
+      "kidSide": "The side salad is for the table. This dinner has no separate kid starch.",
+      "photo": {
+        "src": "assets/photos/garlic-parmesan-chicken.jpg",
+        "alt": "A seasoned chicken breast beside a green salad on a patterned plate.",
+        "caption": "Photograph by Daderot, CC0. It shows a seasoned chicken breast with a side salad. Tuesday's coating is melted butter, garlic, Parmesan, and oregano, which this photo does not show. The salad in the photo is not dressed with the ranch from this plan.",
+        "author": "Daderot",
+        "license": "CC0 1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chicken_breast_and_salad_-_Massachusetts.jpg",
+        "changes": "Saved a JPEG whose longest side is 1600 pixels."
+      },
+      "ingredients": [
+        { "id": "chicken", "name": "boneless skinless chicken breasts", "amount": 3, "unit": "lb", "note": "Already on hand. Check the amount and that it is still safe to cook on Tuesday. Do not buy more for this dinner.", "scalable": true, "group": "on-hand", "groceryKey": "chicken-breasts", "groceryName": "boneless skinless chicken breasts" },
+        { "id": "butter", "name": "butter", "amount": 3, "unit": "tbsp", "note": "melted", "scalable": true, "group": "shop", "groceryKey": "butter", "groceryName": "butter" },
+        { "id": "garlic", "name": "garlic", "amount": 4, "unit": "cloves", "note": "minced", "scalable": true, "group": "shop", "groceryKey": "garlic", "groceryName": "garlic" },
+        { "id": "parmesan", "name": "grated Parmesan", "amount": 0.75, "unit": "cup", "note": "check what is already on hand before buying", "scalable": true, "group": "shop", "groceryKey": "parmesan", "groceryName": "Parmesan" },
+        { "id": "oregano", "name": "dried oregano", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "oregano", "groceryName": "dried oregano" },
+        { "id": "salt", "name": "salt", "note": "The plan says salt. It does not set a teaspoon amount.", "scalable": false, "group": "pantry", "groceryKey": "salt", "groceryName": "salt" },
+        { "id": "pepper", "name": "black pepper", "note": "A light sprinkle. The plan does not set a teaspoon amount.", "scalable": false, "group": "pantry", "groceryKey": "black-pepper", "groceryName": "black pepper" },
+        { "id": "greens", "name": "salad greens", "amount": 1, "unit": "bag", "note": "side salad", "scalable": true, "group": "shop", "groceryKey": "salad-greens", "groceryName": "salad greens" },
+        { "id": "ranch", "name": "ranch dressing", "note": "to serve with the salad", "scalable": false, "group": "pantry", "groceryKey": "ranch", "groceryName": "ranch dressing" }
+      ],
+      "steps": [
+        { "id": "heat", "text": "Heat the oven to 400°F.", "timers": [{ "id": "preheat", "label": "Oven preheat", "seconds": 600, "note": "A reminder while the oven heats. It is not a thermometer." }] },
+        { "id": "pound", "text": "Pound the chicken breasts to an even thickness and pat them dry. Season with salt and a light sprinkle of black pepper." },
+        { "id": "coat", "text": "Stir the melted butter, 4 minced garlic cloves, 3/4 cup grated Parmesan, and 1 teaspoon dried oregano. Coat the chicken with that mixture and set it in a baking dish." },
+        { "id": "bake", "text": "Bake at 400°F for 20 to 30 minutes, until the thickest part is 165°F.", "timers": [{ "id": "bake-20", "label": "Bake chicken", "seconds": 1200, "note": "Start with 20 minutes. It may need up to 30. Chicken is done at 165°F in the thickest part, not when the timer ends." }] },
+        { "id": "salad", "text": "Toss the salad greens with ranch and serve the salad beside the chicken." }
+      ],
+      "tasks": [
+        { "id": "chicken-check", "label": "Check that the on-hand chicken is still safe to cook" },
+        { "id": "chicken-pound", "label": "Pound the breasts to an even thickness" },
+        { "id": "chicken-garlic", "label": "Melt the butter and mince 4 garlic cloves" },
+        { "id": "chicken-salad", "label": "Rinse the salad greens" }
+      ]
+    },
+    {
+      "id": "steak-bites",
+      "version": 2,
+      "title": "Garlic butter steak bites",
+      "summary": "Wednesday, Nov 11. Sirloin cubes seared with garlic butter and mushrooms, cauliflower mash, and a side salad.",
+      "servings": 6,
+      "servingsNote": "About 6 adult portions from about 4 lb of sirloin.",
+      "style": "Skillet and a pot for the cauliflower. Low-carb as written.",
+      "illustration": "skillet",
+      "authoring": "Household plan for Wed Nov 11, 2026. Amounts, the sear, and 145°F are from that plan.",
+      "safety": "Whole-muscle steak is done at a minimum of 145°F in the center. Rest it at least 3 minutes.",
+      "kidSide": "The side salad is for the table. This dinner has no separate kid starch.",
+      "photo": {
+        "src": "assets/photos/steak-bites.jpg",
+        "alt": "Seared steak cubes in a skillet with garlic and herbs.",
+        "caption": "Artwork made for this app of steak cubes in garlic butter. It is not a photograph from this kitchen. Wednesday's plate also has mushrooms, cauliflower mash, and a side salad, which are not all in this picture.",
+        "author": "Original artwork for these kitchen apps",
+        "license": "Original work for this project",
+        "licenseUrl": "",
+        "sourceUrl": "",
+        "changes": ""
+      },
+      "ingredients": [
+        { "id": "sirloin", "name": "sirloin, cut into 1-inch cubes", "amount": 4, "unit": "lb", "scalable": true, "group": "shop", "groceryKey": "sirloin", "groceryName": "sirloin steak" },
+        { "id": "mushrooms", "name": "mushrooms", "amount": 1, "unit": "lb", "scalable": true, "group": "shop", "groceryKey": "mushrooms", "groceryName": "mushrooms" },
+        { "id": "cauliflower", "name": "cauliflower", "amount": 2, "unit": "heads", "note": "for mash", "scalable": true, "group": "shop", "groceryKey": "cauliflower", "groceryName": "cauliflower" },
+        { "id": "butter", "name": "butter", "amount": 4, "unit": "tbsp", "scalable": true, "group": "shop", "groceryKey": "butter", "groceryName": "butter" },
+        { "id": "garlic", "name": "garlic", "note": "The plan calls for garlic and does not set a clove count. Use part of the 2 heads on the grocery list.", "scalable": false, "group": "shop", "groceryKey": "garlic", "groceryName": "garlic" },
+        { "id": "salt", "name": "salt", "note": "The plan does not set a teaspoon amount.", "scalable": false, "group": "pantry", "groceryKey": "salt", "groceryName": "salt" },
+        { "id": "pepper", "name": "black pepper", "note": "The plan does not set a teaspoon amount.", "scalable": false, "group": "pantry", "groceryKey": "black-pepper", "groceryName": "black pepper" },
+        { "id": "greens", "name": "salad greens", "amount": 1, "unit": "bag", "note": "side salad", "scalable": true, "group": "shop", "groceryKey": "salad-greens", "groceryName": "salad greens" },
+        { "id": "ranch", "name": "ranch dressing", "note": "to serve with the salad", "scalable": false, "group": "pantry", "groceryKey": "ranch", "groceryName": "ranch dressing" }
+      ],
+      "steps": [
+        { "id": "cut", "text": "Cut the sirloin into 1-inch cubes and pat them dry. Season with salt and black pepper. Cut the cauliflower into florets and start it steaming. The plan does not set a steam time. Mash it when a fork goes through." },
+        { "id": "sear", "text": "Heat a large skillet until it is very hot. Sear the steak in batches, 2 to 3 minutes a side, so the pan stays hot. The center of a cube should reach at least 145°F.", "timers": [{ "id": "sear-side", "label": "Sear one side", "seconds": 120, "note": "One side. Flip and start the timer again. Repeat for the next batch. 145°F in the center is the minimum. The second side may need the full 3 minutes." }] },
+        { "id": "rest", "text": "Move the steak to a plate and rest it at least 3 minutes.", "timers": [{ "id": "rest-steak", "label": "Rest steak", "seconds": 180, "note": "Rest at least 3 minutes after it reaches 145°F." }] },
+        { "id": "mushrooms", "text": "In the same skillet, melt the 4 tablespoons of butter and cook the garlic and mushrooms until the mushrooms are browned. Spoon that garlic butter over the steak." },
+        { "id": "mash", "text": "Mash the steamed cauliflower. Serve it with the steak, the mushrooms, and a side salad tossed with ranch." }
+      ],
+      "tasks": [
+        { "id": "steak-cut", "label": "Cut the sirloin into 1-inch cubes and pat it dry" },
+        { "id": "steak-mushrooms", "label": "Trim the mushrooms" },
+        { "id": "steak-cauliflower", "label": "Cut 2 heads of cauliflower into florets" },
+        { "id": "steak-salad", "label": "Rinse the salad greens" }
+      ]
+    },
+    {
+      "id": "broccoli-ham-bake",
+      "version": 2,
+      "title": "Cheesy broccoli ham bake",
+      "summary": "Thursday, Nov 12. Diced cooked ham baked with broccoli, cheddar, heavy cream, cream cheese, and garlic.",
+      "servings": 6,
+      "servingsNote": "About 6 adult portions. The ham is already cooked.",
+      "style": "Oven, 375°F. Low-carb as written.",
+      "illustration": "oven",
+      "authoring": "Household plan for Thu Nov 12, 2026. Amounts and the 375°F bake are from that plan.",
+      "safety": "The ham is already cooked. Bake until the casserole is hot and the cheese is bubbly. This dinner does not start with raw meat.",
+      "kidSide": "This dinner has no separate kid starch.",
+      "photo": {
+        "src": "assets/photos/broccoli-ham-bake.jpg",
+        "alt": "A broccoli and ham casserole with melted cheddar in a baking dish.",
+        "caption": "Artwork made for this app of a broccoli, ham, and cheese bake. It is not a photograph from this kitchen.",
+        "author": "Original artwork for these kitchen apps",
+        "license": "Original work for this project",
+        "licenseUrl": "",
+        "sourceUrl": "",
+        "changes": ""
+      },
+      "ingredients": [
+        { "id": "ham", "name": "diced cooked ham", "amount": 2.5, "unit": "lb", "note": "already cooked", "scalable": true, "group": "shop", "groceryKey": "ham", "groceryName": "diced cooked ham" },
+        { "id": "broccoli", "name": "broccoli florets", "amount": 3, "unit": "lb", "scalable": true, "group": "shop", "groceryKey": "broccoli", "groceryName": "broccoli" },
+        { "id": "cheddar", "name": "shredded cheddar", "amount": 2, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "cheddar", "groceryName": "shredded cheddar" },
+        { "id": "cream", "name": "heavy cream", "amount": 1, "unit": "cup", "scalable": true, "group": "shop", "groceryKey": "heavy-cream", "groceryName": "heavy cream" },
+        { "id": "cream-cheese", "name": "cream cheese", "amount": 4, "unit": "oz", "scalable": true, "group": "shop", "groceryKey": "cream-cheese", "groceryName": "cream cheese" },
+        { "id": "garlic", "name": "garlic", "note": "The plan calls for garlic and does not set a clove count. Use part of the 2 heads on the grocery list.", "scalable": false, "group": "shop", "groceryKey": "garlic", "groceryName": "garlic" }
+      ],
+      "steps": [
+        { "id": "heat", "text": "Heat the oven to 375°F.", "timers": [{ "id": "preheat", "label": "Oven preheat", "seconds": 600, "note": "A reminder while the oven heats. It is not a thermometer." }] },
+        { "id": "prep", "text": "Cut the broccoli into florets if it is still in crowns. Dice the ham if it is not already diced. The ham is cooked ham." },
+        { "id": "mix", "text": "Stir the cream cheese, heavy cream, and minced garlic together. Fold in the ham, broccoli, and most of the cheddar. Spread it in a baking dish and top with the rest of the cheddar." },
+        { "id": "bake", "text": "Bake at 375°F for 25 to 30 minutes, until the cheese is bubbly and the casserole is hot. The ham was already cooked.", "timers": [{ "id": "bake-ham", "label": "Bake casserole", "seconds": 1500, "note": "Start with 25 minutes. It may need up to 30. It is ready when the cheese is bubbly." }] }
+      ],
+      "tasks": [
+        { "id": "ham-dice", "label": "Dice the cooked ham" },
+        { "id": "ham-broccoli", "label": "Cut the broccoli into florets" },
+        { "id": "ham-cheese", "label": "Set out cheddar, cream, and cream cheese" }
+      ]
+    },
+    {
+      "id": "egg-roll-bowl",
+      "version": 2,
+      "title": "Egg roll in a bowl",
+      "summary": "Friday, Nov 13. Ground beef and coleslaw mix with ginger, garlic, coconut aminos or soy, and sesame oil. Rice is optional for the kids.",
+      "servings": 6,
+      "servingsNote": "About 6 adult portions. The skillet has no rice.",
+      "style": "Skillet. Low-carb as written. Rice is an optional side for kids.",
+      "illustration": "skillet",
+      "authoring": "Household plan for Fri Nov 13, 2026. The meat is ground beef, cooked to 160°F.",
+      "safety": "Ground beef is done at 160°F.",
+      "kidSide": "Rice on the side if the kids want it. Cook the rice in a separate pot. The skillet has no rice.",
+      "photo": {
+        "src": "assets/photos/egg-roll-bowl.jpg",
+        "alt": "Ground meat and cabbage in a skillet with green onions.",
+        "caption": "Artwork made for this app of a ground-meat and cabbage skillet. It is not a photograph from this kitchen. Friday's meat is ground beef. Rice, if the kids want it, is cooked separately and is not in the pan.",
+        "author": "Original artwork for these kitchen apps",
+        "license": "Original work for this project",
+        "licenseUrl": "",
+        "sourceUrl": "",
+        "changes": ""
+      },
+      "ingredients": [
+        { "id": "beef", "name": "ground beef", "amount": 3, "unit": "lb", "note": "cook to 160°F", "scalable": true, "group": "shop", "groceryKey": "ground-beef", "groceryName": "ground beef" },
+        { "id": "slaw", "name": "coleslaw mix", "amount": 2, "unit": "bags", "note": "about 28 oz total", "scalable": true, "group": "shop", "groceryKey": "coleslaw-mix", "groceryName": "coleslaw mix" },
+        { "id": "onions", "name": "green onions", "amount": 1, "unit": "bunch", "scalable": true, "group": "shop", "groceryKey": "green-onions", "groceryName": "green onions" },
+        { "id": "ginger", "name": "fresh ginger", "note": "The plan calls for fresh ginger and does not set an amount.", "scalable": false, "group": "shop", "groceryKey": "ginger", "groceryName": "fresh ginger" },
+        { "id": "garlic", "name": "garlic", "note": "The plan calls for garlic and does not set a clove count.", "scalable": false, "group": "shop", "groceryKey": "garlic", "groceryName": "garlic" },
+        { "id": "aminos", "name": "coconut aminos or soy sauce", "note": "The plan does not set a tablespoon amount. Use enough to coat the cabbage.", "scalable": false, "group": "pantry", "groceryKey": "coconut-aminos", "groceryName": "coconut aminos or soy sauce" },
+        { "id": "sesame", "name": "sesame oil", "note": "A drizzle at the end. The plan does not set a teaspoon amount.", "scalable": false, "group": "pantry", "groceryKey": "sesame-oil", "groceryName": "sesame oil" },
+        { "id": "rice", "name": "rice for the kids", "note": "Optional. Cook it separately. The plan does not set a cup amount.", "scalable": false, "group": "kids-starch", "groceryKey": "rice", "groceryName": "rice" }
+      ],
+      "steps": [
+        { "id": "beef", "text": "Cook the ground beef in a large skillet, breaking it up, until no pink remains and it reaches 160°F.", "timers": [{ "id": "check-beef", "label": "Check beef", "seconds": 480, "note": "The plan does not set a minute count. Ground beef is done at 160°F. Three pounds often needs longer than this check." }] },
+        { "id": "aroma", "text": "Stir in the ginger and garlic until they smell fragrant." },
+        { "id": "cabbage", "text": "Add both bags of coleslaw mix and the coconut aminos or soy sauce. Cook until the cabbage wilts and still has a little bite." },
+        { "id": "finish", "text": "Take the pan off the heat. Stir in the green onions and a drizzle of sesame oil." },
+        { "id": "rice", "text": "If the kids want rice, cook it in a separate pot. The skillet stays rice-free." }
+      ],
+      "tasks": [
+        { "id": "eggroll-thermo", "label": "Set a thermometer where you can reach it" },
+        { "id": "eggroll-slice", "label": "Slice the green onions and mince the ginger and garlic" },
+        { "id": "eggroll-rice", "label": "Start rice only if the kids want it" }
       ]
     },
     {
       "id": "pork-carnitas",
-      "version": 1,
-      "title": "Pork carnitas",
-      "summary": "Oven-braised pork shoulder for Thursday, Nov 12, finished under the broiler. Newly written for this app. Lime and broth stand in for a sweeter traditional braise.",
+      "version": 2,
+      "title": "Pork carnitas lettuce cups",
+      "summary": "Saturday, Nov 14. Slow-cooker pork shoulder shredded and crisped, served in lettuce cups with lime slaw, avocado, and sour cream. Tortillas are for the kids.",
       "servings": 6,
-      "servingsNote": "About 6 adult portions.",
-      "style": "Low-carb as written: meat, cabbage, and lime. Tortillas are an optional side for kids.",
+      "servingsNote": "About 6 adult portions from about 5 lb of pork shoulder. The 8 hours on low does not change when you change the portion count.",
+      "style": "Slow cooker on low, then a short broil. Low-carb in lettuce cups.",
       "illustration": "pot",
-      "authoring": "Confirmed dinner name. Amounts are newly written for this app, not a copy of an older plan.",
+      "authoring": "Household plan for Sat Nov 14, 2026. Low for 8 hours, then shred and broil.",
+      "safety": "Whole cuts of pork are safe at 145°F. This shoulder stays on low for 8 hours so it shreds. It should pull apart easily before you broil it.",
+      "kidSide": "Tortillas for the kids. Adults eat lettuce cups.",
       "photo": {
         "src": "assets/photos/carnitas-pork.jpg",
-        "alt": "A plate piled with shredded cooked pork.",
-        "caption": "Photograph is shredded pork by Michael J. Bennett (CC BY-SA 3.0), used to illustrate carnitas. It is not a photo of this exact recipe. Tortillas are optional and are not in the picture.",
+        "alt": "A white plate piled with shredded cooked pork.",
+        "caption": "Photograph of shredded pork by Michael J. Bennett, CC BY-SA 3.0. Saturday's dinner is that pork in lettuce cups with lime slaw, avocado, and sour cream. Those sides are not in this photo. Tortillas are only for the kids.",
         "author": "Michael J. Bennett",
         "license": "CC BY-SA 3.0",
         "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
@@ -250,127 +300,33 @@
         "changes": "Saved a JPEG whose longest side is 1600 pixels or less."
       },
       "ingredients": [
-        { "id": "shoulder", "name": "boneless pork shoulder", "amount": 3.5, "unit": "lb", "scalable": true, "group": "shop", "groceryKey": "pork-shoulder", "groceryName": "boneless pork shoulder" },
-        { "id": "salt", "name": "salt", "amount": 3, "unit": "tsp", "note": "1 tablespoon at 6 portions", "scalable": true, "group": "pantry", "groceryKey": "salt", "groceryName": "salt" },
-        { "id": "pepper", "name": "black pepper", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "black-pepper", "groceryName": "black pepper" },
-        { "id": "cumin", "name": "ground cumin", "amount": 2, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "cumin", "groceryName": "ground cumin" },
-        { "id": "chili", "name": "chili powder", "amount": 2, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "chili-powder", "groceryName": "chili powder" },
-        { "id": "oregano", "name": "dried oregano", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "oregano", "groceryName": "dried oregano" },
+        { "id": "shoulder", "name": "pork shoulder", "amount": 5, "unit": "lb", "scalable": true, "group": "shop", "groceryKey": "pork-shoulder", "groceryName": "pork shoulder" },
         { "id": "onion", "name": "onion", "amount": 1, "unit": "onion", "scalable": true, "group": "shop", "groceryKey": "onion", "groceryName": "onion" },
-        { "id": "garlic", "name": "garlic", "amount": 6, "unit": "cloves", "scalable": true, "group": "shop", "groceryKey": "garlic", "groceryName": "garlic" },
-        { "id": "lime", "name": "lime juice", "amount": 0.25, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "lime-juice", "groceryName": "lime juice" },
-        { "id": "broth", "name": "chicken broth", "amount": 0.5, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "chicken-broth", "groceryName": "chicken broth" },
-        { "id": "cabbage", "name": "shredded cabbage", "amount": 2, "unit": "cups", "note": "for serving", "scalable": true, "group": "shop", "groceryKey": "cabbage", "groceryName": "shredded cabbage" },
-        { "id": "cilantro", "name": "cilantro", "amount": 0.5, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "cilantro", "groceryName": "cilantro" },
-        { "id": "tortillas", "name": "corn tortillas, only if kids want starch", "amount": 12, "unit": "tortillas", "note": "Optional. Not part of the low-carb plate.", "scalable": true, "group": "kids-starch", "groceryKey": "corn-tortillas", "groceryName": "corn tortillas" }
+        { "id": "limes", "name": "limes", "amount": 3, "unit": "limes", "note": "for the cooker, the slaw, and serving", "scalable": true, "group": "shop", "groceryKey": "limes", "groceryName": "limes" },
+        { "id": "slaw", "name": "coleslaw mix", "amount": 1, "unit": "bag", "note": "lime slaw", "scalable": true, "group": "shop", "groceryKey": "coleslaw-mix", "groceryName": "coleslaw mix" },
+        { "id": "lettuce", "name": "butter or iceberg lettuce", "amount": 2, "unit": "heads", "note": "for cups", "scalable": true, "group": "shop", "groceryKey": "lettuce", "groceryName": "butter or iceberg lettuce" },
+        { "id": "avocado", "name": "avocados", "amount": 3, "unit": "avocados", "scalable": true, "group": "shop", "groceryKey": "avocados", "groceryName": "avocados" },
+        { "id": "cilantro", "name": "cilantro", "note": "The plan calls for cilantro and does not set an amount.", "scalable": false, "group": "shop", "groceryKey": "cilantro", "groceryName": "cilantro" },
+        { "id": "cumin", "name": "ground cumin", "note": "The plan names cumin and does not set a teaspoon amount.", "scalable": false, "group": "pantry", "groceryKey": "cumin", "groceryName": "cumin" },
+        { "id": "chili", "name": "chili powder", "note": "The plan names chili powder and does not set a teaspoon amount.", "scalable": false, "group": "pantry", "groceryKey": "chili-powder", "groceryName": "chili powder" },
+        { "id": "oregano", "name": "dried oregano", "note": "The plan names oregano and does not set a teaspoon amount for the pork.", "scalable": false, "group": "pantry", "groceryKey": "oregano", "groceryName": "dried oregano" },
+        { "id": "salt", "name": "salt", "note": "The plan does not set a teaspoon amount.", "scalable": false, "group": "pantry", "groceryKey": "salt", "groceryName": "salt" },
+        { "id": "sour-cream", "name": "sour cream", "note": "for serving", "scalable": false, "group": "shop", "groceryKey": "sour-cream", "groceryName": "sour cream" },
+        { "id": "tortillas", "name": "tortillas for the kids", "note": "Optional for the kids. The plan does not set a count.", "scalable": false, "group": "kids-starch", "groceryKey": "tortillas", "groceryName": "tortillas" }
       ],
       "steps": [
-        { "id": "heat", "text": "Heat the oven to 325°F. Rub the pork with the salt, pepper, cumin, chili powder, and oregano." },
-        { "id": "pot", "text": "Put the onion, garlic, lime juice, and broth in a Dutch oven. Nestle the pork in. Cover the pot." },
-        { "id": "braise", "text": "Braise until the pork shreds easily with a fork, about 3 hours. It should be fork-tender.", "timers": [{ "id": "braise", "label": "Braise pork", "seconds": 10800, "note": "The end time is saved, so this long timer keeps counting if you leave the page." }] },
-        { "id": "crisp", "text": "Shred the pork and spread it on a sheet pan. Broil until the edges crisp.", "timers": [{ "id": "broil", "label": "Broil to crisp", "seconds": 300 }] },
-        { "id": "serve", "text": "Serve with cabbage, cilantro, and lime. Warm tortillas only for kids who want them." }
+        { "id": "load", "text": "Put the pork shoulder in the slow cooker with the onion, cumin, chili powder, oregano, and salt. Squeeze in lime. Save some lime for the slaw and the table." },
+        { "id": "cook", "text": "Cook on low for 8 hours, until the pork shreds easily with a fork. Whole cuts of pork are safe at 145°F. This shoulder cooks longer so it pulls apart.", "timers": [{ "id": "slow-8h", "label": "Slow cook", "seconds": 28800, "note": "Low for 8 hours, which is what the plan sets. The end time is saved, so it keeps counting if you leave the page. Check that it shreds. The 8 hours does not change if you change the portion count." }] },
+        { "id": "shred", "text": "Shred the pork." },
+        { "id": "broil", "text": "Spread the shredded pork on a sheet pan and broil until the edges crisp. Stay at the oven. The plan does not set a broil time.", "timers": [{ "id": "check-broil", "label": "Check broiler", "seconds": 180, "note": "The plan does not set a broil time. This only tells you to look so it does not burn." }] },
+        { "id": "slaw", "text": "Toss the coleslaw mix with lime juice for the slaw." },
+        { "id": "serve", "text": "Serve the pork in lettuce cups with the lime slaw, avocado, sour cream, and cilantro. Warm tortillas only for the kids." }
       ],
       "tasks": [
-        { "id": "carnitas-rub", "label": "Mix the spice rub" },
-        { "id": "carnitas-onion", "label": "Slice the onion and smash the garlic" },
-        { "id": "carnitas-pot", "label": "Find a Dutch oven with a lid" },
-        { "id": "carnitas-cabbage", "label": "Shred cabbage for serving" }
-      ]
-    },
-    {
-      "id": "shrimp-scampi",
-      "version": 1,
-      "title": "Shrimp scampi",
-      "summary": "Garlic-butter shrimp for Friday, Nov 13, finished with broth and lemon. Newly written for this app. No pasta in the skillet.",
-      "servings": 6,
-      "servingsNote": "About 6 adult portions.",
-      "style": "Skillet. Low-carb as written. Spaghetti is an optional side for kids.",
-      "illustration": "skillet",
-      "authoring": "Confirmed dinner name. Amounts are newly written for this app, not a copy of an older plan.",
-      "photo": {
-        "src": "assets/photos/shrimp-scampi.jpg",
-        "alt": "Shrimp in a garlic-butter sauce in a dark skillet, with parsley.",
-        "caption": "Photograph is shrimp scampi by Jon Sullivan, public domain. This recipe is served without pasta unless you cook the optional kid starch.",
-        "author": "Jon Sullivan",
-        "license": "Public domain",
-        "licenseUrl": "",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shrimp_scampi_food.jpg",
-        "changes": "Saved a JPEG whose longest side is 1600 pixels or less."
-      },
-      "ingredients": [
-        { "id": "shrimp", "name": "large shrimp, peeled and deveined", "amount": 2, "unit": "lb", "scalable": true, "group": "shop", "groceryKey": "shrimp", "groceryName": "large shrimp" },
-        { "id": "butter", "name": "butter", "amount": 8, "unit": "tbsp", "scalable": true, "group": "shop", "groceryKey": "butter", "groceryName": "butter" },
-        { "id": "oil", "name": "olive oil", "amount": 3, "unit": "tbsp", "scalable": true, "group": "pantry", "groceryKey": "olive-oil", "groceryName": "olive oil" },
-        { "id": "garlic", "name": "garlic", "amount": 6, "unit": "cloves", "scalable": true, "group": "shop", "groceryKey": "garlic", "groceryName": "garlic" },
-        { "id": "flakes", "name": "red pepper flakes", "amount": 0.5, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "red-pepper-flakes", "groceryName": "red pepper flakes" },
-        { "id": "broth", "name": "chicken broth", "amount": 0.5, "unit": "cups", "note": "use this instead of wine", "scalable": true, "group": "shop", "groceryKey": "chicken-broth", "groceryName": "chicken broth" },
-        { "id": "lemons", "name": "lemons", "amount": 2, "unit": "lemons", "note": "juice one, cut the other into wedges", "scalable": true, "group": "shop", "groceryKey": "lemons", "groceryName": "lemons" },
-        { "id": "parsley", "name": "fresh parsley", "amount": 4, "unit": "tbsp", "scalable": true, "group": "shop", "groceryKey": "parsley", "groceryName": "fresh parsley" },
-        { "id": "salt", "name": "salt", "amount": 0.5, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "salt", "groceryName": "salt" },
-        { "id": "pepper", "name": "black pepper", "amount": 0.25, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "black-pepper", "groceryName": "black pepper" },
-        { "id": "pasta", "name": "spaghetti, only if kids want starch", "amount": 12, "unit": "oz", "note": "Optional. Cook it separately.", "scalable": true, "group": "kids-starch", "groceryKey": "spaghetti", "groceryName": "spaghetti" }
-      ],
-      "steps": [
-        { "id": "dry", "text": "Pat the shrimp dry and season with the salt and pepper." },
-        { "id": "shrimp", "text": "Heat the oil and 2 tablespoons of the butter. Cook the shrimp in two batches until they are pink and opaque, about 2 minutes per batch. Do not keep cooking them after that. Reset the timer for the second batch.", "timers": [{ "id": "cook-shrimp", "label": "Cook shrimp", "seconds": 120, "note": "Shrimp are done when they are pink and opaque." }] },
-        { "id": "garlic", "text": "Lower the heat. Add the garlic and red pepper flakes and stir until fragrant.", "timers": [{ "id": "garlic-30", "label": "Garlic", "seconds": 45 }] },
-        { "id": "sauce", "text": "Add the broth and the juice of one lemon. Simmer, then swirl in the rest of the butter and the parsley off the heat. Serve with lemon wedges. Spaghetti stays on the side for kids who want it.", "timers": [{ "id": "simmer-sauce", "label": "Simmer sauce", "seconds": 120 }] }
-      ],
-      "tasks": [
-        { "id": "scampi-peel", "label": "Peel and devein the shrimp if they are not already prepared" },
-        { "id": "scampi-garlic", "label": "Mince the garlic and chop the parsley" },
-        { "id": "scampi-pasta", "label": "Boil pasta only if kids want it" }
-      ]
-    },
-    {
-      "id": "tuscan-chicken",
-      "version": 1,
-      "title": "Tuscan chicken",
-      "summary": "Seared chicken in a creamy spinach and sun-dried tomato sauce for Saturday, Nov 14. Newly written for this app. Chicken is done at 165°F.",
-      "servings": 6,
-      "servingsNote": "About 6 adult portions.",
-      "style": "Skillet. Low-carb as written. Potatoes are an optional side for kids.",
-      "illustration": "skillet",
-      "authoring": "Confirmed dinner name. Amounts are newly written for this app, not a copy of an older plan.",
-      "photo": {
-        "src": "assets/photos/tuscan-chicken.jpg",
-        "alt": "Seared chicken in a creamy sauce with spinach, sun-dried tomatoes, and basil.",
-        "caption": "Original image made for this app. It is not a third-party stock photo.",
-        "author": "Original image for these kitchen apps",
-        "license": "Original work for this project",
-        "licenseUrl": "",
-        "sourceUrl": "",
-        "changes": ""
-      },
-      "ingredients": [
-        { "id": "chicken", "name": "chicken breasts", "amount": 3, "unit": "lb", "note": "about 6 breasts, pounded to an even thickness", "scalable": true, "group": "shop", "groceryKey": "chicken-breasts", "groceryName": "chicken breasts" },
-        { "id": "oil", "name": "olive oil", "amount": 2, "unit": "tbsp", "scalable": true, "group": "pantry", "groceryKey": "olive-oil", "groceryName": "olive oil" },
-        { "id": "salt", "name": "salt", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "salt", "groceryName": "salt" },
-        { "id": "pepper", "name": "black pepper", "amount": 0.75, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "black-pepper", "groceryName": "black pepper" },
-        { "id": "italian", "name": "Italian seasoning", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "italian-seasoning", "groceryName": "Italian seasoning" },
-        { "id": "garlic-powder", "name": "garlic powder", "amount": 1, "unit": "tsp", "scalable": true, "group": "pantry", "groceryKey": "garlic-powder", "groceryName": "garlic powder" },
-        { "id": "garlic", "name": "garlic", "amount": 5, "unit": "cloves", "scalable": true, "group": "shop", "groceryKey": "garlic", "groceryName": "garlic" },
-        { "id": "cream", "name": "heavy cream", "amount": 0.75, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "heavy-cream", "groceryName": "heavy cream" },
-        { "id": "broth", "name": "chicken broth", "amount": 0.5, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "chicken-broth", "groceryName": "chicken broth" },
-        { "id": "tomatoes", "name": "oil-packed sun-dried tomatoes, drained", "amount": 0.5, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "sun-dried-tomatoes", "groceryName": "sun-dried tomatoes" },
-        { "id": "spinach", "name": "baby spinach", "amount": 5, "unit": "oz", "scalable": true, "group": "shop", "groceryKey": "spinach", "groceryName": "baby spinach" },
-        { "id": "parmesan", "name": "grated Parmesan", "amount": 0.5, "unit": "cups", "scalable": true, "group": "shop", "groceryKey": "parmesan", "groceryName": "Parmesan" },
-        { "id": "potatoes", "name": "potatoes for mashing, only if kids want starch", "amount": 1.5, "unit": "lb", "note": "Optional. Not part of the low-carb plate.", "scalable": true, "group": "kids-starch", "groceryKey": "potatoes-mash", "groceryName": "potatoes for mashing" }
-      ],
-      "steps": [
-        { "id": "season", "text": "Pat the chicken dry. Season with the salt, pepper, Italian seasoning, and garlic powder." },
-        { "id": "sear", "text": "Sear the chicken in the oil, about 6 minutes per side. It is done at 165°F in the thickest part. If it is not there yet, it finishes in the sauce. Reset the timer after you flip.", "timers": [{ "id": "sear-side", "label": "Sear one side", "seconds": 360, "note": "Reset after you flip. Check 165°F in the thickest part." }] },
-        { "id": "garlic", "text": "Move the chicken to a plate. Add the garlic and stir until fragrant.", "timers": [{ "id": "garlic-30", "label": "Garlic", "seconds": 30 }] },
-        { "id": "sauce", "text": "Add the broth, cream, and sun-dried tomatoes. Simmer.", "timers": [{ "id": "simmer-sauce", "label": "Simmer sauce", "seconds": 180 }] },
-        { "id": "spinach", "text": "Stir in the spinach and Parmesan until the spinach wilts.", "timers": [{ "id": "wilt-spinach", "label": "Wilt spinach", "seconds": 120 }] },
-        { "id": "finish", "text": "Return the chicken and spoon the sauce over it. Heat until the thickest part is 165°F. Potatoes, if you make them, stay on the side.", "timers": [{ "id": "finish-chicken", "label": "Heat through", "seconds": 300, "note": "Check 165°F before serving." }] }
-      ],
-      "tasks": [
-        { "id": "tuscan-pound", "label": "Pound the chicken to an even thickness" },
-        { "id": "tuscan-garlic", "label": "Mince the garlic and drain the sun-dried tomatoes" },
-        { "id": "tuscan-spinach", "label": "Wash the spinach" },
-        { "id": "tuscan-starch", "label": "Start kid potatoes only if you are making them" }
+        { "id": "carnitas-morning", "label": "Start the slow cooker in the morning" },
+        { "id": "carnitas-onion", "label": "Slice the onion and set out the spices" },
+        { "id": "carnitas-lettuce", "label": "Wash the lettuce and save the slaw for serving time" },
+        { "id": "carnitas-kids", "label": "Set tortillas aside only if the kids want them" }
       ]
     }
   ]
