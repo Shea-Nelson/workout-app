@@ -94,11 +94,28 @@ ul.plain{margin:6px 0;padding-left:20px}
 .sk::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:sh 1.2s infinite}
 @keyframes sh{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 @media (max-width:400px){#timer{gap:5px;padding-left:8px;padding-right:8px}.tbox{min-width:76px}.tbox b{font-size:26px}#timer button{padding:0 9px;font-size:14px}#timer button.primary{min-width:64px}}
+.restbanner{background:#ffd54a;color:#1d1b2e;border-radius:14px;padding:12px 14px;font-size:16px;font-weight:800;line-height:1.35;margin:0 0 12px}
+.daytabs{display:flex;gap:8px;margin-top:12px}
+.daytabs button{flex:1;min-height:72px;border-radius:16px;border:2px solid rgba(255,255,255,.7);background:rgba(255,255,255,.16);color:#fff;font-weight:800;padding:8px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;line-height:1.15}
+.daytabs button b{font-size:15px}
+.daytabs button span{font-size:13px;font-weight:700}
+.daytabs button small{font-size:11px;font-weight:800;letter-spacing:.2px;opacity:.9}
+.daytabs button[aria-selected="true"]{background:#fff;color:#3b2a8a;border-color:#fff}
+.viewnote{margin:10px 2px 0;color:#fff;font-size:14px;font-weight:700}
 .demo{background:#f6f4ff;border-radius:18px;margin:12px 0 4px;border:2px solid #e4defc;overflow:hidden}
-.demo svg{display:block;width:100%;max-height:250px;cursor:pointer}
-.dbar{display:flex;align-items:center;justify-content:space-between;padding:0 8px 8px 14px;gap:8px}
-.dlab{font-size:16px;font-weight:800;color:#5b3df5}
-.dplay{min-height:44px;padding:0 14px;border-radius:12px;border:2px solid #5b3df5;background:#fff;color:#5b3df5;font-weight:700;font-size:15px}
+.dviews{display:grid;grid-template-columns:1fr 1fr}
+.dviews figure{margin:0;min-width:0}
+.dviews figure+figure{border-left:1px solid #e4defc}
+.dviews figcaption{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#5b3df5;padding:8px 4px 0 10px}
+.demo svg{display:block;width:100%;height:auto;cursor:pointer}
+.dbar{display:flex;align-items:center;justify-content:space-between;padding:4px 8px 8px 14px;gap:8px}
+.dlab{font-size:14px;font-weight:800;color:#5b3df5;line-height:1.25;flex:1;min-width:0}
+.dplay{min-height:44px;padding:0 14px;border-radius:12px;border:2px solid #5b3df5;background:#fff;color:#5b3df5;font-weight:700;font-size:15px;flex:0 0 auto}
+@media (prefers-reduced-motion: reduce){
+  .prog i,.prog s,#timer{transition:none}
+  #timer.done,#timer.flash{animation:none}
+  .sk::after{animation:none}
+}
 </style>
 </head>
 <body>
@@ -113,9 +130,12 @@ ul.plain{margin:6px 0;padding-left:20px}
 
 <div class="wrap">
   <div class="hero">
+    <div class="restbanner hidden" id="restBanner" role="status"></div>
     <div class="k" id="kicker">&nbsp;</div>
     <h1 id="title">Today's workout</h1>
     <div id="sub">Loading your exercises…</div>
+    <div class="daytabs" id="daytabs" role="tablist" aria-label="Strength workouts this week"></div>
+    <p class="viewnote hidden" id="viewNote"></p>
     <div class="prog" aria-hidden="true"><i id="progbar"></i><s id="progskip"></s></div>
     <div class="progtxt" id="progtxt"></div>
     <div class="rest" id="rest"><span>Rest:</span><button data-rest="60">60 sec</button><button data-rest="90">90 sec</button><button data-rest="120">2 min</button></div>
@@ -151,34 +171,107 @@ ul.plain{margin:6px 0;padding-left:20px}
 </div>
 <div id="toast" class="hidden"><span id="toastTxt"></span><button id="toastBtn" class="hidden">Undo</button></div>
 
+<script src="week.js"></script>
 <script src="demos.js"></script>
 <script>
 (() => {
 const $ = id => document.getElementById(id);
 const LS = { url:'wk.webhookUrl', auth:'wk.authHeader', queue:'wk.queue', hint:'wk.hintSeen', chip:'wk.chipHidden' };
-let W = null, state = null, stateKey = '';
+const PREV_FULL = 'wk.log.2026-11-06-full';
+let WEEK = null, W = null, state = null, stateKey = '';
+let dayIndex = 0, defaultIndex = 0, todayISO = '', bannerText = '';
 
+function resolveToday(){
+  const q = new URLSearchParams(location.search).get('asof');
+  if (q && /^\d{4}-\d{2}-\d{2}$/.test(q)) return q;
+  return WorkoutWeek.nyToday(new Date(), (WEEK && WEEK.timezone) || 'America/New_York');
+}
+function loadState(day){
+  const key = 'wk.log.' + (day.id || day.date);
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) { saved = null; }
+  if (WorkoutWeek.stateFits(day, saved)) return { key, state: saved };
+  if (day.id === '2026-11-09-full') {
+    let old = null;
+    try { old = JSON.parse(localStorage.getItem(PREV_FULL) || 'null'); } catch (e) { old = null; }
+    if (WorkoutWeek.stateFits(day, old)) {
+      localStorage.setItem(key, JSON.stringify(old));
+      return { key, state: old };
+    }
+  }
+  return { key, state: WorkoutWeek.freshState(day) };
+}
+function dayWord(day){
+  const tok = String(day.dateLabel || '').split(' ')[0];
+  return tok && tok.length <= 4 ? tok : day.title;
+}
+function tabBits(day){
+  const parts = String(day.dateLabel || day.date || '').split(' ');
+  const top = parts.length >= 3 ? parts[0] + ' ' + parts[2] : (day.dateLabel || day.date);
+  const short = day.title === 'Full Body Day' ? 'Full' : String(day.title || '').replace(' Body', '');
+  return { top, short, time: day.timeLabel || WorkoutWeek.formatTime(day.time || '') || '' };
+}
 async function loadWorkout(){
-  try { const r = await fetch('workout.json?t=' + Date.now(), {cache:'no-store'}); if(!r.ok) throw 0; W = await r.json(); }
-  catch(e){ const c = await (window.caches ? caches.match('workout.json') : null); if(c) W = await c.json(); else { $('title').textContent='Could not load workout'; $('sub').textContent='Check your connection and reopen.'; return; } }
-  stateKey = 'wk.log.' + (W.id || W.date);
-  state = JSON.parse(localStorage.getItem(stateKey) || 'null') || {
-    finished:false,
-    ex: W.exercises.map(e => ({ skipped:false, note:'', sets: Array.from({length:e.sets}, () => ({weight: e.weight ? e.weight : '', reps: e.reps ?? '', done:false})) }))
-  };
-  dur = (W.defaultRestSec||90)*1000; left = dur; paint();
+  let raw = null;
+  try {
+    const r = await fetch('workout.json?t=' + Date.now(), {cache:'no-store'});
+    if (!r.ok) throw 0;
+    raw = await r.json();
+  } catch (e) {
+    const c = await (window.caches ? caches.match('workout.json') : null);
+    if (c) raw = await c.json();
+    else { $('title').textContent='Could not load workout'; $('sub').textContent='Check your connection and reopen.'; return; }
+  }
+  try { WEEK = WorkoutWeek.normalize(raw); }
+  catch (err) { $('title').textContent='Could not read workout'; $('sub').textContent='The plan needs a days list, or one day with exercises.'; return; }
+  todayISO = resolveToday();
+  const pick = WorkoutWeek.pickDay(WEEK.days, todayISO);
+  defaultIndex = pick.index;
+  const day = WEEK.days[pick.index];
+  bannerText = WEEK.legacy ? WorkoutWeek.legacyMismatch(todayISO, day) : WorkoutWeek.restMessage(todayISO, day, pick.reason);
+  dur = (day.defaultRestSec || 90) * 1000; left = dur; paint();
+  openDay(pick.index);
+}
+function openDay(i){
+  dayIndex = i;
+  W = WEEK.days[i];
+  const loaded = loadState(W);
+  stateKey = loaded.key;
+  state = loaded.state;
+  if (!running) {
+    dur = (W.defaultRestSec || 90) * 1000;
+    left = dur;
+    $('timer').classList.remove('done');
+    paint();
+  }
   render();
 }
 const save = () => localStorage.setItem(stateKey, JSON.stringify(state));
-const isBW = e => !e.weight;
+const isBW = e => WorkoutWeek.isBodyweight(e);
 function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 function list(id, arr, card){ $(id).innerHTML=(arr||[]).map(x=>`<li>${esc(x)}</li>`).join(''); $(card).classList.toggle('hidden',!(arr&&arr.length)); }
 
 function render(){
   document.title = W.title + ' · ' + (W.dateLabel||W.date);
-  $('kicker').textContent = W.dateLabel || W.date;
+  const bits = tabBits(W);
+  $('kicker').textContent = [W.dateLabel || W.date, bits.time].filter(Boolean).join(' · ');
   $('title').textContent = W.title;
   $('sub').textContent = W.subtitle || '';
+  $('restBanner').textContent = bannerText;
+  $('restBanner').classList.toggle('hidden', !bannerText);
+  const preview = dayIndex === defaultIndex ? '' : ('Previewing ' + (W.dateLabel || W.date) + '. Finish logs this workout.');
+  $('viewNote').textContent = preview;
+  $('viewNote').classList.toggle('hidden', !preview);
+  $('daytabs').innerHTML = WEEK.days.map((d, i) => {
+    const t = tabBits(d);
+    const sel = i === dayIndex;
+    return `<button type="button" role="tab" id="tab${i}" aria-selected="${sel}" aria-controls="exercises" tabindex="${sel ? 0 : -1}" data-day="${i}" aria-label="${esc((d.dateLabel || d.date) + ' ' + d.title + (t.time ? ' ' + t.time : ''))}"><b>${esc(t.top)}</b><span>${esc(t.short)}</span>${t.time ? `<small>${esc(t.time)}</small>` : ''}</button>`;
+  }).join('');
+  $('finish').textContent = 'Finish ' + dayWord(W) + ' workout';
+  $('resetDay').textContent = 'Clear ' + (W.dateLabel || 'this workout') + ' entries…';
+  const panel = $('exercises');
+  panel.setAttribute('role', 'tabpanel');
+  panel.setAttribute('aria-labelledby', 'tab' + dayIndex);
   list('notes',W.notes,'notesCard'); list('warmup',W.warmup,'warmCard'); list('cooldown',W.cooldown,'coolCard');
   $('exercises').innerHTML = W.exercises.map((e,i)=>{
     const s = state.ex[i], bw = isBW(e);
@@ -190,7 +283,7 @@ function render(){
       ${window.Demos?Demos.html(e.demo||e.id,['#5b3df5','#c2338f','#1d8fe1','#e0532f','#13a36a'][i%5]):''}
       ${e.lastTime?`<div class="last">${esc(e.lastTime)}</div>`:''}
       <ol class="cues">${(e.cues||[]).map(c=>`<li>${esc(c)}</li>`).join('')}</ol>
-      ${e.avoid?`<div class="avoid"><b>Avoid:</b> ${esc(e.avoid)}</div>`:''}
+      ${e.avoid?`<div class="avoid"><b>Common mistake:</b> ${esc(e.avoid)}</div>`:''}
       ${s.skipped?'':s.sets.map((st,j)=>`<div class="set ${bw?'bw':''}">
         <div class="n">Set ${j+1}</div>
         ${bw?'':`<div><label>Weight (lb)</label><input type="number" inputmode="decimal" data-i="${i}" data-j="${j}" data-f="weight" value="${esc(st.weight)}"></div>`}
@@ -204,7 +297,7 @@ function render(){
   if(window.Demos) Demos.mount($('exercises'));
   progress();
 }
-function counts(){ let tot=0,d=0,sk=0; state.ex.forEach(x=>{ if(x.skipped){ sk+=x.sets.length; return; } x.sets.forEach(s=>{tot++; if(s.done)d++;}); }); return {tot,d,sk}; }
+function counts(){ return WorkoutWeek.counts(state); }
 function progress(){
   const {tot,d,sk} = counts(), all = tot+sk;
   $('progbar').style.width = (all? d/all*100:0)+'%';
@@ -229,6 +322,7 @@ document.addEventListener('change', ev => { if(ev.target.dataset.note!==undefine
 function setDone(i,j,val){ state.ex[i].sets[j].done=val; save(); render(); send(payload('set',{exercise:W.exercises[i].id, set:j+1})); }
 document.addEventListener('click', ev => {
   const b = ev.target.closest('button'); if(!b) return;
+  if(b.dataset.day!==undefined){ openDay(+b.dataset.day); return; }
   if(b.dataset.chk){
     const [i,j] = b.dataset.chk.split(',').map(Number);
     const was = state.ex[i].sets[j].done;
@@ -251,32 +345,24 @@ document.addEventListener('click', ev => {
 });
 $('hintX').onclick = () => { localStorage.setItem(LS.hint,'1'); $('hint').classList.add('hidden'); };
 
-// log / payload
-function exercisesOut(){
-  return W.exercises.map((e,i)=>{ const s=state.ex[i]; return {
-    id:e.id, name:e.name, plannedWeight:e.weight, plannedReps:e.reps, skipped:s.skipped, note:s.note||'',
-    sets:s.sets.map((x,j)=>({set:j+1, weight:isBW(e)?0:(x.weight===''?null:x.weight), reps:x.reps===''?null:x.reps, done:x.done}))
-  };});
-}
+// log / payload. Keys stay event, date, workout, workoutId, sentAt, exercises.
 function payload(event, extra){
-  return Object.assign({event, date:W.date, workout:W.title, workoutId:W.id||W.date, sentAt:new Date().toISOString()}, extra||{}, {exercises:exercisesOut()});
+  return WorkoutWeek.buildPayload(W, state, event, extra, new Date().toISOString());
 }
-function logText(){
-  const {tot,d,sk}=counts();
-  const lines = [`${W.title} · ${W.dateLabel||W.date}`, `${d} of ${tot} sets done${sk?`, ${sk} skipped`:''}`, ''];
-  W.exercises.forEach((e,i)=>{ const s=state.ex[i];
-    if(s.skipped){ lines.push(`• ${e.name}: skipped${s.note?` (${s.note})`:''}`); return; }
-    const done=s.sets.filter(x=>x.done);
-    lines.push(`• ${e.name}: ` + (done.length ? done.map(x=>isBW(e)?`${x.reps??'?'} reps`:`${x.weight??'?'} lb × ${x.reps??'?'}`).join(', ') : 'not done'));
-  });
-  return lines.join('\n');
-}
+function logText(){ return WorkoutWeek.logText(W, state); }
 $('copy').onclick = async () => {
   try { await navigator.clipboard.writeText(logText()); $('finMsg').textContent='Copied! Paste it in my chat.'; }
   catch(e){ $('logtxt').select(); $('finMsg').textContent='Press and hold the text below to copy.'; }
 };
-$('finish').onclick = () => { state.finished=true; save(); progress(); send(payload('finished',{finishedAt:new Date().toISOString(), log:logText()})); $('finMsg').textContent='Workout finished. Nice work!'; };
-$('resetDay').onclick = () => { if(confirm("Clear everything you entered today on this device? This can't be undone.")){ localStorage.removeItem(stateKey); state=null; loadWorkout(); toast('Today\'s entries cleared'); } };
+$('finish').onclick = () => { state.finished=true; save(); progress(); send(payload('finished',{finishedAt:new Date().toISOString(), log:logText()})); $('finMsg').textContent=(W.dateLabel||W.title)+' logged. Nice work!'; };
+$('resetDay').onclick = () => { if(confirm("Clear everything you entered for this workout on this device? This can't be undone.")){ localStorage.removeItem(stateKey); if(W.id==='2026-11-09-full') localStorage.removeItem(PREV_FULL); openDay(dayIndex); toast('Entries cleared'); } };
+$('daytabs').addEventListener('keydown', ev => {
+  if (!WEEK || (ev.key !== 'ArrowRight' && ev.key !== 'ArrowLeft')) return;
+  ev.preventDefault();
+  const n = WEEK.days.length, dir = ev.key === 'ArrowRight' ? 1 : -1;
+  openDay((dayIndex + dir + n) % n);
+  document.getElementById('tab' + dayIndex)?.focus();
+});
 
 // sync queue
 let flushing=false;
@@ -346,7 +432,7 @@ $('treset').onclick = () => { stop(); left=dur; $('timer').classList.remove('don
 
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 paint(); loadWorkout().then(flush);
-window.__wk = { payload, flush, getQ, logText, state:()=>({dur,left,running}) };
+window.__wk = { payload, flush, getQ, logText, state:()=>({dur,left,running}), today:()=>todayISO, day:()=>W&&{id:W.id,date:W.date,title:W.title}, index:()=>dayIndex, openDay };
 })();
 </script>
 </body>
