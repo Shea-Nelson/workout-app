@@ -259,7 +259,7 @@ function section(sid, n) {
     const grid = el("div", "grid two");
     d.PASSAGES.forEach((p, i) => {
       const h = el("h3");
-      h.append(lsbLink(p.ref, p.book, p.ch));
+      h.append(lsbLink(p.ref || p.label, p.book, p.ch));
       const c = card([h, el("div", null, p.note)]);
       c.style.borderTop = "6px solid " + accents[i % 5];
       grid.append(c);
@@ -448,6 +448,8 @@ function section(sid, n) {
       stack.append(row);
     });
     node.append(stack);
+    const echoPics = figures(d.figures && d.figures[sid]);
+    if (echoPics && sid !== "tests") node.append(echoPics);
     if (sec.quote != null) node.append(quote(d.QUOTES[sec.quote], sec.quoteCite || "From the video", sec.quoteBg));
   }
 
@@ -628,6 +630,90 @@ function section(sid, n) {
      "list": ["..."], "cards": [{ "h", "p", "tag": "v|b|d|l", "ref", "book", "ch", "fb": [] }],
      and "quote": <index into QUOTES>. */
   if (!HANDLED.has(sid)) {
+    /* "ladder": rows drawn as a stepped mountain ({ ref, text, tail, lvl, hl, color }), for chiasms
+       and repeated patterns. lvl sets the indent; hl marks the peak; tail is the repeated refrain. */
+    if (sec.ladder) {
+      const lad = el("div", "ladder card reveal");
+      if (sec.ladder.title) lad.append(el("p", "kicker", sec.ladder.title));
+      const tone = { coral: "var(--coral)", gold: "var(--gold)", violet: "var(--violet)", teal: "var(--teal)", sky: "var(--sky)" };
+      sec.ladder.rows.forEach((r, i) => {
+        const row = el("div", "rung" + (r.hl ? " peak" : ""));
+        row.style.setProperty("--lvl", r.lvl || 0);
+        row.style.setProperty("--i", i);
+        row.style.setProperty("--accent", tone[r.color] || accents[i % 5]);
+        if (r.mark) row.append(hidden(el("span", "rmark", r.mark)));
+        const tx = el("span", "rtext");
+        if (r.ref) tx.append(lsbLink(r.ref, r.book || "Matthew", r.ch || 1, r.short || r.ref, "mini"), " ");
+        tx.append(r.text);
+        if (r.tail) tx.append(" ", el("mark", "hl", r.tail));
+        row.append(tx);
+        lad.append(row);
+      });
+      if (sec.ladder.note) lad.append(el("p", "note", sec.ladder.note));
+      node.append(lad);
+    }
+    /* "feature": <key of a list in the data> renders paired cards: a badge, two tinted panels
+       (left / right, each { who, ref, book, ch, text, tone }), an optional stamped source box,
+       tagged extra lines and Factbook chips. Used for Episodes 5-9 (fulfilment, beatitudes, antitheses...). */
+    if (sec.feature && Array.isArray(d[sec.feature])) {
+      const stack = el("div", "stack");
+      const tone = { coral: "var(--coral)", gold: "var(--gold)", violet: "var(--violet)", teal: "var(--teal)", sky: "var(--sky)" };
+      const tint = { coral: "tint-c", teal: "tint-t", gold: "tint-g", violet: "tint-v", sky: "tint-s" };
+      const panel = (p, fallback) => {
+        const box = el("div", tint[p.tone || fallback] || "tint-t");
+        const b = el("b", null, (p.who || "") + (p.ref ? " · " : ""));
+        b.style.color = tone[p.tone || fallback] || "var(--teal)";
+        if (p.ref) b.append(lsbLink(p.ref, p.book || "Matthew", p.ch || 1));
+        box.append(b, p.plain ? p.text : "“" + p.text + "”");
+        return box;
+      };
+      d[sec.feature].forEach((t, i) => {
+        const c = el("article", "card test feat reveal");
+        c.style.setProperty("--accent", tone[t.color] || accents[i % 5]);
+        const top = el("div", "testtop");
+        const badge = hidden(el("div", "testbadge", t.emoji || String(t.n)));
+        const hh = el("div");
+        hh.append(el("p", "kicker", t.kicker || ""), el("h3", null, t.title));
+        top.append(badge, hh);
+        const kids = [top];
+        if (t.left || t.right) {
+          const pair = el("div", "pair");
+          if (t.left) pair.append(panel(t.left, "coral"));
+          if (t.right) pair.append(panel(t.right, "teal"));
+          kids.push(pair);
+        }
+        if (t.src) {
+          const src = el("div", "written");
+          if (t.stamp || sec.stamp) {
+            const st = hidden(el("span", "stamp", t.stamp || sec.stamp));
+            st.style.setProperty("--delay", (0.35 + (i % 4) * 0.15) + "s");
+            src.append(st);
+          }
+          const sb = el("b", null, (t.src.icon || "📜") + " ");
+          if (t.src.ref) sb.append(lsbLink(t.src.ref, t.src.book, t.src.ch), t.src.plain ? "" : " (LSB)");
+          else sb.append(t.src.who || "");
+          src.append(sb, el("span", "srctext", t.src.plain ? t.src.text : "“" + t.src.text + "”"));
+          kids.push(src);
+        }
+        (t.lines || []).forEach((ln) => {
+          const p = el("p", "small");
+          p.append(el("span", "tag " + (ln.tag || "b"), ln.label || TAG[ln.tag || "b"]), " " + ln.text + " ");
+          (ln.refs || []).forEach((r) => p.append(lsbLink(r.label, r.book, r.ch, r.label, "mini"), " "));
+          kids.push(p);
+        });
+        if (t.note) kids.push(el("p", "note", t.note));
+        const fr = fbRow(t.fb);
+        if (fr) kids.push(fr);
+        kids.forEach((k) => c.append(k));
+        stack.append(c);
+      });
+      node.append(stack);
+    }
+    if (sec.verse) {
+      const v = el("div", "verse reveal");
+      v.append("“" + sec.verse.text + "”", el("br"), lsbLink(sec.verse.ref, sec.verse.book, sec.verse.ch));
+      node.append(v);
+    }
     if (sec.list) {
       const ul = el("ul", "li");
       sec.list.forEach((x) => ul.append(el("li", null, x)));
@@ -647,6 +733,8 @@ function section(sid, n) {
       });
       node.append(grid);
     }
+    const extraPics = figures(d.figures && d.figures[sid]);
+    if (extraPics) node.append(extraPics);
     if (sec.quote != null && d.QUOTES[sec.quote]) node.append(quote(d.QUOTES[sec.quote], sec.quoteCite || "From the video", sec.quoteBg));
   }
   if (sid === "export") node.append(exportBlock());
