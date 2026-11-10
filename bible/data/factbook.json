@@ -1001,6 +1001,142 @@
     "Tyre": {
       "label": "Tyre",
       "id": "%25Tyre_Place"
+    },
+    "Ahimelech": {
+      "label": "Ahimelech (priest at Nob)",
+      "id": "%23Ahimelech.1"
+    },
+    "Assyria": {
+      "label": "Assyria",
+      "id": "%25Assyria_Place"
+    },
+    "Azazel": {
+      "label": "Azazel (scapegoat)",
+      "id": "%25Azazel"
+    },
+    "Baal": {
+      "label": "Baal (storm god)",
+      "id": "%23Baal"
+    },
+    "Berea": {
+      "label": "Berea",
+      "id": "%25Berea_Place"
+    },
+    "Bethel": {
+      "label": "Bethel",
+      "id": "%25Bethel_Place"
+    },
+    "Bread of the Presence": {
+      "label": "Bread of the Presence (consecrated bread)",
+      "id": "%24consecratedBread"
+    },
+    "Day of the Lord": {
+      "label": "Day of the Lord",
+      "id": "%25DayOfTheLord"
+    },
+    "Ekron": {
+      "label": "Ekron",
+      "id": "%25Ekron_Place"
+    },
+    "Exorcism": {
+      "label": "Exorcism",
+      "id": "%25exorcism"
+    },
+    "Gath-hepher": {
+      "label": "Gath-hepher",
+      "id": "%25GathHepher_Place"
+    },
+    "Gibeah": {
+      "label": "Gibeah (of Saul)",
+      "id": "%25GibeahOfBenjamin_Place"
+    },
+    "Hades": {
+      "label": "Hades",
+      "id": "%25Hades"
+    },
+    "Herodians": {
+      "label": "Herodians",
+      "id": "%23Herodians"
+    },
+    "Hiram": {
+      "label": "Hiram (king of Tyre)",
+      "id": "%23Hiram.1"
+    },
+    "Jonah": {
+      "label": "Jonah (prophet)",
+      "id": "%23Jonah.1"
+    },
+    "Joppa": {
+      "label": "Joppa",
+      "id": "%25Joppa_Place"
+    },
+    "Lilith": {
+      "label": "Lilith (night creature)",
+      "id": "%25Lilith_Deity"
+    },
+    "Mattathias": {
+      "label": "Mattathias (father of the Maccabees)",
+      "id": "%23Mattathias.3"
+    },
+    "Modein": {
+      "label": "Modein",
+      "id": "%25Modein_Place"
+    },
+    "Mystery": {
+      "label": "Mystery",
+      "id": "%25mystery"
+    },
+    "Nathan": {
+      "label": "Nathan (prophet)",
+      "id": "%23Nathan"
+    },
+    "Nineveh": {
+      "label": "Nineveh",
+      "id": "%25Nineveh_Place"
+    },
+    "Nob": {
+      "label": "Nob",
+      "id": "%25Nob_Place"
+    },
+    "Queen of Sheba": {
+      "label": "Queen of Sheba (Queen of the South)",
+      "id": "%23Queen.1"
+    },
+    "Sabbath": {
+      "label": "Sabbath",
+      "id": "%25Sabbath"
+    },
+    "Sackcloth": {
+      "label": "Sackcloth",
+      "id": "%24sackcloth"
+    },
+    "Saul": {
+      "label": "Saul (king of Israel)",
+      "id": "%23SaulSonOfKish"
+    },
+    "Sennacherib": {
+      "label": "Sennacherib",
+      "id": "%23Sennacherib.1"
+    },
+    "Seraphim": {
+      "label": "Seraphim",
+      "id": "%25seraphim"
+    },
+    "Sheba": {
+      "label": "Sheba (Arabia)",
+      "id": "%25ShebaInArabia_Place"
+    },
+    "Sower": {
+      "label": "Parable of the Sower",
+      "id": "%25parableOfTheSower"
+    },
+    "Thessalonica": {
+      "label": "Thessalonica",
+      "id": "%25Thessalonica_Place"
+    },
+    "Yoke": {
+      "label": "Yoke (teaching as a yoke)",
+      "ref": "lco.Teaching_as_a_yoke"
     }
   },
   "aliases": {
