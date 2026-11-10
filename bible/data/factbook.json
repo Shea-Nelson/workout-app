@@ -321,6 +321,334 @@
     "Mount of Temptation": {
       "label": "Mount of Temptation (Quarantania)",
       "id": "%25Quarantania_Place"
+    },
+    "Adultery": {
+      "label": "Adultery",
+      "id": "%25adultery"
+    },
+    "Almsgiving": {
+      "label": "Almsgiving",
+      "id": "%25almsgiving"
+    },
+    "Andrew": {
+      "label": "Andrew (apostle)",
+      "id": "%23Andrew.1"
+    },
+    "Anxiety": {
+      "label": "Anxiety",
+      "id": "%25anxiety"
+    },
+    "Augustine": {
+      "label": "Augustine of Hippo",
+      "id": "%25SaintAugustineOfHippo_Person"
+    },
+    "Beatitudes": {
+      "label": "The Beatitudes",
+      "id": "%25TheBeatitudes"
+    },
+    "Bethsaida": {
+      "label": "Bethsaida",
+      "id": "%25BethSaida_Place"
+    },
+    "Chiasm": {
+      "label": "Chiasm",
+      "id": "%25chiasm"
+    },
+    "Chorazin": {
+      "label": "Chorazin",
+      "id": "%25Chorazin_Place"
+    },
+    "Covenant of salt": {
+      "label": "Covenant of salt",
+      "id": "%25covenantOfSalt"
+    },
+    "Cyprian": {
+      "label": "Cyprian of Carthage",
+      "id": "%25Cyprian_Person"
+    },
+    "Demon possession": {
+      "label": "Demon possession",
+      "id": "%25demonPossession"
+    },
+    "Didache": {
+      "label": "Didache",
+      "id": "%25Didache_Writing"
+    },
+    "Disciples": {
+      "label": "Disciples",
+      "id": "%23Disciples"
+    },
+    "Divorce": {
+      "label": "Divorce",
+      "id": "%25divorce"
+    },
+    "Elisha": {
+      "label": "Elisha",
+      "id": "%23Elisha"
+    },
+    "Evil eye": {
+      "label": "Evil eye",
+      "id": "%25evilEye"
+    },
+    "Ezekiel": {
+      "label": "Ezekiel (prophet)",
+      "id": "%23Jehezkel.2"
+    },
+    "Fishing": {
+      "label": "Fishing",
+      "id": "%25fishing"
+    },
+    "Gadara": {
+      "label": "Gadara",
+      "id": "%40Gadara"
+    },
+    "Gehenna": {
+      "label": "Gehenna",
+      "id": "%25Gehenna_Place"
+    },
+    "Gentiles": {
+      "label": "Gentiles",
+      "id": "%23Gentiles"
+    },
+    "Gerasa": {
+      "label": "Gerasa",
+      "id": "%25Gerasa_Place"
+    },
+    "Gideon": {
+      "label": "Gideon",
+      "id": "%23Gideon"
+    },
+    "Gospel": {
+      "label": "Gospel",
+      "id": "%25Gospel"
+    },
+    "Healing": {
+      "label": "Healing",
+      "id": "%25healing"
+    },
+    "Herod Antipas": {
+      "label": "Herod Antipas",
+      "id": "%23Herod.2"
+    },
+    "Hippos": {
+      "label": "Hippos",
+      "id": "%25Hippos_Place"
+    },
+    "Horns of Hattin": {
+      "label": "Horns of Hattin",
+      "id": "%25HornsOfHattin_Place"
+    },
+    "Hypocrite": {
+      "label": "Hypocrite",
+      "id": "%23hypocrite"
+    },
+    "James son of Zebedee": {
+      "label": "James (son of Zebedee)",
+      "id": "%23James"
+    },
+    "Jeremiah": {
+      "label": "Jeremiah (prophet)",
+      "id": "%23Jeremiah"
+    },
+    "John the apostle": {
+      "label": "John (son of Zebedee)",
+      "id": "%23John"
+    },
+    "Judea": {
+      "label": "Judea",
+      "id": "%25Judea_Place"
+    },
+    "Lampstand": {
+      "label": "Lampstand",
+      "id": "%24lampstand"
+    },
+    "Law": {
+      "label": "Law of Moses",
+      "id": "%25LawOfMoses_Writing"
+    },
+    "Lex talionis": {
+      "label": "Lex talionis",
+      "id": "%25lexTalionis"
+    },
+    "Lilies": {
+      "label": "Lily",
+      "id": "%24lily"
+    },
+    "Machaerus": {
+      "label": "Machaerus",
+      "id": "%25Machaerus_Place"
+    },
+    "Magdala": {
+      "label": "Magdala",
+      "id": "%25Magdala_Place"
+    },
+    "Mammon": {
+      "label": "Mammon",
+      "id": "%25mammon"
+    },
+    "Mercy": {
+      "label": "Mercy",
+      "id": "%25mercy"
+    },
+    "Mishnah": {
+      "label": "Mishnah",
+      "id": "%25Mishnah_Writing"
+    },
+    "Mount Hermon": {
+      "label": "Mount Hermon",
+      "id": "%25MountHermon_Place"
+    },
+    "Mount of Beatitudes": {
+      "label": "Mount of Beatitudes (traditional site)",
+      "id": "%25MountOfTheBeatitudes_Place"
+    },
+    "New covenant": {
+      "label": "New covenant",
+      "ref": "lsto.NewCovenant"
+    },
+    "Nicodemus": {
+      "label": "Nicodemus",
+      "id": "%23Nicodemus.1"
+    },
+    "Noah": {
+      "label": "Noah",
+      "id": "%23Noah"
+    },
+    "Oaths": {
+      "label": "Oath",
+      "id": "%25oath"
+    },
+    "Oral Torah": {
+      "label": "Tradition of the elders",
+      "id": "%25traditionOfTheElders"
+    },
+    "Perea": {
+      "label": "Perea",
+      "id": "%25Perea_Place"
+    },
+    "Perfection": {
+      "label": "Perfection",
+      "id": "%25perfection"
+    },
+    "Persecution": {
+      "label": "Persecution",
+      "id": "%25persecution"
+    },
+    "Prayer": {
+      "label": "Prayer",
+      "id": "%25prayer"
+    },
+    "Prophets": {
+      "label": "The Prophets (books)",
+      "id": "%25TheProphets_Writing"
+    },
+    "Proverbs": {
+      "label": "Book of Proverbs",
+      "id": "%25BookOfProverbs_Writing"
+    },
+    "Raca": {
+      "label": "Raca",
+      "id": "%25raca"
+    },
+    "Roman mile": {
+      "label": "Mile (Roman)",
+      "id": "%24mileRoman"
+    },
+    "Salt": {
+      "label": "Salt",
+      "id": "%24salt"
+    },
+    "Sanhedrin": {
+      "label": "Sanhedrin",
+      "id": "%23Sanhedrin"
+    },
+    "Scribes": {
+      "label": "Scribe",
+      "ref": "lco.Law_Scribe"
+    },
+    "Scythopolis": {
+      "label": "Beth-shan (Scythopolis)",
+      "id": "%25BethShan_Place"
+    },
+    "Sea of Galilee": {
+      "label": "Sea of Galilee",
+      "id": "%25SeaOfGalilee_Place"
+    },
+    "Sermon on the Mount": {
+      "label": "Sermon on the Mount",
+      "id": "%25SermonOnTheMountplain"
+    },
+    "Simon Peter": {
+      "label": "Peter (Simon Peter)",
+      "id": "%23Peter"
+    },
+    "Sojourner": {
+      "label": "Sojourner",
+      "id": "%25sojourner"
+    },
+    "Solomon": {
+      "label": "Solomon",
+      "id": "%23Solomon"
+    },
+    "Synagogue": {
+      "label": "Synagogue",
+      "id": "%24synagogue"
+    },
+    "Syria": {
+      "label": "Syria",
+      "id": "%25Syria_Place"
+    },
+    "Tabernacle": {
+      "label": "Tabernacle",
+      "id": "%24Tabernacle"
+    },
+    "Tabgha": {
+      "label": "Tabgha",
+      "id": "%25Tabgha_Place"
+    },
+    "Talmud": {
+      "label": "Babylonian Talmud",
+      "id": "%25BabylonianTalmud_Writing"
+    },
+    "Tax collectors": {
+      "label": "Tax collector",
+      "id": "%25taxCollector"
+    },
+    "Tiberias": {
+      "label": "Tiberias",
+      "id": "%25Tiberias_Place"
+    },
+    "Tiglath-pileser III": {
+      "label": "Tiglath-pileser III",
+      "id": "%23Tiglathpileser.1"
+    },
+    "Tree of life": {
+      "label": "Tree of life",
+      "id": "%25treeOfLife"
+    },
+    "Twelve": {
+      "label": "The Twelve",
+      "id": "%23Twelve"
+    },
+    "Via Maris": {
+      "label": "Via Maris",
+      "id": "%25ViaMaris_Place"
+    },
+    "Widow": {
+      "label": "Widow",
+      "id": "%25widow"
+    },
+    "Zebedee": {
+      "label": "Zebedee",
+      "id": "%23Zebedee.1"
+    },
+    "Zechariah son of Jehoiada": {
+      "label": "Zechariah (son of Jehoiada)",
+      "id": "%23Zechariah2.7"
+    },
+    "Valley of Hinnom": {
+      "label": "Valley of Hinnom",
+      "id": "%40ValleyOfHinnom"
     }
   },
   "aliases": {
