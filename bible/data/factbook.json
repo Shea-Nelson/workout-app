@@ -197,6 +197,130 @@
     "Kingdom of heaven": {
       "label": "Kingdom of heaven",
       "ref": "lsto.KingdomOfGod"
+    },
+    "Satan": {
+      "label": "Satan",
+      "id": "%23Satan"
+    },
+    "Angel": {
+      "label": "Angel",
+      "id": "%23angel"
+    },
+    "Elijah": {
+      "label": "Elijah (prophet)",
+      "id": "%23Elijah"
+    },
+    "Adam": {
+      "label": "Adam",
+      "id": "%23Adam"
+    },
+    "Eve": {
+      "label": "Eve",
+      "id": "%23Eve2.1"
+    },
+    "Serpent": {
+      "label": "Serpent",
+      "id": "%23Serpent"
+    },
+    "Garden of Eden": {
+      "label": "Garden of Eden",
+      "id": "%25GardenOfEden_Place"
+    },
+    "Meribah": {
+      "label": "Meribah",
+      "id": "%25Meribah_Place"
+    },
+    "Temple": {
+      "label": "Temple (Jewish)",
+      "id": "%24jewishTemple"
+    },
+    "Jerusalem": {
+      "label": "Jerusalem",
+      "id": "%25Jerusalem_Place"
+    },
+    "Jericho": {
+      "label": "Jericho",
+      "id": "%25Jericho_Place"
+    },
+    "Mount Nebo": {
+      "label": "Mount Nebo",
+      "id": "%25MountNebo_Place"
+    },
+    "Mount Sinai": {
+      "label": "Mount Sinai (Horeb)",
+      "id": "%25MountSinai_Place"
+    },
+    "Capernaum": {
+      "label": "Capernaum",
+      "id": "%25Capernaum_Place"
+    },
+    "Zebulun": {
+      "label": "Tribe of Zebulun",
+      "id": "%23TribeOfZebulun"
+    },
+    "Naphtali": {
+      "label": "Territory of Naphtali",
+      "id": "%25TerritoryOfNaphtali_Place"
+    },
+    "Decapolis": {
+      "label": "Decapolis",
+      "id": "%25Decapolis_Place"
+    },
+    "Deuteronomy": {
+      "label": "Book of Deuteronomy",
+      "id": "%25BookOfDeuteronomy_Writing"
+    },
+    "Psalms": {
+      "label": "Book of Psalms",
+      "id": "%25BookOfPsalms_Writing"
+    },
+    "The Fall": {
+      "label": "The Fall",
+      "ref": "lsto.HumanFallIntoSin"
+    },
+    "Manna": {
+      "label": "Manna",
+      "id": "%24manna"
+    },
+    "Golden calf": {
+      "label": "Golden calf",
+      "id": "%24GoldenCalf"
+    },
+    "Pillar of cloud and fire": {
+      "label": "Pillar of cloud and fire",
+      "id": "%25pillarOfFireAndCloud"
+    },
+    "Shema": {
+      "label": "Shema",
+      "id": "%25Shema"
+    },
+    "Fasting": {
+      "label": "Fasting",
+      "id": "%25fast"
+    },
+    "Worship": {
+      "label": "Worship",
+      "id": "%25worship"
+    },
+    "Son of God": {
+      "label": "God the Son",
+      "ref": "lsto.GodTheSon"
+    },
+    "Image of God": {
+      "label": "Image of God",
+      "id": "%25imageOfGod"
+    },
+    "Irenaeus": {
+      "label": "Irenaeus of Lyons",
+      "id": "%25Irenaeus_Person"
+    },
+    "Chrysostom": {
+      "label": "John Chrysostom",
+      "id": "%25JohnChrysostom_Person"
+    },
+    "Mount of Temptation": {
+      "label": "Mount of Temptation (Quarantania)",
+      "id": "%25Quarantania_Place"
     }
   },
   "aliases": {
