@@ -10,6 +10,9 @@
 
   const L = { torso: 40, thigh: 34, shin: 32, uarm: 24, farm: 22, neck: 15, foot: 14, head: 9 };
   const FLOOR = 162;
+  /* Neutral equipment and ink on the warm paper; the accent is only for the working muscles. */
+  const INK = '#221f1b', TORSO = '#38332d', SKIN = '#e9b597';
+  const BENCH = '#cfc7b9', LEG = '#b3aa9b', PAD = '#e3ddd2', MAT = '#e6e0d5', FLOORC = '#d6cfc2';
   const VIEWS = {
     stand: [{ k: 'side', label: 'Side' }, { k: 'front', label: 'Front' }],
     floor: [{ k: 'side', label: 'Side' }, { k: 'front', label: 'Above' }]
@@ -22,6 +25,25 @@
   }
   function lerp(a, b, p) { return a + (b - a) * p; }
   function mid(a, b) { return [r1((a[0] + b[0]) / 2), r1((a[1] + b[1]) / 2)]; }
+
+  /* A lighter, livelier shade of the page accent, so the working muscles stand out from the dark body. */
+  function tint(hex) {
+    const m = /^#?([0-9a-f]{6})$/i.exec(String(hex || ''));
+    if (!m) return hex || '#6f62d6';
+    const n = parseInt(m[1], 16);
+    let r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255;
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l0 = (mx + mn) / 2, d = mx - mn;
+    let h = 0, s0 = 0;
+    if (d) {
+      s0 = d / (1 - Math.abs(2 * l0 - 1));
+      h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+      h *= 60; if (h < 0) h += 360;
+    }
+    const l = Math.max(l0, 0.6), s = Math.min(1, Math.max(s0, 0.6));
+    const c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), o = l - c / 2;
+    const k = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+    return '#' + k.map(function (v) { return ('0' + Math.round((v + o) * 255).toString(16)).slice(-2); }).join('');
+  }
 
   function ik(from, to, len1, len2, bend) {
     let dx = to[0] - from[0];
@@ -137,7 +159,7 @@
     const hipW = spec.hipW;
     const shoW = spec.shoW;
     const ankleX = spec.ankleX;
-    const ankY = FLOOR - 4;
+    const ankY = FLOOR - 4 - (spec.rise || 0);
     const hipL = [cx - hipW, hipY], hipR = [cx + hipW, hipY];
     const ankL = [cx - ankleX, ankY], ankR = [cx + ankleX, ankY];
     let kneeL, kneeR, ankEndL, ankEndR;
@@ -179,16 +201,45 @@
   }
 
   function benchProps(x, y, w, back) {
+    const legH = Math.max(4, FLOOR - (y + 8));
     const props = [
       { k: 'rect', x: x, y: y, w: w, h: 8 },
-      { k: 'rect', x: x + 12, y: y + 8, w: 6, h: 22, fill: '#b0aac6' },
-      { k: 'rect', x: x + w - 18, y: y + 8, w: 6, h: 22, fill: '#b0aac6' }
+      { k: 'rect', x: x + 10, y: y + 8, w: 6, h: legH, fill: LEG },
+      { k: 'rect', x: x + w - 16, y: y + 8, w: 6, h: legH, fill: LEG }
     ];
     if (back) props.push({ k: 'rect', x: back.x, y: back.y, w: 8, h: back.h });
     return props;
   }
 
   function shadowAt(x) { return [x, FLOOR]; }
+
+  function seatedBase() {
+    return sideFigure({ torso: -86, thigh: 4, shin: 92, ax: 152 });
+  }
+
+  function seatedSideProps(j) {
+    const seatY = r1(j.hip[1] + 5);
+    return benchProps(r1(j.hip[0] - 18), seatY, 56, { x: r1(j.hip[0] - 17), y: r1(seatY - 54), h: 54 });
+  }
+
+  function seatedFront(cx) {
+    const hipY = 114, shoY = 72;
+    const j = {
+      head: [cx, shoY - 18], neck: [cx, shoY],
+      shoL: [cx - 22, shoY], shoR: [cx + 22, shoY],
+      hip: [cx, hipY], hipL: [cx - 13, hipY], hipR: [cx + 13, hipY],
+      kneeL: [cx - 19, hipY + 12], kneeR: [cx + 19, hipY + 12],
+      ankL: [cx - 19, FLOOR - 4], ankR: [cx + 19, FLOOR - 4],
+      toeL: [cx - 25, FLOOR - 2], toeR: [cx + 25, FLOOR - 2]
+    };
+    j.torso = [j.shoL, j.shoR, j.hipR, j.hipL];
+    const props = [
+      { k: 'rect', x: cx - 24, y: shoY - 12, w: 48, h: hipY - shoY + 12, fill: PAD },
+      { k: 'rect', x: cx - 30, y: hipY + 4, w: 60, h: 8 },
+      { k: 'rect', x: cx - 4, y: hipY + 12, w: 8, h: FLOOR - hipY - 12, fill: LEG }
+    ];
+    return { j: j, props: props, shoY: shoY };
+  }
 
   /* ---------- poses ---------- */
 
@@ -234,117 +285,115 @@
   }
 
   function benchSide(p) {
-    const sho = [76, 102];
-    const hip = polar(sho[0], sho[1], L.torso, 8);
-    const head = polar(sho[0], sho[1], L.neck, 170);
-    const ank = [146, FLOOR - 4];
+    const sho = [70, 124];
+    const hip = [110, 124];
+    const ank = [148, FLOOR - 4];
     const leg = ikPrefer(hip, ank, L.thigh, L.shin, function (s) { return -s.mid[1]; });
-    const hand = [sho[0] + lerp(6, 14, p), sho[1] + lerp(-43, 6, p)];
-    const arm = reach(sho, hand, function (s) { return s.mid[1] - hand[1]; });
+    const hand = [r1(sho[0] + lerp(4, 10, p)), r1(sho[1] - lerp(44, 16, p))];
+    const elb = [r1(sho[0] + lerp(3, 11, p)), r1(sho[1] - lerp(22, -5, p))];
     const j = {
-      head: [r1(head[0]), r1(head[1])], sho: sho, hip: [r1(hip[0]), r1(hip[1])],
+      head: [55, 121], sho: sho, hip: hip,
       knee: leg.mid, ank: leg.end,
       toe: [r1(leg.end[0] + 12), leg.end[1]], heel: [r1(leg.end[0] - 4), leg.end[1]],
-      elb: arm.mid, hand: arm.end
+      elb: elb, hand: hand,
+      elb2: [r1(elb[0] - 4), r1(elb[1] - 5)], hand2: [r1(hand[0] - 4), r1(hand[1] - 5)]
     };
-    j.elb2 = [r1(arm.mid[0] - 6), r1(arm.mid[1] - 7)];
-    j.hand2 = [r1(arm.end[0] - 6), r1(arm.end[1] - 7)];
-    const seatY = j.hip[1] - 2;
     return fig({
       j: j, face: 'up',
       lines: sideLinks(j, { arm: true }),
-      dbs: [bell(j.hand2[0], j.hand2[1], 0, { opacity: 0.45 }), bell(j.hand[0], j.hand[1], 0)],
-      glow: [mid(j.sho, j.elb)],
-      props: benchProps(j.head[0] - 8, seatY, 92),
-      shadow: shadowAt(120)
+      dbs: [bell(j.hand2[0], j.hand2[1], 0, { opacity: 0.45, sx: 0.5 }), bell(hand[0], hand[1], 0, { sx: 0.5 })],
+      glow: [[sho[0] + 12, sho[1] - 6]],
+      props: benchProps(46, sho[1] + 7, 78),
+      shadow: shadowAt(110)
     });
   }
 
   function benchAbove(p) {
     const cx = 100;
-    const shoL = [cx - 26, 58], shoR = [cx + 26, 58];
-    const hipL = [cx - 14, 102], hipR = [cx + 14, 102];
-    const kneeL = [cx - 16, 128], kneeR = [cx + 16, 128];
-    const ankL = [cx - 18, 154], ankR = [cx + 18, 154];
-    const spread = lerp(16, 34, p);
-    const handY = lerp(34, 84, p);
-    const left = reach(shoL, [cx - spread, handY], function (s) { return shoL[0] - s.mid[0] + (s.mid[1] - shoL[1]); });
-    const right = reach(shoR, [cx + spread, handY], function (s) { return s.mid[0] - shoR[0] + (s.mid[1] - shoR[1]); });
+    const shoL = [cx - 22, 52], shoR = [cx + 22, 52];
+    const hipY = 94;
+    const elbL = [r1(lerp(cx - 23, cx - 40, p)), r1(lerp(56, 68, p))];
+    const elbR = [r1(2 * cx - elbL[0]), elbL[1]];
+    const handL = [r1(lerp(cx - 21, cx - 36, p)), r1(lerp(57, 64, p))];
+    const handR = [r1(2 * cx - handL[0]), handL[1]];
     const j = {
-      head: [cx, 30], neck: [cx, 48],
-      shoL: shoL, shoR: shoR, hipL: hipL, hipR: hipR, hip: [cx, 102],
-      kneeL: kneeL, kneeR: kneeR, ankL: ankL, ankR: ankR,
-      toeL: [ankL[0] - 4, ankL[1] + 4], toeR: [ankR[0] + 4, ankR[1] + 4],
-      elbL: left.mid, handL: left.end, elbR: right.mid, handR: right.end
+      head: [cx, 28], neck: [cx, 42],
+      shoL: shoL, shoR: shoR, hip: [cx, hipY], hipL: [cx - 13, hipY], hipR: [cx + 13, hipY],
+      kneeL: [cx - 24, 126], kneeR: [cx + 24, 126],
+      ankL: [cx - 28, 136], ankR: [cx + 28, 136],
+      toeL: [cx - 30, 145], toeR: [cx + 30, 145],
+      elbL: elbL, handL: handL, elbR: elbR, handR: handR
     };
     return fig({
       j: j, face: 'up',
-      torso: [shoL, shoR, hipR, hipL],
+      torso: [shoL, shoR, j.hipR, j.hipL],
       lines: frontLinks(j, { arm: true }),
-      dbs: [bell(j.handL[0], j.handL[1], 0), bell(j.handR[0], j.handR[1], 0)],
-      glow: [mid(j.elbL, j.shoL), mid(j.elbR, j.shoR)],
-      props: [{ k: 'rect', x: 62, y: 90, w: 76, h: 70, fill: '#ddd8ee' }],
+      dbs: [bell(handL[0], handL[1], 0), bell(handR[0], handR[1], 0)],
+      glow: [[cx - 11, 62], [cx + 11, 62]],
+      props: [{ k: 'rect', x: cx - 20, y: 18, w: 40, h: 88, fill: PAD }],
       ground: false
     });
   }
 
   function rowSide(p) {
-    const hip = [132, 96];
-    const sho = polar(hip[0], hip[1], L.torso, -174);
-    const head = polar(sho[0], sho[1], L.neck, -150);
-    const kneeOn = [118, 104];
-    const foot = [156, FLOOR - 4];
-    const support = polar(sho[0], sho[1], 28, 36);
-    const hang = polar(sho[0], sho[1], L.uarm + L.farm - 2, 78);
-    const pulled = [hip[0] - 10, hip[1] + 2];
+    const BY = 132;
+    const hip = [128, BY - 3 - L.thigh];
+    const shoF = polar(hip[0], hip[1], L.torso, -164);
+    const sho = [r1(shoF[0]), r1(shoF[1])];
+    const head = polar(sho[0], sho[1], L.neck, -166);
+    const knee2 = [128, BY - 3];
+    const ank2 = [r1(knee2[0] + L.shin), BY - 3];
+    const foot = [hip[0] + 14, FLOOR - 4];
+    const stand = ikPrefer(hip, foot, L.thigh, L.shin, function (s) { return -s.mid[0]; });
+    const support = reach(sho, [sho[0] - 4, BY - 3], function (s) { return s.mid[0]; });
+    const hang = [sho[0] + 2, sho[1] + 44];
+    const pulled = [sho[0] + 22, sho[1] + 10];
     const hand = [lerp(hang[0], pulled[0], p), lerp(hang[1], pulled[1], p)];
-    const arm = reach([r1(sho[0]), r1(sho[1])], hand, function (s) { return s.mid[1]; });
+    const arm = reach(sho, hand, function (s) { return -s.mid[1] + 0.3 * s.mid[0]; });
     const j = {
-      head: [r1(head[0]), r1(head[1])],
-      sho: [r1(sho[0]), r1(sho[1])], hip: hip,
-      knee: kneeOn, ank: [kneeOn[0] + 8, kneeOn[1] + 4],
-      toe: [kneeOn[0] + 16, kneeOn[1] + 4], heel: [kneeOn[0] - 2, kneeOn[1] + 4],
-      knee2: [148, 124], ank2: foot, toe2: [foot[0] + 12, foot[1]], heel2: [foot[0] - 4, foot[1]],
+      head: [r1(head[0]), r1(head[1])], sho: sho, hip: hip,
+      knee: stand.mid, ank: stand.end,
+      toe: [r1(stand.end[0] - 12), stand.end[1]], heel: [r1(stand.end[0] + 4), stand.end[1]],
+      knee2: knee2, ank2: ank2, toe2: [ank2[0] + 9, BY - 2], heel2: [ank2[0] - 2, BY - 6],
       elb: arm.mid, hand: arm.end,
-      elb2: [r1(support[0]), r1(support[1] - 10)],
-      hand2: [r1(support[0]), r1(support[1])]
+      elb2: support.mid, hand2: support.end
     };
     return fig({
-      j: j, face: 'right',
+      j: j, face: 'left',
       lines: sideLinks(j, { arm: true, torso: true }),
-      dbs: [bell(j.hand[0], j.hand[1] + 2, 0)],
-      glow: [[hip[0] - 16, hip[1] - 4]],
-      props: benchProps(70, 100, 78),
+      dbs: [bell(j.hand[0], j.hand[1] + 1, 0)],
+      glow: [[sho[0] + 16, sho[1] - 2]],
+      props: benchProps(sho[0] - 14, BY + 1, ank2[0] - sho[0] + 26),
       shadow: shadowAt(120)
     });
   }
 
   function rowFront(p) {
-    const cx = 112;
-    const shoY = 64;
-    const hipY = 96;
+    const cx = 100, shoY = 85, BY = 132;
     const j = {
-      head: [cx, 42], neck: [cx, shoY - 4],
-      shoL: [cx - 28, shoY], shoR: [cx + 18, shoY],
-      hip: [cx, hipY], hipL: [cx - 18, hipY], hipR: [cx + 10, hipY],
-      kneeL: [cx - 26, 118], kneeR: [cx + 6, 132],
-      ankL: [cx - 30, 128], ankR: [cx + 8, 158],
-      toeL: [cx - 38, 132], toeR: [cx + 16, 162],
-      elbL: [cx - 46, shoY + 6],
-      handL: [58, shoY + 18]
+      head: [cx, shoY - 4], neck: [cx, shoY - 4],
+      shoL: [cx - 22, shoY], shoR: [cx + 22, shoY],
+      hip: [cx, shoY + 8], hipL: [cx - 13, shoY + 10], hipR: [cx + 13, shoY + 10],
+      kneeL: [cx - 17, 128], kneeR: [cx + 15, BY - 3],
+      ankL: [cx - 18, FLOOR - 4], ankR: [cx + 15, BY - 5],
+      toeL: [cx - 19, FLOOR - 1], toeR: [cx + 15, BY - 6]
     };
-    const handR = [cx + lerp(26, 6, p), lerp(150, hipY + 8, p)];
-    const arm = reach(j.shoR, handR, function (s) { return s.mid[1] - j.shoR[1]; });
-    j.elbR = arm.mid;
-    j.handR = arm.end;
+    const sup = reach(j.shoR, [cx + 25, BY - 3], function (s) { return s.mid[0]; });
+    j.elbR = sup.mid; j.handR = sup.end;
+    /* The working elbow drives up past the back, so from the front the upper arm shortens and rises. */
+    j.elbL = [r1(lerp(cx - 24, cx - 28, p)), r1(lerp(shoY + 22, shoY - 12, p))];
+    j.handL = [r1(lerp(cx - 24, cx - 27, p)), r1(lerp(shoY + 44, shoY + 8, p))];
     return fig({
       j: j, face: 'front',
       torso: [j.shoL, j.shoR, j.hipR, j.hipL],
       lines: frontLinks(j, { arm: true }),
-      dbs: [bell(j.handR[0], j.handR[1] + 1, 0)],
-      glow: [mid(j.shoR, j.hipR)],
-      props: [{ k: 'rect', x: 28, y: shoY + 14, w: 46, h: 8 }],
-      ground: false
+      dbs: [bell(j.handL[0], j.handL[1] + 1, 0)],
+      glow: [[cx - 20, shoY + 8]],
+      props: [
+        { k: 'rect', x: cx + 2, y: BY, w: 40, h: 8 },
+        { k: 'rect', x: cx + 18, y: BY + 8, w: 8, h: FLOOR - BY - 8, fill: LEG }
+      ],
+      shadow: shadowAt(cx)
     });
   }
 
@@ -395,183 +444,180 @@
   }
 
   function pressSide(p) {
-    const j = sideFigure({
-      torso: -84,
-      thigh: 10,
-      shin: 92,
-      ax: 154
-    });
-    const hand = [j.sho[0] + lerp(10, 4, p), j.sho[1] + lerp(2, -44, p)];
-    const arm = reach(j.sho, hand, function (s) { return (s.mid[1] - j.sho[1]) + (j.sho[0] - s.mid[0]); });
+    const j = seatedBase();
+    /* Elbows start below the dumbbells with the forearms vertical, then straighten overhead. */
+    const arm = {
+      mid: [r1(j.sho[0] + lerp(7, 3, p)), r1(j.sho[1] + lerp(12, -23, p))],
+      end: [r1(j.sho[0] + lerp(9, 2, p)), r1(j.sho[1] - lerp(10, 45, p))]
+    };
     j.elb = arm.mid;
     j.hand = arm.end;
-    j.elb2 = [r1(arm.mid[0] - 5), r1(arm.mid[1] - 4)];
-    j.hand2 = [r1(arm.end[0] - 5), r1(arm.end[1] - 4)];
-    const seatY = j.hip[1] - 4;
+    j.elb2 = [r1(arm.mid[0] - 5), r1(arm.mid[1] - 3)];
+    j.hand2 = [r1(arm.end[0] - 5), r1(arm.end[1] - 3)];
     return fig({
       j: j, face: 'right',
       lines: sideLinks(j, { arm: true }),
-      dbs: [bell(j.hand2[0], j.hand2[1], 0, { opacity: 0.45 }), bell(j.hand[0], j.hand[1], 0)],
-      glow: [[j.sho[0] + 2, j.sho[1] - 4]],
-      props: benchProps(j.hip[0] - 18, seatY, 64, { x: j.hip[0] - 26, y: seatY - 48, h: 52 }),
+      dbs: [bell(j.hand2[0], j.hand2[1], 0, { opacity: 0.45, sx: 0.5 }), bell(j.hand[0], j.hand[1], 0, { sx: 0.5 })],
+      glow: [[j.sho[0] + 1, j.sho[1] - 2]],
+      props: seatedSideProps(j),
       shadow: shadowAt(j.ank[0])
     });
   }
 
   function pressFront(p) {
-    const hipY = 112, shoY = 70;
-    const j = {
-      head: [100, shoY - 18], neck: [100, shoY],
-      shoL: [78, shoY], shoR: [122, shoY],
-      hip: [100, hipY], hipL: [88, hipY], hipR: [112, hipY],
-      kneeL: [84, hipY + 28], kneeR: [116, hipY + 28],
-      ankL: [84, FLOOR - 4], ankR: [116, FLOOR - 4],
-      toeL: [76, FLOOR - 2], toeR: [124, FLOOR - 2]
-    };
-    const handY = lerp(shoY + 2, shoY - 46, p);
-    const spread = lerp(20, 14, p);
-    const left = reach(j.shoL, [100 - spread, handY], function (s) { return j.shoL[0] - s.mid[0]; });
-    const right = reach(j.shoR, [100 + spread, handY], function (s) { return s.mid[0] - j.shoR[0]; });
+    const s = seatedFront(100);
+    const j = s.j;
+    const dx = lerp(21, 5, p);
+    const hy = lerp(s.shoY - 12, s.shoY - 45, p);
+    const left = reach(j.shoL, [j.shoL[0] - dx, hy], function (q) { return j.shoL[0] - q.mid[0]; });
+    const right = reach(j.shoR, [j.shoR[0] + dx, hy], function (q) { return q.mid[0] - j.shoR[0]; });
     j.elbL = left.mid; j.handL = left.end;
     j.elbR = right.mid; j.handR = right.end;
     return fig({
-      j: j, face: 'front',
-      torso: [j.shoL, j.shoR, j.hipR, j.hipL],
+      j: j, face: 'front', torso: j.torso,
       lines: frontLinks(j, { arm: true }),
       dbs: [bell(j.handL[0], j.handL[1], 0), bell(j.handR[0], j.handR[1], 0)],
-      glow: [[88, shoY - 6], [112, shoY - 6]],
-      props: benchProps(68, hipY - 2, 64, { x: 64, y: shoY - 10, h: hipY - shoY + 12 }),
+      glow: [[j.shoL[0] + 2, s.shoY - 2], [j.shoR[0] - 2, s.shoY - 2]],
+      props: s.props,
       shadow: shadowAt(100)
     });
   }
 
   function bridgeSide(p) {
-    const sho = [52, 148];
-    const hip = polar(sho[0], sho[1], L.torso, lerp(8, -36, p));
-    const ank = [150, FLOOR - 4];
+    const sho = [50, 148];
+    const hipF = polar(sho[0], sho[1], L.torso, lerp(6, -18, p));
+    const hip = [r1(hipF[0]), r1(hipF[1])];
+    const ank = [125, FLOOR - 4];
     const leg = ikPrefer(hip, ank, L.thigh, L.shin, function (s) { return -s.mid[1]; });
-    const head = polar(sho[0], sho[1], L.neck, 168);
-    const db = [r1(hip[0]), r1(hip[1] - 8)];
+    const head = polar(sho[0], sho[1], L.neck, 172);
+    const db = [hip[0], r1(hip[1] - 8)];
+    const arm = reach(sho, [db[0] - 3, db[1] + 3], function (s) { return s.mid[1]; });
     const j = {
-      head: [r1(head[0]), r1(head[1])], sho: sho, hip: [r1(hip[0]), r1(hip[1])],
+      head: [r1(head[0]), r1(head[1])], sho: sho, hip: hip,
       knee: leg.mid, ank: leg.end,
       toe: [r1(leg.end[0] + 12), leg.end[1]], heel: [r1(leg.end[0] - 5), leg.end[1]],
-      elb: [r1(hip[0] - 8), r1(hip[1] - 4)], hand: [db[0], db[1] + 2]
+      elb: arm.mid, hand: arm.end
     };
     return fig({
       j: j, face: 'up',
       lines: sideLinks(j, { thigh: true }),
       dbs: [bell(db[0], db[1], 0, { end: true })],
-      glow: [[j.hip[0], j.hip[1] + 2]],
-      props: [{ k: 'rect', x: 18, y: FLOOR - 2, w: 164, h: 4, fill: '#d5d0e6' }],
-      shadow: shadowAt(100)
+      glow: [[hip[0], hip[1] + 2]],
+      props: [{ k: 'rect', x: 18, y: FLOOR - 2, w: 164, h: 4, fill: MAT }],
+      shadow: shadowAt(96)
     });
   }
 
   function bridgeFront(p) {
     const cx = 100;
-    const hipY = lerp(124, 108, p);
+    const shoY = 66;
+    const hipY = r1(lerp(108, 100, p));
+    const kneeY = r1(lerp(134, 140, p));
     const j = {
-      head: [cx, 34], neck: [cx, 50],
-      shoL: [cx - 24, 60], shoR: [cx + 24, 60],
-      hip: [cx, hipY], hipL: [cx - 16, hipY], hipR: [cx + 16, hipY],
-      kneeL: [cx - 40, hipY + 26], kneeR: [cx + 40, hipY + 26],
-      ankL: [cx - 18, hipY + 6], ankR: [cx + 18, hipY + 6],
-      toeL: [cx - 18, hipY - 6], toeR: [cx + 18, hipY - 6],
-      elbL: [cx - 30, 78], elbR: [cx + 30, 78],
-      handL: [cx - 20, hipY - 8], handR: [cx + 20, hipY - 8]
+      head: [cx, 42], neck: [cx, 56],
+      shoL: [cx - 22, shoY], shoR: [cx + 22, shoY],
+      hip: [cx, hipY], hipL: [cx - 13, hipY], hipR: [cx + 13, hipY],
+      kneeL: [cx - 18, kneeY], kneeR: [cx + 18, kneeY],
+      ankL: [cx - 17, r1(kneeY - 6)], ankR: [cx + 17, r1(kneeY - 6)],
+      toeL: [cx - 17, r1(kneeY + 6)], toeR: [cx + 17, r1(kneeY + 6)]
     };
+    const left = reach(j.shoL, [cx - 16, hipY + 2], function (s) { return j.shoL[0] - s.mid[0]; });
+    const right = reach(j.shoR, [cx + 16, hipY + 2], function (s) { return s.mid[0] - j.shoR[0]; });
+    j.elbL = left.mid; j.handL = left.end; j.elbR = right.mid; j.handR = right.end;
     return fig({
       j: j, face: 'up',
       torso: [j.shoL, j.shoR, j.hipR, j.hipL],
       lines: frontLinks(j, { thigh: true }),
-      dbs: [bell(cx, hipY - 2, 0)],
-      glow: [[cx, hipY + 8]],
-      props: [{ k: 'rect', x: 28, y: 44, w: 144, h: 112, fill: '#e4dff3' }],
+      dbs: [bell(cx, hipY - 3, 0)],
+      glow: [[cx - 9, hipY + 6], [cx + 9, hipY + 6]],
+      props: [{ k: 'rect', x: 40, y: 22, w: 120, h: 140, fill: MAT }],
       ground: false
     });
   }
 
   function bugSide(p) {
-    const sho = [74, 146];
-    const hip = [116, 148];
+    const sho = [72, 146];
+    const hip = [112, 147];
+    const up = polar(sho[0], sho[1], L.uarm + L.farm - 1, -88);
+    const reachHand = polar(sho[0], sho[1], L.uarm + L.farm - 1, lerp(-88, -172, p));
+    const arm = reach(sho, reachHand, function (s) { return -s.mid[1]; });
+    const still = reach(sho, up, function (s) { return -s.mid[1]; });
+    const tableKnee = polar(hip[0], hip[1], L.thigh, -88);
+    const tableAnk = polar(tableKnee[0], tableKnee[1], L.shin, 2);
+    const knee2 = polar(hip[0], hip[1], L.thigh, lerp(-88, -10, p));
+    const ank2 = polar(knee2[0], knee2[1], L.shin, lerp(2, -8, p));
+    function P(a) { return [r1(a[0]), r1(a[1])]; }
     const j = {
-      head: [52, 140], sho: sho, hip: hip,
-      knee: [r1(lerp(124, 150, p)), r1(lerp(118, 142, p))],
-      ank: [r1(lerp(142, 178, p)), r1(lerp(108, 146, p))],
-      toe: [r1(lerp(150, 186, p)), r1(lerp(108, 146, p))],
-      heel: [r1(lerp(136, 172, p)), r1(lerp(112, 148, p))],
-      knee2: [120, 116], ank2: [136, 104], toe2: [144, 100], heel2: [130, 108],
-      elb: [r1(lerp(66, 42, p)), r1(lerp(124, 142, p))],
-      hand: [r1(lerp(58, 24, p)), r1(lerp(106, 144, p))]
+      head: [50, 141], sho: sho, hip: hip,
+      knee: P(tableKnee), ank: P(tableAnk),
+      toe: P([tableAnk[0] + 9, tableAnk[1] - 3]), heel: P([tableAnk[0] - 3, tableAnk[1] + 1]),
+      knee2: P(knee2), ank2: P(ank2),
+      toe2: P(polar(ank2[0], ank2[1], 9, lerp(-60, -40, p))), heel2: P(polar(ank2[0], ank2[1], 3, lerp(120, 140, p))),
+      elb: arm.mid, hand: arm.end,
+      elb2: still.mid, hand2: still.end
     };
     return fig({
       j: j, face: 'up',
       lines: sideLinks(j, { torso: true }),
       dbs: [],
       glow: [mid(sho, hip)],
-      props: [{ k: 'rect', x: 16, y: 150, w: 170, h: 8, fill: '#d5d0e6' }],
-      ground: false
+      props: [{ k: 'rect', x: 16, y: 152, w: 170, h: 8, fill: MAT }],
+      shadow: null,
+      ground: true
     });
   }
 
   function bugAbove(p) {
     const cx = 100;
-    const shoY = 70, hipY = 112;
+    const shoY = 58, hipY = 100;
     const j = {
-      head: [cx, 36], neck: [cx, shoY - 8],
+      head: [cx, 40], neck: [cx, shoY - 8],
       shoL: [cx - 22, shoY], shoR: [cx + 22, shoY],
       hip: [cx, hipY], hipL: [cx - 12, hipY], hipR: [cx + 12, hipY],
-      kneeL: [lerp(cx - 18, cx - 34, p), lerp(hipY + 22, hipY + 8, p)],
-      kneeR: [lerp(cx + 18, cx + 16, p), lerp(hipY + 22, hipY + 28, p)],
-      ankL: [lerp(cx - 10, cx - 46, p), lerp(hipY + 8, hipY + 4, p)],
-      ankR: [lerp(cx + 10, cx + 14, p), lerp(hipY + 8, FLOOR - 16, p)],
-      toeL: [0, 0], toeR: [0, 0]
+      kneeL: [cx - 14, hipY + 4], kneeR: [cx + 14, r1(lerp(hipY + 4, hipY + 28, p))],
+      ankL: [cx - 14, hipY + 34], ankR: [cx + 14, r1(lerp(hipY + 34, hipY + 56, p))]
     };
-    j.toeL = [j.ankL[0] - 6, j.ankL[1]];
-    j.toeR = [j.ankR[0] + 4, j.ankR[1] + 6];
-    const handL = [lerp(cx - 10, cx - 48, p), lerp(28, 22, p)];
-    const handR = [lerp(cx + 10, cx + 14, p), lerp(28, 48, p)];
-    const left = reach(j.shoL, handL, function (s) { return -s.mid[1]; });
-    const right = reach(j.shoR, handR, function (s) { return -s.mid[1]; });
-    j.elbL = left.mid; j.handL = left.end;
-    j.elbR = right.mid; j.handR = right.end;
+    j.toeL = [j.ankL[0], j.ankL[1] + 6];
+    j.toeR = [j.ankR[0], j.ankR[1] + 6];
+    j.elbR = [cx + 22, shoY - 2]; j.handR = [cx + 21, shoY - 4];
+    j.elbL = [cx - 22, r1(lerp(shoY - 2, shoY - 23, p))];
+    j.handL = [cx - 21, r1(lerp(shoY - 4, shoY - 44, p))];
     return fig({
       j: j, face: 'up',
       torso: [j.shoL, j.shoR, j.hipR, j.hipL],
-      lines: frontLinks(j, { torso: true }),
+      lines: frontLinks(j, {}),
       dbs: [],
-      glow: [[cx, (shoY + hipY) / 2]],
-      props: [{ k: 'rect', x: 28, y: 48, w: 144, h: 108, fill: '#e6e1f4' }],
+      glow: [[cx, (shoY + hipY) / 2 + 6]],
+      props: [{ k: 'rect', x: 40, y: 4, w: 120, h: 162, fill: MAT }],
       ground: false
     });
   }
 
   function lungeSide(p) {
-    const hip = [lerp(108, 104, p), lerp(96, 118, p)];
-    const sho = polar(hip[0], hip[1], L.torso, lerp(-90, -78, p));
+    const hip = [lerp(108, 106, p), lerp(96, 120, p)];
+    const sho = polar(hip[0], hip[1], L.torso, lerp(-90, -82, p));
     const head = polar(sho[0], sho[1], L.neck, -90);
-    const frontAnk = [lerp(112, 126, p), FLOOR - 4];
-    const backAnk = [lerp(104, 64, p), FLOOR - 4];
-    const front = ikPrefer(hip, frontAnk, L.thigh, L.shin, function (s) { return -s.mid[1]; });
-    const back = ikPrefer(hip, backAnk, L.thigh, L.shin, function (s) { return -s.mid[1]; });
-    const hand = [hip[0] + 2, hip[1] + 32];
-    const arm = reach([r1(sho[0]), r1(sho[1])], hand, function (s) { return s.mid[1]; });
+    const frontAnk = [lerp(112, 128, p), FLOOR - 4];
+    const backAnk = [lerp(106, 66, p), FLOOR - 4 - lerp(0, 6, p)];
+    const front = ikPrefer(hip, frontAnk, L.thigh, L.shin, function (s) { return s.mid[0]; });
+    const back = ikPrefer(hip, backAnk, L.thigh, L.shin, function (s) { return s.mid[0]; });
+    const hand = [hip[0] + 2, hip[1] + 4];
+    const arm = reach([r1(sho[0]), r1(sho[1])], [sho[0] + 2, sho[1] + 45], function (s) { return s.mid[0]; });
     const j = {
       head: [r1(head[0]), r1(head[1])],
       sho: [r1(sho[0]), r1(sho[1])], hip: [r1(hip[0]), r1(hip[1])],
       knee: front.mid, ank: front.end,
       toe: [r1(front.end[0] + 12), front.end[1]], heel: [r1(front.end[0] - 4), front.end[1]],
       knee2: back.mid, ank2: back.end,
-      toe2: [r1(back.end[0] + 10), back.end[1]], heel2: [r1(back.end[0] - 4), back.end[1]],
+      toe2: [r1(back.end[0] + 10), FLOOR - 3], heel2: [r1(back.end[0] - 4), r1(back.end[1] - lerp(0, 3, p))],
       elb: arm.mid, hand: arm.end
     };
+    void hand;
     return fig({
       j: j, face: 'right',
       lines: sideLinks(j, { thigh: true }),
-      dbs: [bell(j.hand[0] + 2, j.hand[1], 0, { end: true })],
+      dbs: [bell(j.hand[0] + 1, j.hand[1] + 2, 0, { end: true })],
       glow: [mid(j.hip, j.knee)],
-      props: [{ k: 'rect', x: 156, y: 78, w: 10, h: 84, fill: '#d5d0e6' }],
       shadow: shadowAt(100)
     });
   }
@@ -610,40 +656,36 @@
       torso: -90,
       thigh: 86,
       shin: 92,
-      foot: lerp(0, 58, p),
+      foot: lerp(0, 38, p),
       plant: 'toe',
-      ax: 124
+      ax: 120
     });
-    const hand = [j.hip[0] + 2, j.hip[1] + 34];
-    const arm = reach(j.sho, hand, function (s) { return s.mid[1]; });
+    const arm = reach(j.sho, [j.sho[0] + 2, j.sho[1] + 45], function (s) { return s.mid[0]; });
     j.elb = arm.mid;
     j.hand = arm.end;
     return fig({
       j: j, face: 'right',
       lines: sideLinks(j, { shin: true }),
-      dbs: [bell(j.hand[0] + 2, j.hand[1], 0, { end: true })],
+      dbs: [bell(j.hand[0] + 1, j.hand[1] + 2, 0, { end: true })],
       glow: [mid(j.knee, j.ank)],
       shadow: shadowAt(j.toe[0])
     });
   }
 
   function calfFront(p) {
-    const lift = lerp(0, 12, p);
+    const lift = lerp(0, 8, p);
     const j = frontStand({
-      hipY: 100 - lift, shoY: 58 - lift, shoW: 22, hipW: 12, ankleX: 14, straight: true
+      hipY: 100 - lift, shoY: 58 - lift, shoW: 22, hipW: 12, ankleX: 14, straight: true, rise: lift
     });
-    j.head[1] -= 0;
-    j.elbL = [j.shoL[0] - 6, j.shoL[1] + 24];
-    j.elbR = [j.shoR[0] + 6, j.shoR[1] + 24];
-    j.handL = [j.elbL[0] - 10, j.elbL[1] + 20];
-    j.handR = [j.elbR[0] + 10, j.elbR[1] + 20];
-    if (p > 0.2) {
-      j.heelL = [j.ankL[0], r1(j.ankL[1] - lift)];
-      j.heelR = [j.ankR[0], r1(j.ankR[1] - lift)];
-    }
+    j.toeL = [r1(j.ankL[0] - 6), FLOOR - 2];
+    j.toeR = [r1(j.ankR[0] + 6), FLOOR - 2];
+    j.elbL = [j.shoL[0] - 5, j.shoL[1] + 24];
+    j.elbR = [j.shoR[0] + 5, j.shoR[1] + 24];
+    j.handL = [j.elbL[0] - 7, j.elbL[1] + 21];
+    j.handR = [j.elbR[0] + 7, j.elbR[1] + 21];
     return fig({
       j: j, face: 'front', torso: j.torso,
-      lines: frontLinks(j, { shin: true }).concat(p > 0.2 ? link(j, [['ankL', 'heelL', 4, true, false], ['ankR', 'heelR', 4, true, false]]) : []),
+      lines: frontLinks(j, { shin: true }),
       dbs: [bell(j.handL[0], j.handL[1], 0), bell(j.handR[0], j.handR[1], 0)],
       glow: [mid(j.ankL, j.kneeL), mid(j.ankR, j.kneeR)],
       shadow: shadowAt(100)
@@ -653,12 +695,12 @@
   function curlSide(p, neutral) {
     const j = sideFigure({ torso: -90, thigh: 84, shin: 96, ax: 108 });
     const elb = [r1(j.sho[0] + 4), r1(j.sho[1] + L.uarm)];
-    const deg = lerp(80, -30, p);
+    const deg = lerp(84, -36, p);
     const hand = polar(elb[0], elb[1], L.farm, deg);
     j.elb = elb;
     j.hand = [r1(hand[0]), r1(hand[1])];
     const db = neutral
-      ? bell(j.hand[0] + 8, j.hand[1], 0)
+      ? bell(j.hand[0], j.hand[1], r1(deg - 90))
       : bell(j.hand[0], j.hand[1], 0, { end: true });
     return fig({
       j: j, face: 'right',
@@ -685,124 +727,121 @@
   }
 
   function triSide(p) {
-    const j = sideFigure({ torso: -86, thigh: 12, shin: 90, ax: 150 });
-    const elb = polar(j.sho[0], j.sho[1], L.uarm, lerp(-78, -104, p));
-    const hand = polar(elb[0], elb[1], L.farm, lerp(-78, 150, p));
+    const j = seatedBase();
+    const elb = polar(j.sho[0], j.sho[1], L.uarm, lerp(-82, -98, p));
+    const hand = polar(elb[0], elb[1], L.farm, lerp(-82, -218, p));
     j.elb = [r1(elb[0]), r1(elb[1])];
     j.hand = [r1(hand[0]), r1(hand[1])];
-    const seatY = j.hip[1] - 4;
     return fig({
       j: j, face: 'right',
       lines: sideLinks(j, { arm: true }),
-      dbs: [bell(j.hand[0], j.hand[1] - 2, 90)],
-      glow: [j.elb],
-      props: benchProps(j.hip[0] - 16, seatY, 60, { x: j.hip[0] - 24, y: seatY - 46, h: 50 }),
+      dbs: [bell(j.hand[0], j.hand[1] + 13, 90, { under: p > 0.35 })],
+      glow: [mid(j.sho, j.elb)],
+      props: seatedSideProps(j),
       shadow: shadowAt(j.ank[0])
     });
   }
 
   function triFront(p) {
-    const hipY = 114, shoY = 72;
-    const j = {
-      head: [100, shoY - 18], neck: [100, shoY],
-      shoL: [80, shoY], shoR: [120, shoY],
-      hip: [100, hipY], hipL: [88, hipY], hipR: [112, hipY],
-      kneeL: [86, hipY + 26], kneeR: [114, hipY + 26],
-      ankL: [86, FLOOR - 4], ankR: [114, FLOOR - 4],
-      toeL: [78, FLOOR - 2], toeR: [122, FLOOR - 2]
-    };
-    const elbY = lerp(shoY - 22, shoY - 18, p);
-    j.elbL = [92, elbY];
-    j.elbR = [108, elbY];
-    const handY = lerp(shoY - 44, shoY - 4, p);
+    const s = seatedFront(100);
+    const j = s.j;
+    const shoY = s.shoY;
+    const elbY = lerp(shoY - 23, shoY - 20, p);
+    j.elbL = [91, r1(elbY)];
+    j.elbR = [109, r1(elbY)];
+    const handY = r1(lerp(shoY - 45, shoY - 6, p));
     j.handL = [98, handY];
     j.handR = [102, handY];
     return fig({
-      j: j, face: 'front',
-      torso: [j.shoL, j.shoR, j.hipR, j.hipL],
+      j: j, face: 'front', torso: j.torso,
       lines: frontLinks(j, { arm: true }),
-      dbs: [bell(100, handY - 8, 90)],
-      glow: [j.elbL, j.elbR],
-      props: benchProps(70, hipY - 2, 60, { x: 66, y: shoY - 8, h: hipY - shoY + 10 }),
+      dbs: [bell(100, handY + 13, 90, { under: p > 0.35 })],
+      glow: [mid(j.shoL, j.elbL), mid(j.shoR, j.elbR)],
+      props: s.props,
       shadow: shadowAt(100)
     });
   }
 
   function flySide(p) {
-    const hip = [138, 118];
-    const sho = polar(hip[0], hip[1], L.torso, -150);
-    const head = polar(sho[0], sho[1], L.neck, -150);
-    const ank = [168, FLOOR - 4];
+    const hip = [134, 124];
+    const shoF = polar(hip[0], hip[1], L.torso, -150);
+    const sho = [r1(shoF[0]), r1(shoF[1])];
+    const head = polar(sho[0], sho[1], L.neck, -152);
+    const ank = [166, FLOOR - 4];
     const leg = ikPrefer(hip, ank, L.thigh, L.shin, function (s) { return -s.mid[1]; });
-    const together = polar(sho[0], sho[1], 36, -50);
-    const open = polar(sho[0], sho[1], 42, 46);
-    const hand = [lerp(together[0], open[0], p), lerp(together[1], open[1], p)];
-    const arm = reach([r1(sho[0]), r1(sho[1])], hand, function (s) { return s.mid[1] - hand[1]; });
+    const hTop = polar(sho[0], sho[1], 43, -62), hOpen = polar(sho[0], sho[1], 9, 112);
+    const eTop = polar(sho[0], sho[1], 23, -68), eOpen = polar(sho[0], sho[1], 9, 70);
+    const hand = [r1(lerp(hTop[0], hOpen[0], p)), r1(lerp(hTop[1], hOpen[1], p))];
+    const elb = [r1(lerp(eTop[0], eOpen[0], p)), r1(lerp(eTop[1], eOpen[1], p))];
     const j = {
-      head: [r1(head[0]), r1(head[1])],
-      sho: [r1(sho[0]), r1(sho[1])], hip: hip,
+      head: [r1(head[0]), r1(head[1])], sho: sho, hip: hip,
       knee: leg.mid, ank: leg.end,
       toe: [r1(leg.end[0] + 10), leg.end[1]], heel: [r1(leg.end[0] - 4), leg.end[1]],
-      elb: arm.mid, hand: arm.end
+      elb: elb, hand: hand,
+      elb2: [r1(elb[0] - 3), r1(elb[1] - 5)], hand2: [r1(hand[0] - 3), r1(hand[1] - 5)]
     };
-    j.elb2 = [r1(arm.mid[0]), r1(arm.mid[1] - 6)];
-    j.hand2 = [r1(arm.end[0]), r1(arm.end[1] - 6)];
+    const back = polar(hip[0], hip[1], 10, 120);
     return fig({
       j: j, face: 'up',
       lines: sideLinks(j, { arm: true }),
-      dbs: [bell(j.hand2[0], j.hand2[1], 0, { opacity: 0.45 }), bell(j.hand[0], j.hand[1], 0)],
-      glow: [[j.sho[0] + 8, j.sho[1] + 8]],
-      props: [{ k: 'rot', x: j.hip[0] - 70, y: j.hip[1] - 4, w: 78, h: 8, deg: -28 }],
-      shadow: shadowAt(140)
+      dbs: [bell(j.hand2[0], j.hand2[1], 0, { opacity: 0.45, sx: 0.5 }), bell(hand[0], hand[1], 0, { sx: 0.5 })],
+      glow: [[sho[0] + 10, sho[1] + 2]],
+      props: [
+        { k: 'rot', x: r1(back[0]), y: r1(back[1] - 4), w: 66, h: 8, deg: -150 },
+        { k: 'rect', x: hip[0] - 12, y: hip[1] + 6, w: 30, h: 8 },
+        { k: 'rect', x: hip[0] - 2, y: hip[1] + 14, w: 6, h: FLOOR - hip[1] - 14, fill: LEG },
+        { k: 'rect', x: r1(back[0] - 36), y: r1(back[1] - 18), w: 6, h: r1(FLOOR - back[1] + 18), fill: LEG }
+      ],
+      shadow: shadowAt(130)
     });
   }
 
   function flyAbove(p) {
     const cx = 100;
-    const shoL = [cx - 22, 72], shoR = [cx + 22, 72];
-    const spread = lerp(16, 52, p);
-    const handY = lerp(48, 78, p);
-    const left = reach(shoL, [cx - spread, handY], function (s) { return shoL[0] - s.mid[0]; });
-    const right = reach(shoR, [cx + spread, handY], function (s) { return s.mid[0] - shoR[0]; });
+    const shoL = [cx - 22, 54], shoR = [cx + 22, 54];
+    const hipY = 90;
+    const elbL = [r1(lerp(cx - 19, cx - 43, p)), r1(lerp(60, 64, p))];
+    const handL = [r1(lerp(cx - 9, cx - 62, p)), r1(lerp(64, 60, p))];
     const j = {
-      head: [cx, 40], neck: [cx, 58],
-      shoL: shoL, shoR: shoR,
-      hip: [cx, 118], hipL: [cx - 14, 118], hipR: [cx + 14, 118],
-      kneeL: [cx - 16, 140], kneeR: [cx + 16, 140],
-      ankL: [cx - 16, 156], ankR: [cx + 16, 156],
-      toeL: [cx - 22, 160], toeR: [cx + 22, 160],
-      elbL: left.mid, handL: left.end, elbR: right.mid, handR: right.end
+      head: [cx, 30], neck: [cx, 44],
+      shoL: shoL, shoR: shoR, hip: [cx, hipY], hipL: [cx - 13, hipY], hipR: [cx + 13, hipY],
+      kneeL: [cx - 18, 122], kneeR: [cx + 18, 122],
+      ankL: [cx - 21, 133], ankR: [cx + 21, 133],
+      toeL: [cx - 23, 142], toeR: [cx + 23, 142],
+      elbL: elbL, handL: handL, elbR: [r1(2 * cx - elbL[0]), elbL[1]], handR: [r1(2 * cx - handL[0]), handL[1]]
     };
     return fig({
       j: j, face: 'up',
       torso: [shoL, shoR, j.hipR, j.hipL],
       lines: frontLinks(j, { arm: true }),
       dbs: [bell(j.handL[0], j.handL[1], 0), bell(j.handR[0], j.handR[1], 0)],
-      glow: [[cx, 80]],
-      props: [{ k: 'rect', x: 70, y: 100, w: 60, h: 56, fill: '#ddd8ee' }],
+      glow: [[cx - 11, 64], [cx + 11, 64]],
+      props: [{ k: 'rect', x: cx - 20, y: 20, w: 40, h: 92, fill: PAD }],
       ground: false
     });
   }
 
   function pushSide(p) {
-    const hand = [62, FLOOR - 4];
-    const sho = [62, lerp(112, 140, p)];
-    const hip = [112, lerp(118, 142, p)];
-    const ank = [164, FLOOR - 6];
-    const leg = ikPrefer(hip, ank, L.thigh, L.shin, function (s) { return -s.mid[1]; });
-    const arm = reach(sho, hand, function (s) { return s.mid[0] - sho[0]; });
-    const head = polar(sho[0], sho[1], L.neck, 168);
+    const A = [166, FLOOR - 4];
+    const ang = lerp(25.5, 9, p) * Math.PI / 180;
+    function along(d) { return [r1(A[0] - Math.cos(ang) * d), r1(A[1] - Math.sin(ang) * d)]; }
+    const knee = along(L.shin);
+    const hip = along(L.shin + L.thigh);
+    const sho = along(L.shin + L.thigh + L.torso);
+    const headP = along(L.shin + L.thigh + L.torso + L.neck);
+    const hand = [66, FLOOR - 4];
+    const arm = reach(sho, hand, function (s) { return s.mid[0]; });
     const j = {
-      head: [r1(head[0]), r1(head[1])], sho: sho, hip: hip,
-      knee: leg.mid, ank: leg.end,
-      toe: [r1(leg.end[0] + 10), FLOOR - 4], heel: [r1(leg.end[0] - 3), r1(leg.end[1])],
+      head: headP, sho: sho, hip: hip,
+      knee: knee, ank: A,
+      toe: [A[0] + 4, FLOOR - 2], heel: [A[0] + 4, A[1] - 7],
       elb: arm.mid, hand: arm.end
     };
     return fig({
-      j: j, face: 'right',
+      j: j, face: 'left',
       lines: sideLinks(j, { arm: true, torso: true }),
       dbs: [],
-      glow: [mid(j.sho, j.elb)],
+      glow: [[sho[0] + 6, sho[1] + 4]],
       shadow: shadowAt(110)
     });
   }
@@ -829,7 +868,7 @@
       lines: frontLinks(j, { arm: true, torso: true }),
       dbs: [],
       glow: [mid(j.shoL, j.elbL), mid(j.shoR, j.elbR)],
-      props: [{ k: 'rect', x: 40, y: 32, w: 120, h: 136, fill: '#e4dff3' }],
+      props: [{ k: 'rect', x: 40, y: 32, w: 120, h: 136, fill: MAT }],
       ground: false
     });
   }
@@ -1004,7 +1043,8 @@
       return '<g transform="translate(' + d.x + ',' + d.y + ')" opacity="' + op + '">' +
         '<circle r="9" fill="#e09a12"/><circle r="5.2" fill="#f6c453"/><circle r="2" fill="#8a5a00"/></g>';
     }
-    return '<g transform="translate(' + d.x + ',' + d.y + ') rotate(' + (d.rot || 0) + ')" opacity="' + op + '">' +
+    const sx = d.sx == null ? 1 : d.sx;
+    return '<g transform="translate(' + d.x + ',' + d.y + ') rotate(' + (d.rot || 0) + ')' + (sx !== 1 ? ' scale(' + sx + ',1)' : '') + '" opacity="' + op + '">' +
       '<rect x="-16" y="-2.3" width="32" height="4.6" rx="2" fill="#f2c14b"/>' +
       '<rect x="-20" y="-8" width="7.5" height="16" rx="2" fill="#d4920a"/>' +
       '<rect x="-18.6" y="-6" width="2.2" height="12" rx="1" fill="#f8dc9a"/>' +
@@ -1015,7 +1055,7 @@
   function headMarkup(h, face) {
     if (!h) return '';
     const x = h[0], y = h[1];
-    const skull = '<circle cx="' + x + '" cy="' + y + '" r="' + L.head + '" fill="#1d1b2e"/>';
+    const skull = '<circle cx="' + x + '" cy="' + y + '" r="' + L.head + '" fill="' + INK + '"/>';
     if (face === 'front' || face === 'up') {
       const dy = face === 'up' ? -3 : -1;
       return skull +
@@ -1025,49 +1065,50 @@
     const dir = face === 'left' ? -1 : 1;
     return skull +
       '<circle cx="' + (x + dir * 2.4) + '" cy="' + (y - 1.6) + '" r="1.3" fill="#fff"/>' +
-      '<circle cx="' + (x + dir * 8) + '" cy="' + (y + 0.6) + '" r="2.3" fill="#f0b89a"/>';
+      '<circle cx="' + (x + dir * 8) + '" cy="' + (y + 0.6) + '" r="2.3" fill="' + SKIN + '"/>';
   }
 
   function draw(svg, pose, col) {
-    const parts = ['<rect x="0" y="-8" width="200" height="182" fill="#fbfaff"/>'];
+    const hot = tint(col);
+    const parts = [];
     if (pose.ground !== false) {
-      parts.push('<line x1="14" y1="' + FLOOR + '" x2="186" y2="' + FLOOR + '" stroke="#d4cfe6" stroke-width="3" stroke-linecap="round"/>');
+      parts.push('<line x1="14" y1="' + FLOOR + '" x2="186" y2="' + FLOOR + '" stroke="' + FLOORC + '" stroke-width="3" stroke-linecap="round"/>');
     }
     if (pose.ground !== false && pose.shadow) {
-      parts.push('<ellipse cx="' + pose.shadow[0] + '" cy="' + FLOOR + '" rx="26" ry="3.5" fill="#1d1b2e" opacity=".08"/>');
+      parts.push('<ellipse cx="' + pose.shadow[0] + '" cy="' + FLOOR + '" rx="26" ry="3.5" fill="' + INK + '" opacity=".08"/>');
     }
     (pose.props || []).forEach(function (p) {
       if (p.k === 'rot') {
-        parts.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '" rx="3" fill="' + (p.fill || '#c9c3dc') + '" transform="rotate(' + p.deg + ' ' + p.x + ' ' + (p.y + 4) + ')"/>');
+        parts.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '" rx="3" fill="' + (p.fill || BENCH) + '" transform="rotate(' + p.deg + ' ' + p.x + ' ' + (p.y + 4) + ')"/>');
       } else {
-        parts.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '" rx="3" fill="' + (p.fill || '#c9c3dc') + '"/>');
+        parts.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '" rx="3" fill="' + (p.fill || BENCH) + '"/>');
       }
     });
     (pose.glow || []).forEach(function (g) {
-      parts.push('<circle cx="' + g[0] + '" cy="' + g[1] + '" r="16" fill="' + col + '" opacity=".2"/>');
+      parts.push('<circle cx="' + g[0] + '" cy="' + g[1] + '" r="16" fill="' + hot + '" opacity=".22"/>');
     });
+    const dbs = (pose.dbs || []).slice().sort(function (a, b) { return (a.opacity || 1) - (b.opacity || 1); });
+    dbs.filter(function (d) { return d.under; }).forEach(function (d) { parts.push(dbMarkup(d)); });
     if (pose.torso && pose.torso.length === 4) {
       const t = pose.torso;
-      parts.push('<path d="M' + t[0][0] + ' ' + t[0][1] + ' L' + t[1][0] + ' ' + t[1][1] + ' L' + t[2][0] + ' ' + t[2][1] + ' L' + t[3][0] + ' ' + t[3][1] + ' Z" fill="#2c2942"/>');
+      parts.push('<path d="M' + t[0][0] + ' ' + t[0][1] + ' L' + t[1][0] + ' ' + t[1][1] + ' L' + t[2][0] + ' ' + t[2][1] + ' L' + t[3][0] + ' ' + t[3][1] + ' Z" fill="' + TORSO + '"/>');
     }
     const lines = pose.lines || [];
     lines.filter(function (l) { return l.back; }).concat(lines.filter(function (l) { return !l.back; })).forEach(function (l) {
-      const color = l.hot ? col : '#1d1b2e';
+      const color = l.hot ? hot : INK;
       const op = l.back ? 0.38 : 1;
       const w = l.w || 6;
       if (l.hot && !l.back) {
-        parts.push('<line x1="' + l.a[0] + '" y1="' + l.a[1] + '" x2="' + l.b[0] + '" y2="' + l.b[1] + '" stroke="' + col + '" stroke-width="' + (w + 7) + '" stroke-linecap="round" opacity=".18"/>');
+        parts.push('<line x1="' + l.a[0] + '" y1="' + l.a[1] + '" x2="' + l.b[0] + '" y2="' + l.b[1] + '" stroke="' + hot + '" stroke-width="' + (w + 7) + '" stroke-linecap="round" opacity=".22"/>');
       }
       parts.push('<line x1="' + l.a[0] + '" y1="' + l.a[1] + '" x2="' + l.b[0] + '" y2="' + l.b[1] + '" stroke="' + color + '" stroke-width="' + w + '" stroke-linecap="round" opacity="' + op + '"/>');
     });
     lines.forEach(function (l) {
       if (l.back) return;
-      parts.push('<circle cx="' + l.a[0] + '" cy="' + l.a[1] + '" r="2.3" fill="#1d1b2e"/>');
+      parts.push('<circle cx="' + l.a[0] + '" cy="' + l.a[1] + '" r="2.3" fill="' + INK + '"/>');
     });
     parts.push(headMarkup(pose.head, pose.face));
-    (pose.dbs || []).slice().sort(function (a, b) { return (a.opacity || 1) - (b.opacity || 1); }).forEach(function (d) {
-      parts.push(dbMarkup(d));
-    });
+    dbs.filter(function (d) { return !d.under; }).forEach(function (d) { parts.push(dbMarkup(d)); });
     svg.innerHTML = parts.join('');
   }
 
