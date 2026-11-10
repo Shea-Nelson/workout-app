@@ -4,7 +4,7 @@ const LINKS = [
   ["recipes/", "Recipes", "recipes"],
   ["planner/", "Planner", "planner"],
   ["bible/", "Bible", "bible"],
-  ["lesson/", "Lesson", "lesson"],
+  ["grok-lessons/", "Lessons", "lesson"],
   ["family-time/", "Family", "family"],
   ["games/", "Games", "games"],
   ["hub/", "All pages", "hub"],
@@ -13,7 +13,7 @@ const LINKS = [
 function currentKey() {
   const path = location.pathname.replace(/\/index\.html$/, "/");
   if (/\/bible(\/|$)/.test(path)) return "bible";
-  if (/\/lesson(\/|$)/.test(path)) return "lesson";
+  if (/\/grok-lessons(\/|$)/.test(path) || /\/lesson(\/|$)/.test(path)) return "lesson";
   if (/\/family-time(\/|$)/.test(path)) return "family";
   if (/\/games(\/|$)/.test(path)) return "games";
   if (/\/hub(\/|$)/.test(path)) return "hub";

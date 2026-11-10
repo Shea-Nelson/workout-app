@@ -1,0 +1,848 @@
+{
+  "retrievedDate": "2026-11-10",
+  "timezone": "America/New_York",
+  "copyPolicy": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved.",
+  "officialPdfsFound": [],
+  "guides": [
+    {
+      "title": "Grok Bot Guides",
+      "sourceUrl": "https://x.ai/bot/guides",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:ae692f7bd11459318f63dd3b6100034e5d3d431a0a20a43a31e8b91543b8c006",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Getting started with Grok Bot",
+      "sourceUrl": "https://x.ai/bot/guides/getting-started",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:86071028d23e226e50a892f72939af1580e47410dbe8013eb583cd95ff3321e2",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot 101",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-101",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:2cca19050c5a841de97a9c5f36a781b9e567842c384fd3d993075e949bd982e9",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Templates for Grok Bot",
+      "sourceUrl": "https://x.ai/bot/guides/templates-for-grok-bot",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:436531ab90a867686c498b86dc8df59e57cc85d4806aa7d372c2431555469650",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for design (playbooks)",
+      "sourceUrl": "https://x.ai/bot/guides/design",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:001a9ea093256efe65877bd38355da63acf32bf154cea367a232cdf93f5e011f",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Designing Grok Bot with Grok Bot",
+      "sourceUrl": "https://x.ai/bot/guides/designing-grok-bot-with-grok-bot",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:36becfd85b6cb5e4ceaef456dd2e988133db2a62c26821954b77f936cca461ef",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for engineering (playbooks)",
+      "sourceUrl": "https://x.ai/bot/guides/engineering",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:a07c96e4fc47b450749fdbe191b3725f5f81876ca8c24179d764969dd7d4867c",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Engineering",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-engineering",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:47128349b6ee175bc78df34c38d7575ddfff7b9e492c123cca4c13d448b06e2d",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for legal (playbooks)",
+      "sourceUrl": "https://x.ai/bot/guides/legal",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:5a7f50ab6ae5d1e355810d12e4afa034f36fd71b5b3dca1c75fec8e626a066d5",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Legal Ops",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-legal-ops",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:d6fd9ba3baab958709080a92478ea4a60f97f791cb6fdca436265d009da21c09",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for marketing (playbooks)",
+      "sourceUrl": "https://x.ai/bot/guides/marketing",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:0dee3efed5c566281271394a82ae457eabe214f810b3fcd6c86605f96f766acd",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Marketing",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-marketing",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:1fb8533f4c35bf9c179c3fc43ca1861982fe7469333518e6ff1b85129a52c8d7",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Performance Marketing",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-performance-marketing",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:6e115edbd27ea345ffd36a3aaaa6addc2b1a42b99c3e5b1a7cafbeb1ad049091",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for product (playbooks)",
+      "sourceUrl": "https://x.ai/bot/guides/product",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:cdc79d56e6aed1f58888653cc9b39d783df6913e33c8247ad1ad6d4d85bedbe0",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for PMs",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-pms",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:1af30684fcf50422d2e2ede00ffc6a64a5566c013c9d32b7c99a4d65983b96e6",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for recruiting (playbooks)",
+      "sourceUrl": "https://x.ai/bot/guides/recruiting",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:e96923246f29ca33aaf9b13ef7cbf99d812e478b6d2b1914b0c9140074b20728",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Recruiting",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-recruiting",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:f6dc288d0db3b7207fdf2d70eb73e12e332fe8397ab23ef82763860ecff6caae",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for sales (playbooks)",
+      "sourceUrl": "https://x.ai/bot/guides/sales",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:c74bcca7b4c8b1bf5011590d29a46341be7f944ba15add5bc84e76e7fd9ecea6",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Founder-Led Sales",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-founder-led-sales",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:4d4fb96c0d1becc48ff1bf207409a1b73307db1639536bc55a3724af9f77d6cf",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for SDRs",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-sdrs",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:2f282c291b0d914ef2f50d786bc0358c3f90c4bb9414304b063740b91e7b5904",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Post-Sales",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-post-sales",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:a500592b7c2fdb246873ab840c9a8b917cabce73ae0a8e86d8d838425ccf6558",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for GTM",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-gtm",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:ee74d22ba218b4ca735627965c93152230533a40f61c1da309ba4a38ae689706",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Clay",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-clay",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:9fd9a44edfa8034f1059991a6decb6f4709f30226725db18d4ea7f2fd6735866",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for support (playbooks)",
+      "sourceUrl": "https://x.ai/bot/guides/support",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:6fd980d5826472e5ecbe5f07c683ea779f40df41fc72d04c70a1ff4fd6e12ac0",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Support",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-support",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:2a82504f659a23580a0250c427a457df2652c891f5107f79dcae4b28761cdd6b",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Work",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-work",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:c83d701ab67aeb26a5294626ee26018013a49b88b1d39ed47af22b123b2bdb6a",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Linear",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-linear",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:10352a3d13ee7c1b4ab422390bd76a2ad6f93c553a010a7692463882d8b032fa",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for mobile app development",
+      "sourceUrl": "https://x.ai/bot/guides/grok-bot-for-mobile-app-development",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:8430f6e47ce47fa6f239ac808ceeefe977dbd73e043ebe8a233e4e9e4de8605c",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "How I run multiple teams of Grok Bots",
+      "sourceUrl": "https://x.ai/bot/guides/how-i-run-multiple-teams-of-grok-bots",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:f12ee1bbee4b04c3b0a8eb7146c7777e3631e494f026206d447bc73da600dc0a",
+      "group": "Grok Bot Guides (x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot",
+      "sourceUrl": "https://docs.x.ai/grok-bot/overview",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:c176a37013be487c43ca0b9522b58089588090f07356eaaec88704c643ad4c34",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Get started",
+      "sourceUrl": "https://docs.x.ai/grok-bot/get-started",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:918dfcefb01f84c981c5de2a5ec434f2b633c7602a0384eca908e3d2edfd9756",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Use Cases",
+      "sourceUrl": "https://docs.x.ai/grok-bot/use-cases",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:0dc814f212b1a1de300ddc7baf554fceaa4e1cce38852ce60e7b163dbb3e1121",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "How Grok Bot Works",
+      "sourceUrl": "https://docs.x.ai/grok-bot/how-grok-bot-works",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:51be9e42d6769abf599bd3b3f1f94874f1b8283c472193d8e2a34515fa033aa3",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Create and manage Bots",
+      "sourceUrl": "https://docs.x.ai/grok-bot/bots",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:caae7eaf7301e12cb498dfeb2b68f1d5cc8857cf7e072eae59b83f4cac33302a",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Message and collaborate",
+      "sourceUrl": "https://docs.x.ai/grok-bot/chat-and-collaboration",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:5c7159b360adfd0b84ce1430f66d1780a16127f131a9de50f50d000a40c0a358",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Files and results",
+      "sourceUrl": "https://docs.x.ai/grok-bot/files-and-results",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:7c354cb2d1c98b5cda2208bf60dbd4a79ec4d4733c7cfe7351b1de17a9c88f2b",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Use the computer and apps",
+      "sourceUrl": "https://docs.x.ai/grok-bot/computer-and-apps",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:1bcee8b3fc204877d9b50a85addab006f8c92a545eeaf13a29ab3a4b922de810",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Skills and routines",
+      "sourceUrl": "https://docs.x.ai/grok-bot/skills-routines-and-automations",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:8b0b084856013d575891f29c83876b66bb8b682f4f500cba8fc60a4dce32fea2",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Approvals, security, and privacy",
+      "sourceUrl": "https://docs.x.ai/grok-bot/approvals-security-and-privacy",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:f7ae20fa9dc78c035d06e7aa8dde8b3b9fd3e0da1419fbc9e1dc93cd83a5fb33",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Vault and secure sign-in",
+      "sourceUrl": "https://docs.x.ai/grok-bot/vault",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:73b476a2b02a62cd5b47796ca31344337a4fbcf1b366a3e87f38d99d7d612e0c",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Shared Bots",
+      "sourceUrl": "https://docs.x.ai/grok-bot/shared-bots",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:7f38096f895bc64548098682051324882924d263b8313f9d34574a36707b0518",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for Mobile",
+      "sourceUrl": "https://docs.x.ai/grok-bot/mobile",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:bba15978fc4115daad215a65853d83db4cd75906e38ec9e31ead6f988fc829bb",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Tag @bot on X",
+      "sourceUrl": "https://docs.x.ai/grok-bot/tag-on-x",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:fbd1d3ad980c209bcb86e6d15ebb55f78390466e87bb6553637bd359b187959c",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot for teams and enterprises",
+      "sourceUrl": "https://docs.x.ai/grok-bot/teams-and-enterprises",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:b597254b10da8233aa8edc275dc1bdfc0e3ae8f155206833b41a971d90d3f900",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Deploy Grok Bot to your organization",
+      "sourceUrl": "https://docs.x.ai/grok-bot/deployment",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:029e43fc64b1db7b3bb2104d289e9a940e18a5ae9b86f49fd876a31d8fbfed0b",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Configure identity and access",
+      "sourceUrl": "https://docs.x.ai/grok-bot/identity-and-access",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:dde7b3a1172be5a2d948a987b535457d99226290bfba0562e4538a9fc32d47ae",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Connect to private networks",
+      "sourceUrl": "https://docs.x.ai/grok-bot/private-networks",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:39afa7627b5c383e6ea95949083aec1a9be179341f696f5a79b63c1bd302d118",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Configure TLS-inspecting proxies",
+      "sourceUrl": "https://docs.x.ai/grok-bot/proxies",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:8c4271760af74ba21ae1c35e0b85425969563e43fd65c49eaff856b0f02c6e74",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Manage Grok Bot computers",
+      "sourceUrl": "https://docs.x.ai/grok-bot/computers",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:5557959a961a8867e3e74f736b0846b6d0b054aa534d39dc8f43b7fbc3922943",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot inference hooks",
+      "sourceUrl": "https://docs.x.ai/grok-bot/inference-hooks",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:a47aa75996d1d377889d79c8315877cfc6cbdaffc4dfadd4681347d469b8c688",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot security",
+      "sourceUrl": "https://docs.x.ai/grok-bot/security",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:8d4a2502fb6f6368a626a09dfa5e6aab4816afa293ba6e0bb5341cf16fb54dcf",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot security FAQ",
+      "sourceUrl": "https://docs.x.ai/grok-bot/security-faq",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:e9a42b40571539fb07278b0e5ae070adc0ba70e6cf9bd60bcba3482475531a5c",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Settings and notifications",
+      "sourceUrl": "https://docs.x.ai/grok-bot/settings-and-notifications",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:215f636b3f89f0c36cadab694d66e8fa6c7a5f7f8c3f4782b4a91674d17e288c",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Troubleshooting",
+      "sourceUrl": "https://docs.x.ai/grok-bot/troubleshooting",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:0e9754f48cc96ccc79a6664e418c1954de406b5505ec31fa8f6c8c76ecdc3079",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Frequently asked questions",
+      "sourceUrl": "https://docs.x.ai/grok-bot/faq",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:7d91f3a9f1daa4a3fddf53ea936b7648371edd86e036c424a285d07f7a68b57c",
+      "group": "Grok Bot docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Welcome to Grok",
+      "sourceUrl": "https://docs.x.ai/grok/overview",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:58a961f80d9560cda35805e684f5da712d42ea34a8b76ce25d5dd9639aa4876b",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "FAQ - Grok Website / Apps",
+      "sourceUrl": "https://docs.x.ai/grok/faq",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:fe2d590ccbb8c6783721cf53b6f6457f16e2dfab9fb2666e465a673b553a629e",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Connectors",
+      "sourceUrl": "https://docs.x.ai/grok/connectors",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:04be17364c26b31cdba16cd94f0b00c6a477b16be45857449a7b5a3c4fb84729",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Google Drive",
+      "sourceUrl": "https://docs.x.ai/grok/connectors/google-drive",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:56f22db8a3b1ae52e82173fb32902b02232757902775a1f04dff1ffb397b4ee7",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Gmail & Google Calendar",
+      "sourceUrl": "https://docs.x.ai/grok/connectors/gmail-google-calendar",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:620d79c9d7e05e9977b1cf1c635a2d9a4a5716a785dbd4284152f19a5e4a314b",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Outlook Mail & Calendar",
+      "sourceUrl": "https://docs.x.ai/grok/connectors/outlook",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:73a530951869716a52a4c616b1a1c745c61073866651b475512952669501a93f",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "SharePoint",
+      "sourceUrl": "https://docs.x.ai/grok/connectors/sharepoint",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:ba1a1d89ea85d8555056b5abd48f4af4ca240e385fe2da768ada59d04939d673",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "OneDrive",
+      "sourceUrl": "https://docs.x.ai/grok/connectors/onedrive",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:3602b57111c69724ab68988bc71eb054b932f818a2a4958cd55c3a55e89f1a1f",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Microsoft Teams",
+      "sourceUrl": "https://docs.x.ai/grok/connectors/microsoft-teams",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:236b19726dfc9f25f21e133709d5bb18b2cdf9d5051ecfaf8a42d86b449e8d96",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Salesforce",
+      "sourceUrl": "https://docs.x.ai/grok/connectors/salesforce",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:367c4bce1a048cb951bb2f9a11760a024c082c89f6704a3e52e8194ba7e831ba",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Custom MCP Server Tunneling",
+      "sourceUrl": "https://docs.x.ai/grok/connectors/custom-mcp-tunneling",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:ac4faa0e384a86b8038232d5c8de9ca9f60e05e88d91b183b0006f4891c3aedb",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok.com User Guide",
+      "sourceUrl": "https://docs.x.ai/grok/user-guide",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:3ba0be6670685aa7ffc32943c9a4f5461ccd061c34ca78aecaa20f85dfdcccfe",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "License & User Management",
+      "sourceUrl": "https://docs.x.ai/grok/management",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:31f8d7efeff8bfb2af40622b27a8ad755d1a7177b2a50baf87303f2a7cf18ffd",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Connector Management",
+      "sourceUrl": "https://docs.x.ai/grok/connector-management",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:7d7cdfba2c17a037156d362681c422d76e4132a5d82dc3a582fc37d59f188072",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Organization Management",
+      "sourceUrl": "https://docs.x.ai/grok/organization",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:5d31f79afea0b4ff55fd745f21e5b578258677ad6d84a14a415aca50c5d11bd6",
+      "group": "Grok app docs (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "What is The X Subscription?",
+      "sourceUrl": "https://docs.x.ai/x-subscription/overview",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:5a52d30e86faf9644fc502b42d72e1a6cbda9624a557262e2d4a909c7f4f3e2b",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Do I have to switch? What happens if I don't?",
+      "sourceUrl": "https://docs.x.ai/x-subscription/do-i-have-to-switch",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:73834d69752f3e7fea4125a63a7bf925b9b8430e1c50fa19cfc7fc3e5e5d385a",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Unification eligibility: Who can combine accounts?",
+      "sourceUrl": "https://docs.x.ai/x-subscription/eligibility",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:32b342f3c9dae125ae8f3180917de98c62ab531078ba91dd6f5247b59625cee1",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "How to unify accounts under The X Subscription",
+      "sourceUrl": "https://docs.x.ai/x-subscription/unify-accounts",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:27bdaa02127b1cedfce5b16df2ba9b99923f449c380316682970bfd2a4bf1d03",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Pricing",
+      "sourceUrl": "https://docs.x.ai/x-subscription/pricing",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:1c317f26e6820635b393c4ff3bf4da97d066d441dfaeb26c2ad2f4a0f00763d5",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Usage limits",
+      "sourceUrl": "https://docs.x.ai/x-subscription/usage-limits",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:140ace43219cf489c65559ab7474ae7a94c1ffb30e949ac3c45f1b7473b1dd21",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Extra usage credits and top-ups",
+      "sourceUrl": "https://docs.x.ai/x-subscription/extra-usage",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:c8c6faabc08c5d58aa5bebddee4b04fef3ec797c909ea0c517b3abc6670097ab",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot on The X Subscription",
+      "sourceUrl": "https://docs.x.ai/x-subscription/grok-bot",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:bd715286ae70b15f851262d693b56f8b14bf155cebccb8c7f33417756b295cc7",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Grok Bot sign-in",
+      "sourceUrl": "https://docs.x.ai/x-subscription/grok-bot-sign-in",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:f69df87bcf5746f48a12d3fe867fb2e3566daf39623ba0f111319d1761a09ea0",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Why does signing in look different?",
+      "sourceUrl": "https://docs.x.ai/x-subscription/sign-in",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:43019b7abb7f668a29684cb03d07f5187260ee5d14890582be67d1f64739ea74",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "The X Subscription FAQ",
+      "sourceUrl": "https://docs.x.ai/x-subscription/faq",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:c2e6bc066f3ed81c4b7381f430a59110b4b3a69297c5b2cb3766a9c88dd7b64c",
+      "group": "The X Subscription (docs.x.ai)",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Quickstart",
+      "sourceUrl": "https://docs.x.ai/developers/quickstart",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:db82f8978ddbe738a6d8e99a7cdda9f22203938b0b9d2f055fbb650942b28ca5",
+      "group": "Other official help",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Cookbook",
+      "sourceUrl": "https://docs.x.ai/cookbook",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:9c49f4d0e38969d8c9f4d6bf57f285841b9747f864beec6447c504111372486e",
+      "group": "Other official help",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    },
+    {
+      "title": "Consumer FAQs",
+      "sourceUrl": "https://x.ai/legal/faq",
+      "localFile": null,
+      "retrievedDate": "2026-11-10",
+      "contentHash": "sha256:f422e5330ad929ba17d7ab404df0ade65676206f121626dcb364c9ee67541faf",
+      "group": "Other official help",
+      "copySaved": false,
+      "copyNote": "Official SpaceXSI (xAI) documentation is copyrighted, and no license allowing republication was found in the Terms of Service or on the docs site. This page links to the official source only; a local copy was not saved."
+    }
+  ]
+}
