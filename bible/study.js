@@ -837,7 +837,7 @@ function refresh() {
 }
 
 /* ---------- episode neighbours (from episodes.json, so new episodes link up automatically) ---------- */
-const eps = EPS ? EPS.episodes : [];
+const eps = EPS ? EPS.episodes.filter((e) => !e.bonus) : []; // Bible Night Live bonus videos are not study episodes
 const pageOf = (e) => (e && e.page ? "../" + e.page : null);
 const meIdx = eps.findIndex((e) => e.page === id + "/");
 const prevEp = meIdx > 0 ? eps[meIdx - 1] : null;
