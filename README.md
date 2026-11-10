@@ -103,8 +103,17 @@ Do not program a bench hip thrust, a Bulgarian split squat, or any move where he
 
 Each exercise draws a side view and a second view (front, or from above when he is lying down). Dumbbells follow the grip: vertical at the chest for a goblet squat, horizontal for presses, rows, and flies, neutral (thumbs up) for hammer curls, at the sides for lunges and calf raises, across the hips for the floor bridge. The line under the figures is a form cue timed to the rep. If the phone asks for reduced motion, the figures start paused on that cue. Pause and play are saved on the device.
 
-## Family kitchen
+## Other apps
 
-The meal planner (`planner/`) and recipes (`recipes/`) are separate from the workout app. They share a nav and a day strip, and "today" is the date in `America/New_York`.
+This repo holds only the workout app. The other apps moved to their own repos on Nov 10, 2026:
 
-Adding next week's dinners does not require a code change. Append a week to `planner/data/weeks.json` and any new recipes to `recipes/data/recipes.json`. The exact fields, grocery sections, timers, and photo rules are in [`kitchen/README.md`](kitchen/README.md). Past weeks stay in the file and stay browsable.
+| App | Repo | Site |
+| --- | --- | --- |
+| Kitchen (recipes, planner, shopping) | [Shea-Nelson/kitchen](https://github.com/Shea-Nelson/kitchen) | https://shea-nelson.github.io/kitchen/ |
+| Gospel of Matthew study | [Shea-Nelson/bible-study](https://github.com/Shea-Nelson/bible-study) | https://shea-nelson.github.io/bible-study/bible/ |
+| Grok Bot weekly lessons | [Shea-Nelson/grok-lessons](https://github.com/Shea-Nelson/grok-lessons) | https://shea-nelson.github.io/grok-lessons/ |
+| Family time | [Shea-Nelson/family-time](https://github.com/Shea-Nelson/family-time) | https://shea-nelson.github.io/family-time/ |
+| Board games | [Shea-Nelson/game-library](https://github.com/Shea-Nelson/game-library) | https://shea-nelson.github.io/game-library/ |
+| All pages | [Shea-Nelson/shea-nelson.github.io](https://github.com/Shea-Nelson/shea-nelson.github.io) | https://shea-nelson.github.io/ |
+
+The old folders here are now one-line redirect pages, and `404.html` forwards any other old `/workout-app/...` link (PDFs, data files) to the same file at its new home. Don't add app content back to those folders.

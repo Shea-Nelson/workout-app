@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page not found</title>
+<script>
+// The kitchen, Bible study, lessons, family, games, and All pages apps moved to their own repos.
+// Send any old /workout-app/... link (pages, PDFs, data files) to the same file at its new home.
+(function () {
+  var SITE = "https://shea-nelson.github.io/";
+  var RULES = [["recipes/", "kitchen/recipes/"], ["planner/", "kitchen/planner/"], ["shopping/", "kitchen/shopping/"], ["kitchen/", "kitchen/kitchen/"], ["bible/", "bible-study/bible/"], ["grok-lessons/", "grok-lessons/"], ["lesson/", "grok-lessons/lesson/"], ["family-time/", "family-time/"], ["games/", "game-library/"], ["hub/", ""], ["shelf/", "shelf/"]];
+  var m = location.pathname.match(/^\/workout-app\/(.*)$/);
+  if (!m) return;
+  for (var i = 0; i < RULES.length; i++) {
+    if (m[1].indexOf(RULES[i][0]) === 0) {
+      location.replace(SITE + RULES[i][1] + m[1].slice(RULES[i][0].length) + location.search + location.hash);
+      return;
+    }
+  }
+})();
+</script>
+</head>
+<body>
+<h1>Page not found</h1>
+<p><a href="https://shea-nelson.github.io/workout-app/">Open today's workout</a> or <a href="https://shea-nelson.github.io/">see all pages</a>.</p>
+</body>
+</html>
