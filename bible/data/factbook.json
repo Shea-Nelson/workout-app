@@ -1545,6 +1545,150 @@
     "Yohanan ben Zakkai": {
       "label": "Yohanan ben Zakkai",
       "id": "%25YohananBenZakkai_Person"
+    },
+    "Abel": {
+      "label": "Abel",
+      "id": "%23Abel.1"
+    },
+    "Abomination of desolation": {
+      "label": "Abomination of desolation",
+      "id": "%25AbominationOfDesolation"
+    },
+    "Antiochus IV Epiphanes": {
+      "label": "Antiochus IV Epiphanes",
+      "id": "%23Antiochus.1"
+    },
+    "Ark": {
+      "label": "Noah's ark",
+      "id": "%24ArkOfNoah"
+    },
+    "Ascension": {
+      "label": "Ascension of Jesus",
+      "ref": "lsto.AscensionJesus"
+    },
+    "Birth pains": {
+      "label": "Birth pangs",
+      "id": "%25birthPangs"
+    },
+    "Deborah": {
+      "label": "Deborah",
+      "id": "%23Deborah.2"
+    },
+    "Ehud": {
+      "label": "Ehud",
+      "id": "%23Ehud2.1"
+    },
+    "Eusebius": {
+      "label": "Eusebius of Caesarea",
+      "id": "%25EusebiusOfCaesarea_Person"
+    },
+    "Flood": {
+      "label": "The flood",
+      "id": "%24flood"
+    },
+    "Gnat": {
+      "label": "Gnat",
+      "id": "%24gnat"
+    },
+    "Hilkiah": {
+      "label": "Hilkiah",
+      "id": "%23Hilkiah"
+    },
+    "Hospitality": {
+      "label": "Hospitality",
+      "id": "%25hospitality"
+    },
+    "Josiah": {
+      "label": "Josiah",
+      "id": "%23Josiah"
+    },
+    "Last Judgment": {
+      "label": "Last Judgment",
+      "id": "%25lastJudgment"
+    },
+    "Manasseh": {
+      "label": "Manasseh (king of Judah)",
+      "id": "%23Manasseh.3"
+    },
+    "Menorah": {
+      "label": "Lampstand (menorah)",
+      "id": "%24lampstandMenorah"
+    },
+    "Metonymy": {
+      "label": "Metonymy",
+      "id": "%25metonymy_Language"
+    },
+    "Midianites": {
+      "label": "Midianites",
+      "id": "%23Midianites"
+    },
+    "Mint": {
+      "label": "Mint",
+      "id": "%24mint"
+    },
+    "Moses' seat": {
+      "label": "Moses' seat",
+      "id": "%25mosesSeat"
+    },
+    "Othniel": {
+      "label": "Othniel",
+      "id": "%23Othniel.1"
+    },
+    "Parable of the minas": {
+      "label": "Talents and Minas (Parables)",
+      "id": "%25parableOfTheTalents"
+    },
+    "Parable of the talents": {
+      "label": "Talents and Minas (Parables)",
+      "id": "%25parableOfTheTalents"
+    },
+    "Pella": {
+      "label": "Pella",
+      "id": "%25Pella_Place"
+    },
+    "Phylactery": {
+      "label": "Phylactery",
+      "id": "%24phylactery"
+    },
+    "Preterism": {
+      "label": "Preterism",
+      "id": "%25Preterism_Belief"
+    },
+    "Proselyte": {
+      "label": "Proselyte",
+      "id": "%23proselyte"
+    },
+    "Samson": {
+      "label": "Samson",
+      "id": "%23Samson.1"
+    },
+    "Shadrach, Meshach and Abednego": {
+      "label": "Shadrach, Meshach and Abednego",
+      "id": "%25ShadrachMeshachAbednego_People"
+    },
+    "Sheep and goats": {
+      "label": "Parable of the sheep and goats",
+      "id": "%25ParableOfTheSheepAndGoats"
+    },
+    "Tassels": {
+      "label": "Tassel",
+      "id": "%25tassel"
+    },
+    "Tithe": {
+      "label": "Tithe",
+      "id": "%24tithe"
+    },
+    "Titus": {
+      "label": "Titus (emperor)",
+      "id": "%25EmperorTitus_Person"
+    },
+    "Vespasian": {
+      "label": "Vespasian",
+      "id": "%25EmperorVespasian_Person"
+    },
+    "Woe": {
+      "label": "Woe",
+      "id": "%25woe"
     }
   },
   "aliases": {
