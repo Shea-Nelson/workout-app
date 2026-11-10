@@ -1401,6 +1401,150 @@
     "Talent": {
       "label": "Talent",
       "id": "%24talent"
+    },
+    "Annas": {
+      "label": "Annas",
+      "id": "%23Annas.1"
+    },
+    "Antonia Fortress": {
+      "label": "Tower of Antonia",
+      "id": "%25TowerOfAntonia_Place"
+    },
+    "Augustus": {
+      "label": "Caesar Augustus",
+      "id": "%23Augustus2.1"
+    },
+    "Bartimaeus": {
+      "label": "Bartimaeus",
+      "id": "%23Bartimaeus.1"
+    },
+    "Bethany": {
+      "label": "Bethany (Mount of Olives)",
+      "id": "%25BethanyOnTheMountOfOlives_Place"
+    },
+    "Bethany beyond the Jordan": {
+      "label": "Bethany beyond the Jordan",
+      "id": "%25BethanyBeyondTheJordan_Place"
+    },
+    "Bethphage": {
+      "label": "Bethphage",
+      "id": "%25Bethphage_Place"
+    },
+    "Caesar": {
+      "label": "Caesar",
+      "id": "%25Caesar_Person"
+    },
+    "Cleansing of the temple": {
+      "label": "Temple cleansing",
+      "id": "%25templeCleansing"
+    },
+    "Cornerstone": {
+      "label": "Cornerstone",
+      "id": "%24cornerstone"
+    },
+    "Court of the Gentiles": {
+      "label": "Court of the Gentiles",
+      "id": "%25CourtOfTheGentiles_Place"
+    },
+    "Cup": {
+      "label": "Cup",
+      "id": "%24cup"
+    },
+    "Elders": {
+      "label": "Elder",
+      "id": "%23elder"
+    },
+    "Esther": {
+      "label": "Esther",
+      "id": "%23Esther.1"
+    },
+    "Fig tree": {
+      "label": "Fig tree",
+      "id": "%24figTree"
+    },
+    "Gamaliel": {
+      "label": "Gamaliel",
+      "id": "%23Gamaliel2.1"
+    },
+    "Gethsemane": {
+      "label": "Gethsemane",
+      "id": "%25Gethsemane_Place"
+    },
+    "Golden Gate": {
+      "label": "Golden Gate",
+      "id": "%25GoldenGate_Place"
+    },
+    "Herod Agrippa I": {
+      "label": "Herod Agrippa I",
+      "id": "%23Herod.3"
+    },
+    "Hosanna": {
+      "label": "Hosanna",
+      "id": "%25hosanna"
+    },
+    "Idolatry": {
+      "label": "Idolatry",
+      "id": "%25idolatry"
+    },
+    "Levirate marriage": {
+      "label": "Levirate marriage",
+      "ref": "lco.Levirate_marriage"
+    },
+    "Melchizedek": {
+      "label": "Melchizedek",
+      "id": "%23Melchizedek2.1"
+    },
+    "Milcom": {
+      "label": "Milcom (Molech)",
+      "id": "%23Molech"
+    },
+    "Money changers": {
+      "label": "Money changer",
+      "id": "%25moneychanger"
+    },
+    "Mount of Olives": {
+      "label": "Mount of Olives",
+      "id": "%25MountOfOlives_Place"
+    },
+    "Ordination": {
+      "label": "Ordination",
+      "id": "%25ordination"
+    },
+    "Parable of the wedding feast": {
+      "label": "Parable of the wedding banquet",
+      "id": "%25ParableOfTheWeddingBanquet"
+    },
+    "Parable of the wicked tenants": {
+      "label": "Parable of the wicked tenants",
+      "id": "%25parablesOfTheWickedTenants"
+    },
+    "Patmos": {
+      "label": "Patmos",
+      "id": "%25Patmos_Place"
+    },
+    "Ransom": {
+      "label": "Ransom",
+      "id": "%25ransom"
+    },
+    "Resurrection": {
+      "label": "Resurrection",
+      "id": "%25resurrection"
+    },
+    "Sebaste": {
+      "label": "Samaria (Sebaste)",
+      "id": "%40Samaria"
+    },
+    "Tiberius": {
+      "label": "Tiberius",
+      "id": "%23Tiberius.1"
+    },
+    "Triumphal entry": {
+      "label": "Triumphal entry",
+      "id": "%25triumphalEntry"
+    },
+    "Yohanan ben Zakkai": {
+      "label": "Yohanan ben Zakkai",
+      "id": "%25YohananBenZakkai_Person"
     }
   },
   "aliases": {
