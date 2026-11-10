@@ -117,3 +117,23 @@ test('markup has two labeled views', () => {
   assert.match(html, /data-view="front"/);
   assert.match(Demos.html('bench-press', '#000'), /Above view of bench press/);
 });
+
+test('chin tuck, Y-T raise, and rear-delt fly have their own demos', () => {
+  ['chin-tuck', 'yt-raise', 'rear-delt-fly'].forEach(id => {
+    assert.equal(Demos.resolve(id), id);
+    assert.ok(Demos.ids.includes(id));
+  });
+  assert.equal(Demos.resolve('chin-tucks'), 'chin-tuck');
+  assert.equal(Demos.resolve('prone-yt'), 'yt-raise');
+  assert.equal(Demos.resolve('rear-delt-flyes'), 'rear-delt-fly');
+  each('chin-tuck', s => assert.equal(s.dbs.length, 0));
+  each('yt-raise', s => assert.equal(s.dbs.length, 0));
+  each('rear-delt-fly', s => {
+    assert.ok(s.dbs.length >= 1);
+    s.dbs.forEach(db => assert.equal(horiz(db), true, 'rear-delt rot ' + db.rot + ' end ' + db.end));
+  });
+  assert.match(Demos.html('chin-tuck', '#000'), /Side view of chin tuck/);
+  assert.match(Demos.html('chin-tuck', '#000'), /Front view of chin tuck/);
+  assert.match(Demos.html('yt-raise', '#000'), /Above view of yt raise/);
+  assert.match(Demos.html('rear-delt-fly', '#000'), /Front view of rear delt fly/);
+});

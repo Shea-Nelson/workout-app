@@ -873,6 +873,155 @@
     });
   }
 
+
+  function chinTuckSide(p) {
+    const j = sideFigure({ torso: -90, thigh: 84, shin: 96, neck: lerp(-58, -92, p), ax: 122 });
+    const arm = reach(j.sho, [j.sho[0] + 2, j.sho[1] + 45], function (s) { return s.mid[0]; });
+    j.elb = arm.mid;
+    j.hand = arm.end;
+    const wallX = r1(j.hip[0] - 18);
+    return fig({
+      j: j, face: 'right',
+      lines: sideLinks(j, {}),
+      dbs: [],
+      glow: [mid(j.sho, j.head)],
+      props: [{ k: 'rect', x: wallX, y: 8, w: 8, h: FLOOR - 8, fill: PAD }],
+      shadow: shadowAt(j.ank[0])
+    });
+  }
+
+  function chinTuckFront(p) {
+    const j = frontStand({ hipY: 100, shoY: 58, shoW: 22, hipW: 12, ankleX: 14, straight: true });
+    j.head = [100, r1(lerp(j.shoL[1] - 14, j.shoL[1] - 20, p))];
+    j.neck = [100, r1(j.shoL[1] - 2)];
+    hangArms(j, 0, j.shoL[1] + 46, j.shoL[1] + 46);
+    return fig({
+      j: j, face: 'front', torso: j.torso,
+      lines: frontLinks(j, {}),
+      dbs: [],
+      glow: [[100, r1((j.head[1] + j.neck[1]) / 2 + 4)]],
+      shadow: shadowAt(100)
+    });
+  }
+
+  function ytSide(p) {
+    /* Chest on a low incline, head at the high end, feet on the floor. p: 0 hang, 0.5 Y, 1 T. */
+    const hip = [128, 126];
+    const shoF = polar(hip[0], hip[1], L.torso, -148);
+    const sho = [r1(shoF[0]), r1(shoF[1])];
+    const head = polar(sho[0], sho[1], L.neck, -155);
+    const ank = [162, FLOOR - 4];
+    const leg = ikPrefer(hip, ank, L.thigh, L.shin, function (s) { return -s.mid[1]; });
+    const hang = polar(sho[0], sho[1], L.uarm + L.farm - 2, 88);
+    const yPos = polar(sho[0], sho[1], L.uarm + L.farm - 2, -168);
+    const tPos = polar(sho[0], sho[1], L.uarm + L.farm - 2, 18);
+    const t = p <= 0.5 ? p / 0.5 : (p - 0.5) / 0.5;
+    const a = p <= 0.5 ? hang : yPos;
+    const b = p <= 0.5 ? yPos : tPos;
+    const handT = [lerp(a[0], b[0], t), lerp(a[1], b[1], t)];
+    const arm = reach(sho, [r1(handT[0]), r1(handT[1])], function (s) { return s.mid[1] - sho[1]; });
+    const j = {
+      head: [r1(head[0]), r1(head[1])], sho: sho, hip: hip,
+      knee: leg.mid, ank: leg.end,
+      toe: [r1(leg.end[0] + 10), leg.end[1]], heel: [r1(leg.end[0] - 4), leg.end[1]],
+      elb: arm.mid, hand: arm.end,
+      elb2: [r1(arm.mid[0] - 4), r1(arm.mid[1] - 4)],
+      hand2: [r1(arm.end[0] - 4), r1(arm.end[1] - 4)]
+    };
+    const pad = polar(hip[0], hip[1], 7, -148 + 90);
+    return fig({
+      j: j, face: 'left',
+      lines: sideLinks(j, { arm: true }),
+      dbs: [],
+      glow: [mid(sho, arm.mid)],
+      props: [
+        { k: 'rot', x: r1(pad[0]), y: r1(pad[1] - 4), w: 66, h: 8, deg: -148 },
+        { k: 'rect', x: hip[0] - 12, y: hip[1] + 6, w: 30, h: 8 },
+        { k: 'rect', x: hip[0] - 2, y: hip[1] + 14, w: 6, h: FLOOR - hip[1] - 14, fill: LEG },
+        { k: 'rect', x: r1(pad[0] - 30), y: r1(pad[1] - 6), w: 6, h: r1(FLOOR - pad[1] + 6), fill: LEG }
+      ],
+      shadow: shadowAt(130)
+    });
+  }
+
+  function ytAbove(p) {
+    const cx = 100;
+    const shoY = 58, hipY = 102;
+    const hangL = [cx - 18, hipY + 6];
+    const yL = [cx - 48, 22];
+    const tL = [cx - 66, shoY + 2];
+    const t = p <= 0.5 ? p / 0.5 : (p - 0.5) / 0.5;
+    const a = p <= 0.5 ? hangL : yL;
+    const b = p <= 0.5 ? yL : tL;
+    const handL = [lerp(a[0], b[0], t), lerp(a[1], b[1], t)];
+    const j = {
+      head: [cx, 34], neck: [cx, 46],
+      shoL: [cx - 20, shoY], shoR: [cx + 20, shoY],
+      hip: [cx, hipY], hipL: [cx - 12, hipY], hipR: [cx + 12, hipY],
+      kneeL: [cx - 14, 128], kneeR: [cx + 14, 128],
+      ankL: [cx - 16, 148], ankR: [cx + 16, 148],
+      toeL: [cx - 16, 158], toeR: [cx + 16, 158]
+    };
+    const left = reach(j.shoL, [r1(handL[0]), r1(handL[1])], function (s) { return j.shoL[0] - s.mid[0]; });
+    j.elbL = left.mid; j.handL = left.end;
+    j.elbR = [r1(2 * cx - j.elbL[0]), j.elbL[1]];
+    j.handR = [r1(2 * cx - j.handL[0]), j.handL[1]];
+    return fig({
+      j: j, face: 'up',
+      torso: [j.shoL, j.shoR, j.hipR, j.hipL],
+      lines: frontLinks(j, { arm: true }),
+      dbs: [],
+      glow: [mid(j.shoL, j.elbL), mid(j.shoR, j.elbR)],
+      props: [{ k: 'rect', x: cx - 18, y: 24, w: 36, h: 96, fill: PAD }],
+      ground: false
+    });
+  }
+
+  function rearDeltSide(p) {
+    const j = sideFigure({ torso: -28, neck: -32, thigh: 66, shin: 102, ax: 120 });
+    /* Hang under the shoulders, then raise back and out — a reverse fly, not a front raise. */
+    const hand = [r1(lerp(j.sho[0] + 4, j.sho[0] - 14, p)), r1(lerp(j.sho[1] + 44, j.sho[1] + 2, p))];
+    const arm = reach(j.sho, hand, function (s) { return -s.mid[0]; });
+    j.elb = arm.mid;
+    j.hand = arm.end;
+    j.elb2 = [r1(arm.mid[0] - 5), r1(arm.mid[1] + 2)];
+    j.hand2 = [r1(arm.end[0] - 5), r1(arm.end[1] + 2)];
+    return fig({
+      j: j, face: 'right',
+      lines: sideLinks(j, { arm: true }),
+      dbs: [bell(j.hand2[0], j.hand2[1], 0, { opacity: 0.45 }), bell(j.hand[0], j.hand[1], 0)],
+      glow: [[j.sho[0], j.sho[1] + 4]],
+      shadow: shadowAt(j.ank[0] - 4)
+    });
+  }
+
+  function rearDeltFront(p) {
+    const shoY = 86;
+    const hipY = 108;
+    const j = {
+      head: [100, shoY - 14], neck: [100, shoY],
+      shoL: [78, shoY], shoR: [122, shoY],
+      hip: [100, hipY], hipL: [88, hipY], hipR: [112, hipY],
+      kneeL: [86, 134], kneeR: [114, 134],
+      ankL: [84, FLOOR - 4], ankR: [116, FLOOR - 4],
+      toeL: [76, FLOOR - 2], toeR: [124, FLOOR - 2]
+    };
+    const out = lerp(16, 56, p);
+    const hy = lerp(shoY + 42, shoY + 6, p);
+    const left = reach(j.shoL, [100 - out, hy], function (s) { return j.shoL[0] - s.mid[0]; });
+    const right = reach(j.shoR, [100 + out, hy], function (s) { return s.mid[0] - j.shoR[0]; });
+    j.elbL = left.mid; j.handL = left.end;
+    j.elbR = right.mid; j.handR = right.end;
+    j.torso = [j.shoL, j.shoR, j.hipR, j.hipL];
+    return fig({
+      j: j, face: 'front', torso: j.torso,
+      lines: frontLinks(j, { arm: true }),
+      dbs: [bell(j.handL[0], j.handL[1], 0), bell(j.handR[0], j.handR[1], 0)],
+      glow: [mid(j.shoL, j.elbL), mid(j.shoR, j.elbR)],
+      shadow: shadowAt(100)
+    });
+  }
+
   function genericSide(p) {
     const j = sideFigure({ torso: -90, thigh: 84, shin: 96, ax: 108 });
     const hand = [j.sho[0] + lerp(8, 20, p), j.sho[1] + lerp(40, 8, p)];
@@ -971,6 +1120,21 @@
       seq: [[1, 2.5, 'Lower slow, body straight'], [1, 0.3, 'Chest near the floor'], [0, 1.5, 'Push the floor away'], [0, 0.6, 'Body in one line']],
       pose: function (v, p) { return v === 'front' ? pushAbove(p) : pushSide(p); }
     },
+    'chin-tuck': {
+      grip: 'none', views: VIEWS.stand,
+      seq: [[1, 2, 'Slide your head back'], [1, 3, 'Hold · 3 sec'], [0, 2, 'Ease back'], [0, 0.6, 'Eyes level']],
+      pose: function (v, p) { return v === 'front' ? chinTuckFront(p) : chinTuckSide(p); }
+    },
+    'yt-raise': {
+      grip: 'none', views: VIEWS.floor,
+      seq: [[0.5, 1.5, 'Raise into a Y'], [0.5, 1, 'Hold the Y'], [1, 1.5, 'Open into a T'], [1, 0.8, 'Hold the T'], [0, 2, 'Lower slowly'], [0, 0.5, 'Arms hang, chest on the pad']],
+      pose: function (v, p) { return v === 'front' ? ytAbove(p) : ytSide(p); }
+    },
+    'rear-delt-fly': {
+      grip: 'horizontal', views: VIEWS.stand,
+      seq: [[1, 1.5, 'Raise out to the sides'], [1, 0.5, 'Squeeze the rear shoulders'], [0, 2.5, 'Lower slow'], [0, 0.5, 'Soft elbows, light bells']],
+      pose: function (v, p) { return v === 'front' ? rearDeltFront(p) : rearDeltSide(p); }
+    },
     generic: {
       grip: 'horizontal', views: VIEWS.stand,
       seq: [[1, 1.5, ''], [0, 1.5, '']],
@@ -984,7 +1148,10 @@
     'shoulder-press': 'seated-press', ohp: 'seated-press', 'hip-bridge': 'glute-bridge',
     'glute-bridges': 'glute-bridge', deadbug: 'dead-bug', lunge: 'reverse-lunge',
     curl: 'biceps-curl', hammer: 'hammer-curl', triceps: 'overhead-triceps',
-    'triceps-extension': 'overhead-triceps', fly: 'incline-fly', 'pushup': 'push-up'
+    'triceps-extension': 'overhead-triceps', fly: 'incline-fly', 'pushup': 'push-up',
+    'chin-tucks': 'chin-tuck', 'wall-chin-tuck': 'chin-tuck',
+    'y-t-raise': 'yt-raise', 'prone-yt': 'yt-raise', 'yt-raises': 'yt-raise',
+    'rear-delt': 'rear-delt-fly', 'rear-delt-flyes': 'rear-delt-fly', 'reverse-fly': 'rear-delt-fly'
   };
 
   function resolve(id) {

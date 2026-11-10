@@ -49,7 +49,7 @@ Each exercise:
 
 | Field | Required | What it is |
 | --- | --- | --- |
-| `id` | yes | Demo and log id. Use a known id when you can: `goblet-squat`, `bench-press`, `one-arm-row`, `rdl`, `seated-press`, `glute-bridge`, `dead-bug`, `reverse-lunge`, `calf-raise`, `hammer-curl`, `biceps-curl`, `overhead-triceps`, `incline-fly`, `push-up`. Anything else gets a generic figure. |
+| `id` | yes | Demo and log id. Use a known id when you can: `goblet-squat`, `bench-press`, `one-arm-row`, `rdl`, `seated-press`, `glute-bridge`, `dead-bug`, `reverse-lunge`, `calf-raise`, `hammer-curl`, `biceps-curl`, `overhead-triceps`, `incline-fly`, `push-up`, `chin-tuck`, `yt-raise`, `rear-delt-fly`. Anything else gets a generic figure. |
 | `name` | yes | What he reads on the card. |
 | `sets`, `reps`, `weight` | yes | `weight` is pounds per hand, or the one dumbbell, or `0` for bodyweight. |
 | `weightNote` | yes | `Per hand`, `One dumbbell held at your chest`, `Reps per side`, and so on. |
@@ -57,6 +57,7 @@ Each exercise:
 | `restSec` | no | Rest after this move. Falls back to the day's default. |
 | `cues` | yes | Three short form cues. |
 | `avoid` | yes | The common mistake. The card labels it "Common mistake". |
+| `safety` | no | A short safety line under the mistake, labeled "Safety". Use it for neck or joint-sensitive moves. |
 | `lastTime` | no | What he lifted last time, so the weight has a reason. |
 
 Logged sets for each day stay on the device under `wk.log.<id>`. A new id starts a blank card.

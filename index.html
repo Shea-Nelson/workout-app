@@ -70,6 +70,8 @@ button{cursor:pointer}
 ol.cues{padding-left:1.2em;margin:16px 0 8px}ol.cues li{margin:8px 0;line-height:1.5}
 .avoid{border-left:3px solid var(--warn);padding:2px 0 2px 12px;margin-top:14px;color:var(--ink);font-size:16px;line-height:1.45}
 .avoid b{color:var(--warn)}
+.safety{border-left:3px solid var(--ok);padding:2px 0 2px 12px;margin-top:10px;color:var(--ink);font-size:16px;line-height:1.45}
+.safety b{color:var(--ok)}
 .set{display:grid;grid-template-columns:64px 1fr 1fr 84px;gap:12px;align-items:end;margin-top:18px}
 .set.bw{grid-template-columns:64px 1fr 84px}
 .set .n{font-weight:700;color:var(--ink);text-align:left;padding-bottom:18px;font-size:15px}
@@ -321,6 +323,7 @@ function render(){
       ${e.lastTime?`<div class="last">${esc(e.lastTime)}</div>`:''}
       <ol class="cues">${(e.cues||[]).map(c=>`<li>${esc(c)}</li>`).join('')}</ol>
       ${e.avoid?`<div class="avoid"><b>Common mistake:</b> ${esc(e.avoid)}</div>`:''}
+      ${e.safety?`<div class="safety"><b>Safety:</b> ${esc(e.safety)}</div>`:''}
       ${s.skipped?'':s.sets.map((st,j)=>`<div class="set ${bw?'bw':''}">
         <div class="n">Set ${j+1}</div>
         ${bw?'':`<div><label>Weight (lb)</label><input type="number" inputmode="decimal" data-i="${i}" data-j="${j}" data-f="weight" value="${esc(st.weight)}"></div>`}

@@ -7,7 +7,11 @@
   "title": "Week of Nov 9, 2026",
   "authoring": "Edit this file once a week or the night before, then push. Three strength days: Monday, Wednesday, and Friday at 8:00 AM America/New_York. Each day needs its own id (2026-11-11-upper), date, dateLabel, time, title, notes, warmup, cooldown, and exercises. Each exercise needs sets, reps, weight, cues, and avoid (the common mistake). Shea is 50, rebuilding fitness, type 2 diabetes, dumbbells (one pair is 30 lb) and an adjustable bench, no barbell. Keep loads conservative. Never program a bench hip thrust or any move where he balances or could slide on the bench edge. Glutes are a floor glute bridge with one dumbbell on the hips, 3 x 12. A single-day object (exercises at the top, no days array) still loads.",
   "schedule": {
-    "strengthDays": ["Monday", "Wednesday", "Friday"],
+    "strengthDays": [
+      "Monday",
+      "Wednesday",
+      "Friday"
+    ],
     "time": "08:00",
     "timeLabel": "8:00 AM",
     "offDays": "Rest or treadmill day. No strength workout."
@@ -21,7 +25,7 @@
       "time": "08:00",
       "timeLabel": "8:00 AM",
       "title": "Full Body Day",
-      "subtitle": "Monday · 8:00 AM · about 35 min · dumbbells + bench",
+      "subtitle": "Monday \u00b7 8:00 AM \u00b7 about 35 min \u00b7 dumbbells + bench",
       "defaultRestSec": 90,
       "notes": [
         "Keep a quick carb nearby (glucose tabs or juice). Stop if you feel dizzy or have chest pain.",
@@ -63,7 +67,7 @@
           "restSec": 90,
           "cues": [
             "Lie flat, feet planted, shoulder blades pinched back",
-            "Lower the dumbbells to chest level, elbows about 45° from your sides",
+            "Lower the dumbbells to chest level, elbows about 45\u00b0 from your sides",
             "Press up and slightly together, don't clank them"
           ],
           "avoid": "Flaring elbows straight out to the sides.",
@@ -147,7 +151,7 @@
           "muscles": "Deep core",
           "restSec": 60,
           "cues": [
-            "Lie on your back, arms up, knees bent 90° over your hips",
+            "Lie on your back, arms up, knees bent 90\u00b0 over your hips",
             "Press your lower back into the floor",
             "Slowly reach one arm back and the opposite leg out, then switch"
           ],
@@ -170,13 +174,14 @@
       "time": "08:00",
       "timeLabel": "8:00 AM",
       "title": "Upper Body",
-      "subtitle": "Wednesday · 8:00 AM · about 40 min · dumbbells + bench",
+      "subtitle": "Wednesday \u00b7 8:00 AM \u00b7 about 45 min \u00b7 dumbbells + bench",
       "defaultRestSec": 90,
       "notes": [
         "Keep a quick carb nearby (glucose tabs or juice). Stop if you feel dizzy or have chest pain.",
         "After lifting, a short rise in sugar is common. An easy 10-minute walk afterward helps.",
         "First set of each move on the light end. Slow, clean reps beat heavy ones.",
-        "Upper body today. If a shoulder pinches, skip that move and jot a note."
+        "Upper body today. If a shoulder pinches, skip that move and jot a note.",
+        "Two short posture moves today for forward-head posture. Keep them gentle."
       ],
       "warmup": [
         "5-minute easy walk on the Peloton Tread",
@@ -185,6 +190,24 @@
         "10 shoulder-blade squeezes, arms at your sides"
       ],
       "exercises": [
+        {
+          "id": "chin-tuck",
+          "name": "Chin tuck",
+          "sets": 2,
+          "reps": 10,
+          "weight": 0,
+          "weightNote": "Hold 3 seconds each rep. Against a wall, or lie on your back",
+          "muscles": "Deep neck flexors, posture",
+          "restSec": 45,
+          "cues": [
+            "Stand with the back of your head, shoulders, and hips against a wall, or lie on your back with knees bent",
+            "Eyes stay level. Make a gentle double chin and slide your head straight back",
+            "Hold 3 seconds, then ease back to the start. Breathe through the hold"
+          ],
+          "avoid": "Don't tip your chin down or poke your head forward to start the rep. This is a slide back, not a nod.",
+          "safety": "Keep this gentle. Don't press on or load the neck. Stop if you feel pain, numbness, or tingling.",
+          "lastTime": "New. Posture work for forward-head posture. Two easy sets is enough."
+        },
         {
           "id": "bench-press",
           "name": "Dumbbell bench press",
@@ -196,7 +219,7 @@
           "restSec": 90,
           "cues": [
             "Lie flat, feet planted, shoulder blades pinched back",
-            "Lower the dumbbells to chest level, elbows about 45° from your sides",
+            "Lower the dumbbells to chest level, elbows about 45\u00b0 from your sides",
             "Press up and slightly together, don't clank them"
           ],
           "avoid": "Flaring elbows straight out to the sides.",
@@ -286,6 +309,24 @@
           ],
           "avoid": "Flaring the elbows wide, or arching your lower back off the pad.",
           "lastTime": "New this week. 15 lb total is plenty. Skip it if the shoulder pinches."
+        },
+        {
+          "id": "yt-raise",
+          "name": "Chest-supported Y-T raise",
+          "sets": 2,
+          "reps": 10,
+          "weight": 0,
+          "weightNote": "Empty hands, or 5 lb per hand if that is easy. 10 of Y, then 10 of T each set",
+          "muscles": "Mid-back, rear shoulders, lower traps",
+          "restSec": 60,
+          "cues": [
+            "Low incline. Lie face down, chest on the pad, feet on the floor, neck long in a light chin tuck",
+            "Thumbs up. Raise your arms into a Y, lower, then out into a T. Slow and even",
+            "Squeeze the shoulder blades toward your back pockets. Don't shrug"
+          ],
+          "avoid": "Don't yank the arms up with your upper traps, and don't lift your chest or head off the pad.",
+          "safety": "Very light or no weight. Keep the neck relaxed; don't crane to look up. Stop if you feel pain, numbness, or tingling.",
+          "lastTime": "New. Empty hands first. Add 5 lb only if every rep is smooth."
         }
       ],
       "cooldown": [
@@ -303,13 +344,14 @@
       "time": "08:00",
       "timeLabel": "8:00 AM",
       "title": "Lower Body",
-      "subtitle": "Friday · 8:00 AM · about 40 min · dumbbells + bench",
+      "subtitle": "Friday \u00b7 8:00 AM \u00b7 about 45 min \u00b7 dumbbells + bench",
       "defaultRestSec": 90,
       "notes": [
         "Keep a quick carb nearby (glucose tabs or juice). Stop if you feel dizzy or have chest pain.",
         "After lifting, a short rise in sugar is common. An easy 10-minute walk afterward helps.",
         "First set of each move on the light end. Slow, clean reps beat heavy ones.",
-        "Lower body today. Soften the knees on the deadlift. Stop a set if a rep gets sloppy."
+        "Lower body today. Soften the knees on the deadlift. Stop a set if a rep gets sloppy.",
+        "Chin tucks and a light rear-delt fly at the end for posture. Keep them gentle."
       ],
       "warmup": [
         "5-minute easy walk on the Peloton Tread",
@@ -358,7 +400,7 @@
           "sets": 3,
           "reps": 8,
           "weight": 10,
-          "weightNote": "Per hand · each side",
+          "weightNote": "Per hand \u00b7 each side",
           "muscles": "Thighs, glutes",
           "restSec": 90,
           "cues": [
@@ -384,7 +426,7 @@
             "Drive your hips up, squeeze 1 second, lower slowly"
           ],
           "avoid": "Arching your lower back at the top. This stays on the floor, never on the bench.",
-          "lastTime": "Mon Nov 9: 25 lb, 3×12. Same today."
+          "lastTime": "Mon Nov 9: 25 lb, 3\u00d712. Same today."
         },
         {
           "id": "calf-raise",
@@ -413,16 +455,53 @@
           "muscles": "Deep core",
           "restSec": 60,
           "cues": [
-            "Lie on your back, arms up, knees bent 90° over your hips",
+            "Lie on your back, arms up, knees bent 90\u00b0 over your hips",
             "Press your lower back into the floor",
             "Slowly reach one arm back and the opposite leg out, then switch"
           ],
           "avoid": "Letting your lower back pop off the floor.",
           "lastTime": "Mon Nov 9: bodyweight, 8 each side."
+        },
+        {
+          "id": "chin-tuck",
+          "name": "Chin tuck",
+          "sets": 2,
+          "reps": 10,
+          "weight": 0,
+          "weightNote": "Hold 3 seconds each rep. Against a wall, or lie on your back",
+          "muscles": "Deep neck flexors, posture",
+          "restSec": 45,
+          "cues": [
+            "Stand with the back of your head, shoulders, and hips against a wall, or lie on your back with knees bent",
+            "Eyes stay level. Make a gentle double chin and slide your head straight back",
+            "Hold 3 seconds, then ease back to the start. Breathe through the hold"
+          ],
+          "avoid": "Don't tip your chin down or poke your head forward to start the rep. This is a slide back, not a nod.",
+          "safety": "Keep this gentle. Don't press on or load the neck. Stop if you feel pain, numbness, or tingling.",
+          "lastTime": "Same as Wednesday. Two easy sets is enough."
+        },
+        {
+          "id": "rear-delt-fly",
+          "name": "Dumbbell rear-delt fly",
+          "sets": 2,
+          "reps": 10,
+          "weight": 10,
+          "weightNote": "Per hand. Light on purpose. Use 5 lb if 10 feels heavy",
+          "muscles": "Rear shoulders, mid-back",
+          "restSec": 60,
+          "cues": [
+            "Soft knees, hinge at the hips, back flat, arms hang under your shoulders",
+            "Slight bend in the elbows. Raise the dumbbells out to the sides until they line up with your shoulders",
+            "Lead with the elbows, squeeze the rear shoulders, then lower for 2 seconds"
+          ],
+          "avoid": "Don't swing your torso or turn this into a shrug. The torso stays still.",
+          "safety": "Keep it light. Neck stays long, eyes on the floor. Stop if you feel pain, numbness, or tingling.",
+          "lastTime": "New. 10 lb is a ceiling, not a goal. 5 lb is fine."
         }
       ],
       "cooldown": [
         "3-minute easy walk",
+        "Doorway pec stretch, 30 s each side",
         "Hamstring stretch, heel on the bench, 30 s each",
         "Figure-4 glute stretch on the floor, 30 s each",
         "Standing quad stretch, one hand on the bench, 30 s each"

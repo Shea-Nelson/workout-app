@@ -46,13 +46,19 @@ test('Wednesday is upper, Friday is lower, glutes stay a floor bridge', () => {
   assert.equal(wed.title, 'Upper Body');
   assert.equal(fri.title, 'Lower Body');
   assert.deepEqual(wed.exercises.map(e => [e.id, e.sets, e.reps, e.weight]), [
+    ['chin-tuck', 2, 10, 0],
     ['bench-press', 3, 10, 20],
     ['one-arm-row', 3, 10, 25],
     ['seated-press', 3, 10, 15],
     ['incline-fly', 3, 12, 10],
     ['hammer-curl', 3, 10, 15],
-    ['overhead-triceps', 3, 10, 15]
+    ['overhead-triceps', 3, 10, 15],
+    ['yt-raise', 2, 10, 0]
   ]);
+  wed.exercises.filter(e => e.id === 'chin-tuck' || e.id === 'yt-raise').forEach(e => {
+    assert.ok(e.safety && /pain, numbness, or tingling/i.test(e.safety), e.id);
+    assert.match(e.safety, /gentle|light|neck/i);
+  });
   const bridge = fri.exercises.find(e => e.id === 'glute-bridge');
   assert.equal(bridge.sets, 3);
   assert.equal(bridge.reps, 12);
@@ -61,6 +67,17 @@ test('Wednesday is upper, Friday is lower, glutes stay a floor bridge', () => {
   const lunge = fri.exercises.find(e => e.id === 'reverse-lunge');
   assert.equal(lunge.weight, 10);
   assert.match(lunge.avoid, /bench/i);
+  const tuck = fri.exercises.find(e => e.id === 'chin-tuck');
+  assert.equal(tuck.sets, 2);
+  assert.equal(tuck.reps, 10);
+  assert.equal(tuck.weight, 0);
+  assert.match(tuck.safety, /pain, numbness, or tingling/i);
+  const fly = fri.exercises.find(e => e.id === 'rear-delt-fly');
+  assert.equal(fly.sets, 2);
+  assert.equal(fly.reps, 10);
+  assert.equal(fly.weight, 10);
+  assert.match(fly.safety, /pain, numbness, or tingling/i);
+  assert.ok(fri.cooldown.some(line => /doorway/i.test(line)));
 });
 
 test('every exercise has cues, a common mistake, and the day has warm-up and cool-down', () => {
@@ -127,9 +144,11 @@ test('Finish payload keeps the old keys and names the day', () => {
   const day = W.normalize(week).days[1];
   const state = W.freshState(day);
   assert.equal(W.stateFits(day, state), true);
-  state.ex[0].sets[0].done = true;
-  state.ex[0].sets[0].weight = 20;
-  state.ex[0].sets[0].reps = 10;
+  const bench = day.exercises.findIndex(e => e.id === 'bench-press');
+  assert.ok(bench >= 0);
+  state.ex[bench].sets[0].done = true;
+  state.ex[bench].sets[0].weight = 20;
+  state.ex[bench].sets[0].reps = 10;
   const sent = '2026-11-11T13:00:00.000Z';
   const body = W.buildPayload(day, state, 'finished', {
     finishedAt: sent,
@@ -140,8 +159,8 @@ test('Finish payload keeps the old keys and names the day', () => {
   assert.equal(body.date, '2026-11-11');
   assert.equal(body.workout, 'Upper Body');
   assert.equal(body.workoutId, '2026-11-11-upper');
-  assert.equal(body.exercises[0].sets[0].weight, 20);
-  assert.equal(body.exercises[0].sets[0].done, true);
+  assert.equal(body.exercises[bench].sets[0].weight, 20);
+  assert.equal(body.exercises[bench].sets[0].done, true);
   const bug = day.exercises.findIndex(e => e.id === 'dead-bug');
   if (bug >= 0) assert.equal(body.exercises[bug].sets[0].weight, 0);
   assert.match(body.log, /Upper Body · Wed Nov 11 · 2026-11-11-upper/);
