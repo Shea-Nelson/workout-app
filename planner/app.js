@@ -249,6 +249,7 @@
       return '<h3 class="group-label">' + K.esc(section.title) + '</h3>' + rows;
     }).join('');
     return '<section class="card grocery-block" id="grocery"><div class="row"><h2>Grocery list</h2><button type="button" class="btn-quiet no-print" data-act="print">Print list</button></div><p class="meta">' + K.esc(week.groceryNote || 'Nothing here orders food.') + '</p>' +
+      '<p class="no-print"><a href="../shopping/?week=' + encodeURIComponent(sunday) + '">Open the Shopping page</a> for big check boxes, items you add, and a copy to share.</p>' +
       (swapped ? '<p class="meta">A dinner on this phone is swapped. This is still the published list, not the swap. Open that recipe before you shop for it.</p>' : '') +
       body + '<label class="field">Notes for the week<textarea id="week-notes" maxlength="' + K.NOTE_MAX + '"></textarea></label></section>';
   }
