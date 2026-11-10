@@ -1257,6 +1257,150 @@
     "Zarephath": {
       "label": "Zarephath",
       "id": "%25Zarephath_Place"
+    },
+    "Abihu": {
+      "label": "Abihu",
+      "id": "%23Abihu.1"
+    },
+    "Binding and loosing": {
+      "label": "Binding and loosing",
+      "id": "%25bindingAndLoosing"
+    },
+    "Book of Enoch": {
+      "label": "1 Enoch (Book of Enoch)",
+      "id": "%25FirstBookOfEnoch_Writing"
+    },
+    "Caesarea Philippi": {
+      "label": "Caesarea Philippi",
+      "id": "%25CaesareaPhilippi_Place"
+    },
+    "Church": {
+      "label": "Church",
+      "id": "%23church"
+    },
+    "Feeding of the four thousand": {
+      "label": "Jesus feeds the 4,000",
+      "id": "*JesusFeeds4000"
+    },
+    "Horeb": {
+      "label": "Mount Horeb",
+      "id": "%25MountHoreb_Place"
+    },
+    "Keys of the kingdom": {
+      "label": "Keys of the kingdom",
+      "id": "%25keysOfTheKingdom"
+    },
+    "Magadan": {
+      "label": "Magadan",
+      "id": "%25Magadan_Place"
+    },
+    "Midrash": {
+      "label": "Midrash",
+      "id": "%25midrash"
+    },
+    "Mount Tabor": {
+      "label": "Mount Tabor",
+      "id": "%25MountTabor_Place"
+    },
+    "Nadab": {
+      "label": "Nadab",
+      "id": "%23Nadab.1"
+    },
+    "Pan": {
+      "label": "Pan (Greek god)",
+      "id": "%25Pan_Deity"
+    },
+    "Sceva": {
+      "label": "Sceva",
+      "id": "%23Sceva.1"
+    },
+    "Shekinah": {
+      "label": "Shekinah",
+      "id": "%25Shekinah"
+    },
+    "Stater": {
+      "label": "Stater",
+      "id": "%25stater"
+    },
+    "Temple tax": {
+      "label": "Temple tax (half-shekel)",
+      "ref": "lco.Temple_Tax"
+    },
+    "Transfiguration": {
+      "label": "The Transfiguration",
+      "id": "%25jesusIsTransfigured_Miracle"
+    },
+    "Akiva": {
+      "label": "Rabbi Akiva",
+      "id": "%25RabbiAkiba_Person"
+    },
+    "Cain": {
+      "label": "Cain",
+      "id": "%23Cain.1"
+    },
+    "Denarius": {
+      "label": "Denarius",
+      "id": "%24denarius"
+    },
+    "Eternal life": {
+      "label": "Eternal life",
+      "id": "%25eternalLife"
+    },
+    "Eunuch": {
+      "label": "Eunuch",
+      "id": "%23eunuch"
+    },
+    "Excommunication": {
+      "label": "Excommunication",
+      "id": "%25excommunication"
+    },
+    "Humility": {
+      "label": "Humility",
+      "id": "%25humility"
+    },
+    "Inclusio": {
+      "label": "Inclusio",
+      "id": "%25inclusio"
+    },
+    "Jubilee": {
+      "label": "Year of Jubilee",
+      "id": "%25YearOfJubilee"
+    },
+    "Lamech": {
+      "label": "Lamech",
+      "id": "%23Lamech.1"
+    },
+    "Marriage": {
+      "label": "Marriage",
+      "id": "%25marriage"
+    },
+    "Massah": {
+      "label": "Massah",
+      "id": "%25Massah_Place"
+    },
+    "Millstone": {
+      "label": "Millstone",
+      "id": "%24millstonesMill"
+    },
+    "Parable of the lost sheep": {
+      "label": "Parable of the lost sheep",
+      "id": "%25ParableOfTheLostSheep"
+    },
+    "Regeneration": {
+      "label": "Regeneration (new heavens and earth)",
+      "ref": "lsto.NewHeavensAndEarth"
+    },
+    "Rich young ruler": {
+      "label": "The rich young ruler",
+      "id": "%23RichRuler"
+    },
+    "Shammai": {
+      "label": "Shammai the Elder",
+      "id": "%25shammaiTheElder"
+    },
+    "Talent": {
+      "label": "Talent",
+      "id": "%24talent"
     }
   },
   "aliases": {
