@@ -198,3 +198,17 @@ Do not point `photo.src` at another website.
 5. Run `node --test tests/*.test.js`.
 
 The recipe page lists the days of the week you are viewing. The planner opens on today's date in Eastern time. A dinner link looks like `recipes/?date=2026-11-16&recipe=garlic-parmesan-chicken`.
+
+## Shopping page
+
+`/shopping/` builds the week's checkable list from three files, so a new week is a data change only:
+
+1. `planner/data/weeks.json` says which dinner each day has.
+2. `recipes/data/recipes.json` supplies the ingredients. `shop` and `pantry` items are listed and added together by `groceryKey` and unit. `on-hand` items show only in the "Already on hand" note. `kids-starch` and `kids` items stay off unless the week adds them. Days with `recipeId: null` (store-bought, away) add nothing.
+3. `shopping/data/lists.json` has the store sections, a `sectionOf` map from `groceryKey` to section, and one entry per week under `weeks["YYYY-MM-DD"]` (the Sunday id):
+   - `items`: `{ "key", "name", "qty", "note", "section", "for": [...] }`. A `key` that matches a recipe ingredient overrides its name or amount. Any other key is an extra item, such as breakfast, lunch, snacks, or the kids' pizza. `{ "key": "x", "hide": true }` removes a generated item.
+   - `for` tags: `"2026-11-13"` is that day's dinner, `"2026-11-13 breakfast"` is a meal, and any other text is shown as written.
+   - `dinnerShort`: optional short dinner names for the tags.
+   - `skipDates`: optional dates whose dinner should not be shopped for.
+
+Checks and hand-added items stay in this browser under `kitchen.shopping.v1`, keyed by week. They do not sync between phones. Copy or Share sends a plain-text copy.

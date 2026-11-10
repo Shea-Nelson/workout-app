@@ -26,22 +26,24 @@ test('seed dates and confirmed dinner names', () => {
   assert.equal(schedule.days['2026-11-05'].recipeId, 'garlic-butter-salmon');
   assert.equal(K.recipeIdForDate('2026-11-05', schedule, weeksDoc), 'garlic-butter-salmon');
   assert.equal(K.recipeIdForDate('2026-11-08', schedule, weeksDoc), null);
-  assert.equal(K.recipeIdForDate('2026-11-09', schedule, weeksDoc), 'keto-pizza-bowls');
+  assert.equal(K.recipeIdForDate('2026-11-09', schedule, weeksDoc), null);
   assert.equal(K.recipeIdForDate('2026-11-10', schedule, weeksDoc), 'garlic-parmesan-chicken');
-  assert.equal(K.recipeIdForDate('2026-11-14', schedule, weeksDoc), 'pork-carnitas');
+  assert.equal(K.recipeIdForDate('2026-11-11', schedule, weeksDoc), 'keto-pizza-bowls');
+  assert.equal(K.recipeIdForDate('2026-11-13', schedule, weeksDoc), 'steak-bites');
+  assert.equal(K.recipeIdForDate('2026-11-14', schedule, weeksDoc), null);
   assert.equal(K.recipeIdForDate('2026-11-06', schedule, weeksDoc), null);
   const week = weeksDoc.weeks[0];
   assert.deepEqual(week.days.map(day => day.date), [
     '2026-11-08', '2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12', '2026-11-13', '2026-11-14'
   ]);
   assert.deepEqual(week.days.map(day => day.title), [
-    'No dinner',
-    'Crustless pizza bowls',
+    'Vital frozen pizza',
+    "Kevin's frozen teriyaki",
     'Garlic Parmesan chicken',
+    'Pizza night',
+    'Broccoli ham bake',
     'Garlic butter steak bites',
-    'Cheesy broccoli ham bake',
-    'Egg roll in a bowl',
-    'Pork carnitas lettuce cups'
+    'Out of town'
   ]);
   assert.equal(week.days[0].recipeId, null);
   week.days.forEach(day => {
@@ -83,20 +85,24 @@ test('grocery sums are reliable and optional starch stays separate', () => {
   const butter = list.shop.find(item => item.groceryKey === 'butter');
   const cream = list.shop.find(item => item.groceryKey === 'heavy-cream');
   const limes = list.shop.find(item => item.groceryKey === 'limes');
-  assert.equal(butter.amount, 7);
+  assert.equal(butter.amount, 6);
   assert.equal(butter.unit, 'tbsp');
   assert.equal(cream.amount, 1);
-  assert.equal(cream.unit, 'cup');
-  assert.equal(limes.amount, 3);
+  assert.equal(cream.unit, 'cups');
+  assert.equal(limes, undefined);
   assert.equal(list.shop.some(item => item.groceryKey === 'chicken-breasts'), false);
   assert.equal(list.onHand.find(item => item.groceryKey === 'chicken-breasts').amount, 3);
   assert.equal(list.shop.some(item => item.groceryKey === 'salt'), false);
   assert.equal(list.shop.some(item => item.groceryKey === 'shrimp'), false);
   assert.equal(list.shop.some(item => item.groceryKey === 'rice'), false);
-  assert.ok(list.unscaled.some(item => item.group === 'kids-starch' && /rice/i.test(item.name)));
+  assert.equal(list.shop.some(item => item.groceryKey === 'pita'), false);
+  assert.equal(list.shop.some(item => item.groceryKey === 'potatoes'), false);
+  assert.ok(list.kidsStarch.some(item => item.groceryKey === 'pita'));
+  assert.ok(list.kidsStarch.some(item => item.groceryKey === 'potatoes'));
+  assert.ok(list.kidsStarch.some(item => item.groceryKey === 'dinner-rolls'));
   assert.ok(list.pantry.some(item => item.groceryKey === 'oregano'));
   const doubled = K.aggregateGrocery(week, catalog, { '2026-11-10': { servings: 12 } });
-  assert.equal(doubled.shop.find(item => item.groceryKey === 'butter').amount, 10);
+  assert.equal(doubled.shop.find(item => item.groceryKey === 'butter').amount, 9);
 });
 
 test('portion scaling and clock formatting', () => {
