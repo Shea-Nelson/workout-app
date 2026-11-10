@@ -65,8 +65,12 @@ test('goblet and overhead triceps stay vertical', () => {
 });
 
 test('hammer curl is neutral and a palms-up curl is not', () => {
-  each('hammer-curl', (s, view) => {
-    if (view === 'side') s.dbs.forEach(db => assert.equal(horiz(db), true, 'hammer side'));
+  each('hammer-curl', (s, view, p) => {
+    // Side view: the handle points forward with the arm down, then turns with the forearm as it curls.
+    if (view === 'side') s.dbs.forEach(db => {
+      assert.equal(db.end, false, 'hammer side shows the handle');
+      if (p === 0) assert.equal(horiz(db), true, 'hammer side at the bottom');
+    });
     if (view === 'front') s.dbs.forEach(db => assert.equal(db.end, true, 'hammer front end-on'));
   });
   each('biceps-curl', (s, view) => {
