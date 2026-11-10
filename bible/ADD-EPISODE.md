@@ -65,3 +65,11 @@ Only ids in `data/factbook.json` are used. They were looked up in Logos; **never
 - Episodes without a Canvas: write a `tools/build_ep0N.py` like `build_ep04.py`. It builds the data and the copy-clean NOTES, then adds the hub, PDF and Factbook lines.
 - Offline copy and PDF: `python3 build/offline_gh.py matthew-N offline/<name>.html "<title>"`, then `node build/pdf.js offline/<name>.html offline/<name>.pdf`, then copy the PDF into `assets/` and rerun the builder with `--pages` and `--size`.
 
+### Added with Episodes 5 to 9
+
+- `feature: "<KEY>"` on any section renders cards from the data array `KEY`: `{n, emoji, color, kicker, title, stamp, left?, right?, src?, lines[], note?}`. `left`/`right` are `{who, ref, book, ch, text, tone, plain?}`. `src` is `{ref, book, ch, text, icon}` for an LSB verse, or `{who, text, icon}` (no `ref`) for a non-LSB source. `lines` are `{tag: "v" | "b", text, refs[], label?}` (video or background).
+- `ladder: {title, rows: [{ref, short, book, ch, text, tail, lvl, hl, hlnote, color, mark}], note}` draws stepped rows (chiasms, Beatitudes, the Lord's Prayer). `lvl` sets the indent, `hl` marks the peak, `tail` is the repeated refrain. It renders before the feature cards.
+- `figures[<section id>]` adds pictures under any section; `tools/episode_lib.py` `fig()` builds them from `img/ep5_9/meta.json`.
+- Checks: `python3 tools/check_quotes.py matthew-N` (write other books' refs in full; bare "c:v" is read as Matthew) and `python3 tools/check_words.py matthew-N`.
+- Logos notes: `python3 build/logos_ep.py N` writes `logos/epNN/` (8 notes plus `00_index.txt`) from the data file; `build/needs_ids_ep5_9.py` writes the needs_ids lists.
+

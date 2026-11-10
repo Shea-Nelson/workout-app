@@ -281,3 +281,27 @@ a.pncard:hover { border-color: var(--teal); }
 @media (max-width: 480px) { .written b { padding-right: 0; } .stamp { position: static; display: inline-block; margin-bottom: 6px; } }
 @media (prefers-reduced-motion: reduce) { .heroemoji .glyph, .heroemoji .orbit, .test.in .testbadge { animation: none !important; } .test .stamp { opacity: .9; transform: rotate(-8deg); transition: none; } }
 @media print { .heroemoji { display: none; } .test .stamp { opacity: .9 !important; transform: rotate(-8deg) !important; } }
+
+/* Episodes 5-9: paired "feature" cards (reuse the Episode 4 test card look) and more hero gradients */
+.feat .pair { margin-top: 12px; }
+.feat .pair b { display: block; font: 800 12px var(--sans); letter-spacing: .04em; margin-bottom: 4px; }
+.feat .small { margin: 10px 0 0; }
+.feat .fbrow { margin-top: 10px; }
+.hero-sea h1 em { background-image: linear-gradient(90deg, var(--sky), var(--teal), var(--gold), var(--sky)); background-size: 200% auto; }
+.hero-meadow h1 em { background-image: linear-gradient(90deg, var(--teal), var(--gold), var(--coral), var(--teal)); background-size: 200% auto; }
+.hero-ember h1 em { background-image: linear-gradient(90deg, var(--coral), var(--violet), var(--gold), var(--coral)); background-size: 200% auto; }
+.hero-night h1 em { background-image: linear-gradient(90deg, var(--violet), var(--sky), var(--teal), var(--violet)); background-size: 200% auto; }
+.hero-bloom h1 em { background-image: linear-gradient(90deg, var(--coral), var(--gold), var(--violet), var(--coral)); background-size: 200% auto; }
+
+/* Episodes 5-9: stepped "ladder" for chiasms and repeated patterns */
+.ladder { padding: 16px 16px 12px; }
+.ladder .kicker { margin: 0 0 8px; color: var(--violet); }
+.rung { display: flex; gap: 10px; align-items: flex-start; margin: 0 0 7px calc(var(--lvl) * 6%); padding: 8px 12px; border-radius: 12px; background: var(--card, transparent); border: 1.5px solid var(--accent); border-left-width: 6px; font-family: var(--serif); line-height: 1.45; opacity: 0; transform: translateX(-14px); transition: opacity .4s, transform .4s; transition-delay: calc(var(--i) * 70ms); }
+.ladder.in .rung { opacity: 1; transform: none; }
+.rung .rmark { flex: none; font: 900 13px var(--sans); color: var(--accent); min-width: 22px; }
+.rung.peak { background: var(--tint-g); border-color: var(--gold); box-shadow: 0 6px 0 rgba(0,0,0,.06); transform: scale(.98); }
+.ladder.in .rung.peak { transform: scale(1.02); }
+.rung .mini { margin-right: 2px; }
+@media (max-width: 560px) { .rung { margin-left: calc(var(--lvl) * 3%); } }
+@media (prefers-reduced-motion: reduce) { .rung { opacity: 1; transform: none; transition: none; } }
+@media print { .rung { opacity: 1 !important; transform: none !important; } }
