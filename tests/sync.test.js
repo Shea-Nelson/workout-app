@@ -28,9 +28,26 @@ test('save and reopen copy say Saved and that a webhook is configured', () => {
   assert.match(S.configuredNote('https://example.com/hook', 'Bearer test-key-1234'), /configured/);
   assert.match(S.configuredNote('https://example.com/hook', 'Bearer test-key-1234'), /••••1234/);
   assert.equal(S.configuredNote('', '').includes('Bearer'), false);
+  assert.match(S.configuredNote('', ''), /relay address is filled in/);
   assert.match(S.saveNote('https://api2.cursor.sh/v1/channels/log', true), /cursor\.com/);
   assert.equal(S.isCursorApiHost('https://api.cursor.com/v1/channels/log'), true);
   assert.equal(S.isCursorApiHost('https://example.com/hook'), false);
+});
+
+test('the default relay is offered when nothing usable is saved', () => {
+  const relay = S.DEFAULT_RELAY_URL;
+  assert.equal(S.isDefaultRelayUrl(relay), true);
+  assert.equal(S.isDefaultRelayUrl(relay + '/'), true);
+  assert.equal(S.isDefaultRelayUrl('https://example.com/hook'), false);
+  assert.equal(S.suggestedWebhookUrl(''), relay);
+  assert.equal(S.suggestedWebhookUrl('https://api2.cursor.sh/automations/webhook/demo'), relay);
+  assert.equal(S.suggestedWebhookUrl('https://example.com/hook'), 'https://example.com/hook');
+  assert.equal(S.authKeptOnSave(relay, '', 'Bearer leftover'), '');
+  assert.equal(S.authKeptOnSave(relay, 'Bearer typed-key-1234', 'Bearer leftover'), 'Bearer typed-key-1234');
+  assert.equal(S.authKeptOnSave('https://example.com/hook', '', 'Bearer leftover'), 'Bearer leftover');
+  assert.match(S.saveNote(relay, false), /No key is needed/);
+  assert.match(S.configuredNote(relay, ''), /No key is needed for the relay/);
+  assert.match(S.configuredNote(relay, 'Bearer leftover'), /drop the leftover key/);
 });
 
 test('unsent logs stay queued and a newer finish replaces the old one', () => {
