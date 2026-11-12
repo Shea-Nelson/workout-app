@@ -17,6 +17,11 @@
     'api.cursor.com': true
   };
 
+  /* Public Cloudflare Worker that accepts browser POSTs from this site
+     and forwards them to the Grok Bot webhook. The key stays on the
+     Worker, so this page does not send an Authorization header. */
+  const DEFAULT_RELAY_URL = 'https://workout-relay.shea-nelson.workers.dev';
+
   function validateWebhookUrl(raw) {
     let url = String(raw || '').trim().replace(/^[`'"]+|[`'"]+$/g, '').trim();
     url = url.replace(/\s+/g, '');
@@ -53,7 +58,38 @@
     return CURSOR_API_HOSTS[hostOf(url)] === true;
   }
 
+  function isDefaultRelayUrl(url) {
+    try {
+      const parsed = new URL(String(url || '').trim());
+      return parsed.protocol === 'https:' && parsed.hostname === 'workout-relay.shea-nelson.workers.dev';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /* If nothing is saved, or the saved address is a Cursor API host the
+     browser cannot call, offer the relay. Any other saved URL is kept. */
+  function suggestedWebhookUrl(savedUrl) {
+    const check = validateWebhookUrl(savedUrl);
+    if (check.ok && !isCursorApiHost(check.url)) return check.url;
+    return DEFAULT_RELAY_URL;
+  }
+
+  /* Blank Authorization is allowed. For the relay, a blank field clears a
+     previously saved key so the browser does not send Authorization. For
+     any other URL, a blank field keeps the key already on the phone. */
+  function authKeptOnSave(url, typedAuth, existingAuth) {
+    const typed = String(typedAuth || '').trim();
+    if (isDefaultRelayUrl(url)) return typed;
+    return typed || String(existingAuth || '');
+  }
+
   function saveNote(url, hasKey) {
+    if (isDefaultRelayUrl(url)) {
+      return hasKey
+        ? 'Saved. This phone will send workout logs through the relay. The key is hidden.'
+        : 'Saved. This phone will send workout logs through the relay. No key is needed.';
+    }
     let note = 'Saved. This phone will send workout logs to that webhook.';
     note += hasKey ? ' The key is hidden.' : ' No key was entered.';
     if (isCursorApiHost(url)) {
@@ -63,7 +99,12 @@
   }
 
   function configuredNote(url, auth) {
-    if (!url) return 'No webhook is saved on this device yet. Paste the URL and the Authorization header value, then tap Save.';
+    if (!url) return 'No webhook is saved on this device yet. The relay address is filled in. Leave the Authorization header blank, then tap Save.';
+    if (isDefaultRelayUrl(url)) {
+      return auth
+        ? 'A webhook is configured on this device. No key is needed for the relay. Tap Save to drop the leftover key.'
+        : 'A webhook is configured on this device. No key is needed for the relay.';
+    }
     const keyBit = auth ? (' Key saved (' + maskSecret(auth) + ').') : ' No key saved.';
     return 'A webhook is configured on this device.' + keyBit;
   }
@@ -207,11 +248,15 @@
   }
 
   return {
+    DEFAULT_RELAY_URL: DEFAULT_RELAY_URL,
     validateWebhookUrl: validateWebhookUrl,
     urlError: urlError,
     maskSecret: maskSecret,
     hostOf: hostOf,
     isCursorApiHost: isCursorApiHost,
+    isDefaultRelayUrl: isDefaultRelayUrl,
+    suggestedWebhookUrl: suggestedWebhookUrl,
+    authKeptOnSave: authKeptOnSave,
     saveNote: saveNote,
     configuredNote: configuredNote,
     normalizeQueue: normalizeQueue,

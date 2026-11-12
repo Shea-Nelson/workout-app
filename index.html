@@ -224,10 +224,10 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
   <section class="card">
     <button class="close" id="sClose" type="button" aria-label="Close settings">✕</button>
     <h2 id="syncTitle">Auto-sync</h2>
-    <p class="meta" style="padding-right:50px">Paste the webhook URL and the Authorization header value from your Grok Bot routine panel. They stay on this phone only. Tap Save and the confirmation stays on this screen.</p>
+    <p class="meta" style="padding-right:50px">The relay address is already filled in. Leave the Authorization header blank, tap Save, then Send test. A key is only needed for a different webhook. Settings stay on this phone. The confirmation stays on this screen.</p>
     <form id="syncForm" autocomplete="off" novalidate>
-      <div class="field"><label for="sUrl">Webhook URL</label><input id="sUrl" type="text" inputmode="url" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://..." enterkeyhint="done"></div>
-      <div class="field"><label for="sAuth">Authorization header value</label><input id="sAuth" type="password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Bearer ..." enterkeyhint="done"></div>
+      <div class="field"><label for="sUrl">Webhook URL</label><input id="sUrl" type="text" inputmode="url" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://workout-relay.shea-nelson.workers.dev" enterkeyhint="done"></div>
+      <div class="field"><label for="sAuth">Authorization header value (optional)</label><input id="sAuth" type="password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Leave blank for the relay" enterkeyhint="done"></div>
       <div class="row" id="syncActions"><button class="btn p" id="sSave" type="submit">Save</button><button class="btn p" id="sTest" type="button">Send test</button><button class="btn s" id="sClear" type="button">Clear</button></div>
     </form>
     <p class="banner info" id="sMsg" role="status" aria-live="assertive"></p>
@@ -600,10 +600,11 @@ function saveSettings(){
   if (!check.ok) { setBanner('bad', WorkoutSync.urlError(check.code)); lastSaveOk = false; return false; }
   let existing = '';
   try { existing = localStorage.getItem(LS.auth) || ''; } catch (e) { existing = ''; }
-  const auth = String(typedAuth || '').trim() ? String(typedAuth).trim() : existing;
+  const auth = WorkoutSync.authKeptOnSave(check.url, typedAuth, existing);
   try {
     localStorage.setItem(LS.url, check.url);
-    localStorage.setItem(LS.auth, auth);
+    if (auth) localStorage.setItem(LS.auth, auth);
+    else localStorage.removeItem(LS.auth);
   } catch (e) {
     setBanner('bad', 'Could not save on this phone. If you are in private browsing, turn it off and try again.');
     lastSaveOk = false;
@@ -611,7 +612,7 @@ function saveSettings(){
   }
   $('sUrl').value = check.url;
   $('sAuth').value = '';
-  $('sAuth').placeholder = auth ? 'Key saved. Paste to replace.' : 'Bearer ...';
+  $('sAuth').placeholder = auth ? 'Key saved. Paste to replace.' : 'Leave blank for the relay';
   setBanner('ok', WorkoutSync.saveNote(check.url, !!auth));
   flush();
   lastSaveOk = true;
@@ -645,10 +646,17 @@ function openSettings(){
   let url = '', auth = '';
   try { url = localStorage.getItem(LS.url) || ''; auth = localStorage.getItem(LS.auth) || ''; }
   catch (e) { url = ''; auth = ''; }
-  $('sUrl').value = url;
+  const displayUrl = WorkoutSync.suggestedWebhookUrl(url);
+  const needsSave = displayUrl !== url;
+  $('sUrl').value = displayUrl;
   $('sAuth').value = '';
-  $('sAuth').placeholder = auth ? 'Key saved. Paste to replace.' : 'Bearer ...';
-  setBanner(url ? 'ok' : 'info', WorkoutSync.configuredNote(url, auth));
+  const showSavedKey = !!auth && !needsSave && !WorkoutSync.isDefaultRelayUrl(displayUrl);
+  $('sAuth').placeholder = showSavedKey ? 'Key saved. Paste to replace.' : 'Leave blank for the relay';
+  if (needsSave) {
+    setBanner('info', 'The relay address is filled in. Leave the Authorization header blank, then tap Save. Waiting logs will send after that.');
+  } else {
+    setBanner(url ? 'ok' : 'info', WorkoutSync.configuredNote(url, auth));
+  }
   $('overlay').classList.remove('hidden');
 }
 function clearSettings(){
@@ -656,10 +664,10 @@ function clearSettings(){
   catch (e) {}
   draftUrl = null;
   draftAuth = null;
-  $('sUrl').value = '';
+  $('sUrl').value = WorkoutSync.DEFAULT_RELAY_URL;
   $('sAuth').value = '';
-  $('sAuth').placeholder = 'Bearer ...';
-  setBanner('info', 'Cleared. No webhook is saved on this device.');
+  $('sAuth').placeholder = 'Leave blank for the relay';
+  setBanner('info', 'Cleared. The relay address is filled in again. Tap Save to use it.');
   writeErr('');
   updateChrome();
   if (state && state.finished) paintDone();
