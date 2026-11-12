@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -26,6 +26,7 @@ body{font:17px/1.55 var(--sans);color:var(--ink);min-height:100vh;background:var
  padding:calc(var(--bar) + env(safe-area-inset-top) + 20px) 0 calc(56px + env(safe-area-inset-bottom))}
 button,input,textarea{font-family:inherit;color:inherit}
 button{cursor:pointer}
+button:disabled{opacity:.55;cursor:default}
 :focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 #timer{position:fixed;top:0;left:0;right:0;z-index:50;padding:calc(env(safe-area-inset-top) + 8px) 16px 8px;
  background:var(--bar-bg);color:#fff;display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
@@ -93,8 +94,9 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
 .hidden{display:none!important}
 .small{font-size:15px;line-height:1.45;color:var(--sub)}
 .danger{background:none;border:0;color:var(--warn);text-decoration:underline;text-underline-offset:3px;font-size:15px;font-weight:700;padding:16px 22px;display:block;margin:8px 0 0;text-align:left}
-#overlay{position:fixed;inset:0;z-index:100;background:rgba(27,23,48,.46);display:flex;align-items:center;justify-content:center;padding:20px}
-#overlay .card{width:100%;max-width:520px;margin:0;position:relative;padding:28px 24px 24px}
+#overlay{position:fixed;inset:0;z-index:100;background:rgba(27,23,48,.46);display:flex;flex-direction:column;align-items:center;overflow:auto;-webkit-overflow-scrolling:touch;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
+#overlay .card{width:100%;max-width:520px;margin:auto;position:relative;padding:28px 24px 24px}
+#syncActions{position:sticky;bottom:0;background:var(--card);padding-top:4px;z-index:1}
 #overlay .close{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:22px;border:0;background:var(--paper);color:var(--ink);font-size:18px}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:90;background:var(--bar-bg);color:#fff;border-radius:16px;padding:10px 10px 10px 16px;display:flex;gap:12px;align-items:center;font-size:16px;font-weight:600;max-width:92vw}
 #toast button{min-height:44px;padding:0 14px;border-radius:12px;border:0;background:#fff;color:var(--bar-bg);font-weight:800;font-size:16px}
@@ -150,6 +152,18 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
 .dlab{font-size:15px;font-weight:700;color:var(--acc);line-height:1.35;flex:1;min-width:0}
 .dplay{min-height:44px;padding:0 4px;border-radius:0;border:0;background:transparent;color:var(--acc);font-weight:700;font-size:15px;flex:0 0 auto;text-decoration:underline;text-underline-offset:3px}
 .finish .btn.g{min-width:min(100%,280px)}
+.syncLine{margin:8px 0 0;font-size:15px;font-weight:700;line-height:1.4;color:var(--warn)}
+.done{background:var(--card);border:2px solid var(--acc);border-radius:20px;padding:18px 18px 8px;margin-top:16px}
+.done.ok{border-color:var(--ok)}
+.done.bad{border-color:var(--warn)}
+.done h2{font-family:var(--serif);font-size:28px;line-height:1.15;margin:0 0 8px;color:var(--ink)}
+.done p{margin:0 0 8px;font-size:17px;line-height:1.45;color:var(--ink)}
+.done.ok #doneSync{color:var(--ok);font-weight:700}
+.done.bad #doneSync{color:var(--warn);font-weight:700}
+.banner{border-radius:16px;padding:12px 14px;font-size:16px;font-weight:650;line-height:1.45;margin-top:14px}
+.banner.ok{background:#e7f5ee;color:var(--ok)}
+.banner.bad{background:#fdecea;color:var(--warn)}
+.banner.info{background:var(--paper);color:var(--ink)}
 @media (prefers-reduced-motion: reduce){
   .prog i,.prog s,#timer,.daytabs button,.btn{transition:none}
   #timer.done,#timer.flash{animation:none}
@@ -177,6 +191,7 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
     <p class="viewnote hidden" id="viewNote"></p>
     <div class="prog" aria-hidden="true"><i id="progbar"></i><s id="progskip"></s></div>
     <div class="progtxt" id="progtxt"></div>
+    <p class="syncLine hidden" id="syncLine" role="status"></p>
     <div class="rest" id="rest"><span>Rest:</span><button data-rest="60">60 sec</button><button data-rest="90">90 sec</button><button data-rest="120">2 min</button></div>
     <div class="hint hidden" id="hint">👉 Do a set, then tap its box. Rest timer starts automatically.<button id="hintX" aria-label="Hide tip">✕</button></div>
     <button class="chip hidden" id="syncChip">Turn on auto-sync in ⚙ Settings <span class="x" id="syncChipX" aria-label="Dismiss">✕</span></button>
@@ -189,22 +204,33 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
 
   <section class="block finish">
     <h2>Finish</h2>
-    <div class="row"><button class="btn g" id="finish">Finish workout</button><button class="btn" id="copy">Copy my log</button></div>
-    <p class="small" id="finMsg"></p>
+    <div class="row"><button class="btn g" id="finish" type="button">Finish workout</button><button class="btn" id="copy" type="button">Copy my log</button></div>
+    <div id="donePanel" class="done hidden" role="status" aria-live="polite">
+      <h2 id="doneTitle">Workout saved</h2>
+      <p id="doneSummary"></p>
+      <p id="doneSync"></p>
+      <div class="row">
+        <button class="btn p hidden" id="doneRetry" type="button">Retry send</button>
+        <button class="btn hidden" id="doneSettings" type="button">Open settings</button>
+      </div>
+    </div>
+    <p class="small" id="finMsg" role="status"></p>
     <textarea id="logtxt" rows="9" readonly aria-label="Your log"></textarea>
   </section>
   <button class="danger" id="resetDay">Clear today's entries…</button>
 </div>
 
-<div id="overlay" class="hidden" role="dialog" aria-modal="true" aria-label="Settings">
+<div id="overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="syncTitle">
   <section class="card">
-    <button class="close" id="sClose" aria-label="Close settings">✕</button>
-    <h2>Auto-sync</h2>
-    <p class="meta" style="padding-right:50px">Paste the two values from your Grok Bot routine panel. Each set you finish is sent automatically. They're saved only on this device.</p>
-    <div class="field"><label for="sUrl">Webhook URL</label><input id="sUrl" type="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://..."></div>
-    <div class="field"><label for="sAuth">Authorization header value</label><input id="sAuth" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Bearer ..."></div>
-    <div class="row"><button class="btn p" id="sSave">Save</button><button class="btn s" id="sClear">Clear</button></div>
-    <p class="small" id="sMsg"></p>
+    <button class="close" id="sClose" type="button" aria-label="Close settings">✕</button>
+    <h2 id="syncTitle">Auto-sync</h2>
+    <p class="meta" style="padding-right:50px">Paste the webhook URL and the Authorization header value from your Grok Bot routine panel. They stay on this phone only. Tap Save and the confirmation stays on this screen.</p>
+    <form id="syncForm" autocomplete="off" novalidate>
+      <div class="field"><label for="sUrl">Webhook URL</label><input id="sUrl" type="text" inputmode="url" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://..." enterkeyhint="done"></div>
+      <div class="field"><label for="sAuth">Authorization header value</label><input id="sAuth" type="password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Bearer ..." enterkeyhint="done"></div>
+      <div class="row" id="syncActions"><button class="btn p" id="sSave" type="submit">Save</button><button class="btn p" id="sTest" type="button">Send test</button><button class="btn s" id="sClear" type="button">Clear</button></div>
+    </form>
+    <p class="banner info" id="sMsg" role="status" aria-live="assertive"></p>
     <p class="small">Sync status: <b id="syncTxt">—</b></p>
   </section>
 </div>
@@ -212,10 +238,11 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
 
 <script src="week.js"></script>
 <script src="demos.js"></script>
+<script src="sync.js"></script>
 <script>
 (() => {
 const $ = id => document.getElementById(id);
-const LS = { url:'wk.webhookUrl', auth:'wk.authHeader', queue:'wk.queue', hint:'wk.hintSeen', chip:'wk.chipHidden' };
+const LS = { url:'wk.webhookUrl', auth:'wk.authHeader', queue:'wk.queue', hint:'wk.hintSeen', chip:'wk.chipHidden', err:'wk.syncError' };
 const PREV_FULL = 'wk.log.2026-11-06-full';
 let WEEK = null, W = null, state = null, stateKey = '';
 let dayIndex = 0, defaultIndex = 0, todayISO = '', bannerText = '';
@@ -336,6 +363,7 @@ function render(){
     </section>`;}).join('');
   if(window.Demos) Demos.mount($('exercises'));
   progress();
+  paintDone();
 }
 function counts(){ return WorkoutWeek.counts(state); }
 function progress(){
@@ -350,7 +378,7 @@ function progress(){
 
 // toast
 let toastT=null, undoFn=null;
-function toast(msg, undo){ $('toastTxt').textContent=msg; undoFn=undo||null; $('toastBtn').classList.toggle('hidden',!undo); $('toast').classList.remove('hidden'); clearTimeout(toastT); toastT=setTimeout(()=>$('toast').classList.add('hidden'), undo?5000:2200); }
+function toast(msg, undo, ms){ $('toastTxt').textContent=msg; undoFn=undo||null; $('toastBtn').classList.toggle('hidden',!undo); $('toast').classList.remove('hidden'); clearTimeout(toastT); toastT=setTimeout(()=>$('toast').classList.add('hidden'), undo?5000:(ms||2200)); }
 $('toastBtn').onclick = () => { if(undoFn) undoFn(); undoFn=null; $('toast').classList.add('hidden'); };
 
 document.addEventListener('input', ev => {
@@ -394,7 +422,7 @@ $('copy').onclick = async () => {
   try { await navigator.clipboard.writeText(logText()); $('finMsg').textContent='Copied! Paste it in my chat.'; }
   catch(e){ $('logtxt').select(); $('finMsg').textContent='Press and hold the text below to copy.'; }
 };
-$('finish').onclick = () => { state.finished=true; save(); progress(); send(payload('finished',{finishedAt:new Date().toISOString(), log:logText()})); $('finMsg').textContent=(W.dateLabel||W.title)+' logged. Nice work!'; };
+$('finish').onclick = finishWorkout;
 $('resetDay').onclick = () => { if(confirm("Clear everything you entered for this workout on this device? This can't be undone.")){ localStorage.removeItem(stateKey); if(W.id==='2026-11-09-full') localStorage.removeItem(PREV_FULL); openDay(dayIndex); toast('Entries cleared'); } };
 $('daytabs').addEventListener('keydown', ev => {
   if (!WEEK || (ev.key !== 'ArrowRight' && ev.key !== 'ArrowLeft')) return;
@@ -404,51 +432,258 @@ $('daytabs').addEventListener('keydown', ev => {
   document.getElementById('tab' + dayIndex)?.focus();
 });
 
-// sync queue
-let flushing=false;
-const getQ = () => JSON.parse(localStorage.getItem(LS.queue)||'[]');
-const setQ = q => localStorage.setItem(LS.queue, JSON.stringify(q));
-function send(body){
-  const q = getQ();
-  const keep = body.event==='set' ? q.filter(x=>!(x.event==='set' && x.workoutId===body.workoutId)) : q;
-  keep.push(body); setQ(keep); flush();
+// sync queue. Posted JSON is the payload body only. The wrapper id stays on this phone.
+let lastError = '';
+try { lastError = localStorage.getItem(LS.err) || ''; } catch (e) { lastError = ''; }
+let draftUrl = null, draftAuth = null, lastSaveOk = false, flushWait = null, retryTimer = null, confirmed = false;
+function getQ(){
+  try { return WorkoutSync.normalizeQueue(JSON.parse(localStorage.getItem(LS.queue) || '[]')); }
+  catch (e) { return []; }
 }
-function syncUI(txt){ $('syncTxt').textContent=txt; }
-async function flush(){
-  const url = localStorage.getItem(LS.url), auth = localStorage.getItem(LS.auth);
-  let q = getQ();
+function setQ(q){ localStorage.setItem(LS.queue, JSON.stringify(q)); }
+function writeErr(text){
+  lastError = text || '';
+  try { if (lastError) localStorage.setItem(LS.err, lastError); else localStorage.removeItem(LS.err); }
+  catch (e) {}
+}
+function syncUI(txt){ $('syncTxt').textContent = txt; }
+function updateChrome(){
+  const url = localStorage.getItem(LS.url) || '';
+  const n = getQ().length;
   const g = $('gear');
-  if(!url){ syncUI('Off (not set up)'); g.textContent='⚙ Settings'; $('syncChip').classList.toggle('hidden', !!localStorage.getItem(LS.chip)); return; }
-  $('syncChip').classList.add('hidden');
-  if(!q.length){ syncUI('Synced ✓'); g.textContent='✓ Synced'; return; }
-  if(flushing) return; flushing=true; syncUI(`Sending ${q.length}…`); g.textContent='Syncing…';
-  try{
-    while(q.length){
-      const headers = {'Content-Type':'application/json'}; if(auth) headers['Authorization']=auth;
-      const r = await fetch(url,{method:'POST',headers,body:JSON.stringify(q[0])});
-      if(!r.ok) throw new Error('HTTP '+r.status);
-      q = getQ(); q.shift(); setQ(q);
+  if (!url) {
+    syncUI('Off (not set up)');
+    g.textContent = '⚙ Settings';
+    $('syncChip').classList.toggle('hidden', !!localStorage.getItem(LS.chip));
+  } else if (n) {
+    $('syncChip').classList.add('hidden');
+    syncUI(n + ' waiting');
+    g.textContent = '⏳ ' + n + ' left';
+  } else if (confirmed) {
+    $('syncChip').classList.add('hidden');
+    syncUI('Synced ✓');
+    g.textContent = '✓ Synced';
+  } else {
+    $('syncChip').classList.add('hidden');
+    syncUI('On');
+    g.textContent = '⚙ Settings';
+  }
+  const line = $('syncLine');
+  if (!url || (!n && !lastError)) { line.classList.add('hidden'); line.textContent = ''; }
+  else {
+    line.classList.remove('hidden');
+    line.textContent = lastError || (n + (n === 1 ? ' update is' : ' updates are') + ' waiting to send.');
+  }
+}
+function paintDone(opts){
+  const panel = $('donePanel');
+  if (!state || !state.finished || !W) { panel.classList.add('hidden'); return; }
+  const msg = (opts && opts.text) ? { kind: opts.kind || 'info', text: opts.text } : WorkoutSync.syncMessage({
+    url: localStorage.getItem(LS.url) || '',
+    pending: getQ().length,
+    error: lastError
+  });
+  $('doneTitle').textContent = 'Workout saved';
+  $('doneSummary').textContent = WorkoutSync.finishSummary(W, counts());
+  $('doneSync').textContent = msg.text;
+  panel.className = 'done ' + msg.kind;
+  $('doneRetry').classList.toggle('hidden', msg.kind === 'ok' || msg.kind === 'setup' || msg.kind === 'sending');
+  $('doneSettings').classList.toggle('hidden', msg.kind !== 'setup');
+  if (opts && opts.scroll) panel.scrollIntoView({ block: 'center' });
+}
+function send(body){
+  try { setQ(WorkoutSync.enqueue(getQ(), body)); }
+  catch (e) { writeErr('Could not store the log on this phone.'); updateChrome(); return false; }
+  flush().then(function () { if (state && state.finished) paintDone(); });
+  return true;
+}
+async function postBody(url, auth, body){
+  const headers = { 'Content-Type': 'application/json' };
+  if (auth) headers.Authorization = auth;
+  const ctrl = new AbortController();
+  const timer = setTimeout(function () { ctrl.abort(); }, 20000);
+  try {
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(body),
+      mode: 'cors',
+      credentials: 'omit',
+      cache: 'no-store',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      signal: ctrl.signal
+    });
+    let detail = '';
+    try { detail = await r.text(); } catch (e) { detail = ''; }
+    return { ok: r.ok, kind: 'http', status: r.status, detail: WorkoutSync.safeDetail(detail, auth), online: navigator.onLine !== false };
+  } catch (e) {
+    return { ok: false, kind: e && e.name === 'AbortError' ? 'timeout' : 'network', status: 0, detail: '', online: navigator.onLine !== false };
+  } finally { clearTimeout(timer); }
+}
+function scheduleRetry(){
+  clearTimeout(retryTimer);
+  retryTimer = setTimeout(function () { retryTimer = null; flush(); }, 15000);
+}
+function flush(){
+  if (flushWait) return flushWait;
+  flushWait = flushNow().finally(function () { flushWait = null; });
+  return flushWait;
+}
+async function flushNow(){
+  const url = localStorage.getItem(LS.url) || '';
+  const auth = localStorage.getItem(LS.auth) || '';
+  if (!url) { writeErr(''); updateChrome(); return { ok: false, reason: 'setup' }; }
+  let q = getQ();
+  if (!q.length) { writeErr(''); updateChrome(); return { ok: true, reason: 'empty' }; }
+  syncUI('Sending ' + q.length + '…');
+  $('gear').textContent = 'Syncing…';
+  while (q.length) {
+    const item = q[0];
+    const result = await postBody(url, auth, item.body);
+    if (!result.ok) {
+      writeErr(WorkoutSync.explainSendFailure(result, url, location.origin));
+      updateChrome();
+      scheduleRetry();
+      return { ok: false, reason: 'failed' };
     }
-    syncUI('Synced ✓'); g.textContent='✓ Synced';
-  }catch(e){ const n=getQ().length; syncUI(`${n} waiting, will retry`); g.textContent=`⏳ ${n} to sync`; setTimeout(flush, 15000); }
-  finally{ flushing=false; }
+    try { setQ(WorkoutSync.dropSent(getQ(), item)); }
+    catch (e) { writeErr('Could not update the saved queue on this phone.'); updateChrome(); return { ok: false, reason: 'store' }; }
+    q = getQ();
+  }
+  writeErr('');
+  clearTimeout(retryTimer);
+  confirmed = true;
+  updateChrome();
+  return { ok: true, reason: 'sent' };
+}
+async function finishWorkout(){
+  if (!W || !state) {
+    $('finMsg').textContent = 'The workout is still loading. Wait a moment and tap Finish again.';
+    return;
+  }
+  const btn = $('finish');
+  if (btn.disabled) return;
+  btn.disabled = true;
+  state.finished = true;
+  state.finishedAt = new Date().toISOString();
+  try { save(); }
+  catch (e) {
+    btn.disabled = false;
+    paintDone({ kind: 'bad', text: 'Could not save this workout on this phone. Leave private browsing and tap Finish again.', scroll: true });
+    return;
+  }
+  progress();
+  const queued = send(payload('finished', { finishedAt: state.finishedAt, log: logText() }));
+  if (!queued) {
+    paintDone({ kind: 'bad', text: 'The workout is saved on this phone, but the outgoing log could not be queued. Tap Finish again.', scroll: true });
+    btn.disabled = false;
+    return;
+  }
+  paintDone({ kind: 'sending', text: 'Saved on this phone. Sending…', scroll: true });
+  await flush();
+  paintDone();
+  btn.disabled = false;
 }
 window.addEventListener('online', flush);
-document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) flush(); });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) flush(); });
 
-// settings modal
-function openSettings(){ $('sUrl').value=localStorage.getItem(LS.url)||''; $('sAuth').value=localStorage.getItem(LS.auth)||''; $('sMsg').textContent=''; $('overlay').classList.remove('hidden'); }
+// settings modal. The key stays in localStorage. Reopening the screen does not put it back in the field.
+function setBanner(kind, text){ const el = $('sMsg'); el.className = 'banner ' + kind; el.textContent = text; }
+function rememberDraft(){ draftUrl = $('sUrl').value; draftAuth = $('sAuth').value; }
+function saveSettings(){
+  const typedUrl = draftUrl != null ? draftUrl : $('sUrl').value;
+  const typedAuth = draftAuth != null ? draftAuth : $('sAuth').value;
+  draftUrl = null;
+  draftAuth = null;
+  const check = WorkoutSync.validateWebhookUrl(typedUrl);
+  if (!check.ok) { setBanner('bad', WorkoutSync.urlError(check.code)); lastSaveOk = false; return false; }
+  let existing = '';
+  try { existing = localStorage.getItem(LS.auth) || ''; } catch (e) { existing = ''; }
+  const auth = String(typedAuth || '').trim() ? String(typedAuth).trim() : existing;
+  try {
+    localStorage.setItem(LS.url, check.url);
+    localStorage.setItem(LS.auth, auth);
+  } catch (e) {
+    setBanner('bad', 'Could not save on this phone. If you are in private browsing, turn it off and try again.');
+    lastSaveOk = false;
+    return false;
+  }
+  $('sUrl').value = check.url;
+  $('sAuth').value = '';
+  $('sAuth').placeholder = auth ? 'Key saved. Paste to replace.' : 'Bearer ...';
+  setBanner('ok', WorkoutSync.saveNote(check.url, !!auth));
+  flush();
+  lastSaveOk = true;
+  return true;
+}
+async function sendTest(){
+  if (!saveSettings()) return;
+  const url = localStorage.getItem(LS.url) || '';
+  const auth = localStorage.getItem(LS.auth) || '';
+  setBanner('info', 'Saved. Sending test…');
+  const result = await postBody(url, auth, WorkoutSync.testPayload(new Date().toISOString()));
+  if (result.ok) setBanner('ok', 'Saved. Test sent. The webhook answered HTTP ' + result.status + '.');
+  else setBanner('bad', 'Saved. Test did not go through. ' + WorkoutSync.explainSendFailure(result, url, location.origin));
+}
+function bindPress(id, fn){
+  const el = $(id);
+  el.addEventListener('pointerup', function (ev) {
+    if (ev.pointerType === 'mouse' && ev.button !== 0) return;
+    ev.preventDefault();
+    el.dataset.pressed = '1';
+    fn();
+  });
+  el.addEventListener('click', function (ev) {
+    if (el.dataset.pressed === '1') { el.dataset.pressed = ''; ev.preventDefault(); return; }
+    fn();
+  });
+}
+function openSettings(){
+  draftUrl = null;
+  draftAuth = null;
+  let url = '', auth = '';
+  try { url = localStorage.getItem(LS.url) || ''; auth = localStorage.getItem(LS.auth) || ''; }
+  catch (e) { url = ''; auth = ''; }
+  $('sUrl').value = url;
+  $('sAuth').value = '';
+  $('sAuth').placeholder = auth ? 'Key saved. Paste to replace.' : 'Bearer ...';
+  setBanner(url ? 'ok' : 'info', WorkoutSync.configuredNote(url, auth));
+  $('overlay').classList.remove('hidden');
+}
+function clearSettings(){
+  try { localStorage.removeItem(LS.url); localStorage.removeItem(LS.auth); }
+  catch (e) {}
+  draftUrl = null;
+  draftAuth = null;
+  $('sUrl').value = '';
+  $('sAuth').value = '';
+  $('sAuth').placeholder = 'Bearer ...';
+  setBanner('info', 'Cleared. No webhook is saved on this device.');
+  writeErr('');
+  updateChrome();
+  if (state && state.finished) paintDone();
+}
 const closeSettings = () => $('overlay').classList.add('hidden');
 $('gear').onclick = openSettings;
-$('syncChip').onclick = ev => { if(ev.target.id==='syncChipX'){ localStorage.setItem(LS.chip,'1'); $('syncChip').classList.add('hidden'); } else openSettings(); };
+$('syncChip').onclick = ev => { if (ev.target.id === 'syncChipX') { localStorage.setItem(LS.chip, '1'); $('syncChip').classList.add('hidden'); } else openSettings(); };
 $('sClose').onclick = closeSettings;
-$('overlay').onclick = ev => { if(ev.target.id==='overlay') closeSettings(); };
-$('sSave').onclick = () => {
-  const u=$('sUrl').value.trim(); if(u && !/^https:\/\//i.test(u) && !/^http:\/\/(localhost|127\.)/.test(u)){ $('sMsg').textContent='The URL must start with https://'; return; }
-  localStorage.setItem(LS.url,u); localStorage.setItem(LS.auth,$('sAuth').value.trim());
-  closeSettings(); toast(u?'Auto-sync is on':'Saved'); flush();
+$('overlay').onclick = ev => { if (ev.target.id === 'overlay') closeSettings(); };
+$('syncForm').addEventListener('submit', ev => { ev.preventDefault(); saveSettings(); });
+$('sUrl').addEventListener('input', rememberDraft);
+$('sAuth').addEventListener('input', rememberDraft);
+$('sSave').addEventListener('pointerdown', rememberDraft);
+$('sTest').addEventListener('pointerdown', rememberDraft);
+['sUrl', 'sAuth'].forEach(id => $(id).addEventListener('focus', () => setTimeout(() => $(id).scrollIntoView({ block: 'center' }), 280)));
+bindPress('sSave', saveSettings);
+bindPress('sTest', sendTest);
+bindPress('sClear', clearSettings);
+$('doneRetry').onclick = async () => {
+  paintDone({ kind: 'sending', text: 'Saved on this phone. Sending again…' });
+  await flush();
+  paintDone();
 };
-$('sClear').onclick = () => { localStorage.removeItem(LS.url); localStorage.removeItem(LS.auth); $('sUrl').value=''; $('sAuth').value=''; $('sMsg').textContent='Cleared.'; flush(); };
+$('doneSettings').onclick = openSettings;
 
 // rest timer
 let dur=90000, left=90000, endAt=null, running=false, tick=null, actx=null;

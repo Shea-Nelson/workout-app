@@ -1,6 +1,10 @@
 # Shea's Workout
 
-Home-screen strength workouts, served by GitHub Pages from this repo. Open the app, log each set, and tap **Finish**. Finish posts the log to the webhook saved in Settings on the device (the Grok Bot routine "Workout log from app"). That request is unchanged: same URL, same `Authorization` header, same JSON keys.
+Home-screen strength workouts, served by GitHub Pages from this repo. Open the app, log each set, and tap **Finish**. Finish saves the workout on the phone and posts the log to the webhook saved in Settings (the Grok Bot routine "Workout log from app").
+
+The webhook URL and the Authorization header value are typed in **⚙ Settings**, on the Auto-sync screen. They are stored in this browser only. Save leaves a **Saved** confirmation on that screen. Opening Settings again says a webhook is configured and hides the key. Finish shows a summary and one of three results: sent, failed with Retry, or webhook not set up. A log that did not send stays on the phone and is tried again.
+
+The POST is unchanged: `Content-Type: application/json`, the `Authorization` header set to the exact value you pasted, and the same JSON keys. That request is cross-origin, so the browser asks the webhook for permission first. If the webhook does not allow this website, the summary says the browser blocked the send and the log stays on the phone. `api2.cursor.sh` and `api.cursor.com` only allow that browser check from cursor.com, so a GitHub Pages page cannot deliver the Authorization header there. Tap **Send test** on the Auto-sync screen to see the result in plain words.
 
 The plan for the week lives in [`workout.json`](workout.json). A scheduled job edits that file by hand and pushes it once a week, or the night before.
 
@@ -75,7 +79,7 @@ A file with `exercises` at the top and no `days` array still loads, as a one-day
 
 ### Finish payload
 
-Finish, and each completed set, still POST JSON to the saved webhook. The keys are the same:
+Finish, and each completed set, POST JSON to the saved webhook when the browser is allowed to. The keys are the same:
 
 ```json
 {
