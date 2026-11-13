@@ -365,7 +365,7 @@
           "name": "Goblet squat",
           "sets": 3,
           "reps": 10,
-          "weight": 20,
+          "weight": 25,
           "weightNote": "One dumbbell held at your chest",
           "muscles": "Thighs, glutes, core",
           "restSec": 90,
@@ -375,14 +375,14 @@
             "Sit back and down, then drive up through your whole foot"
           ],
           "avoid": "Knees caving in. Push them out over your toes.",
-          "lastTime": "Mon Nov 9: 20 lb. Same today."
+          "lastTime": "Fri Nov 6: 20 lb, all 3\u00d710 done. Up to 25 today. Drop back to 20 if a rep gets sloppy."
         },
         {
           "id": "rdl",
           "name": "Dumbbell Romanian deadlift",
           "sets": 3,
           "reps": 10,
-          "weight": 20,
+          "weight": 25,
           "weightNote": "Per hand",
           "muscles": "Hamstrings, glutes, lower back",
           "restSec": 90,
@@ -392,7 +392,7 @@
             "Slide the dumbbells down your thighs to mid-shin, squeeze glutes to stand"
           ],
           "avoid": "Rounding your back to reach lower.",
-          "lastTime": "Mon Nov 9: 20 lb per hand. Same today. Don't chase depth."
+          "lastTime": "Fri Nov 6: 20 lb per hand, all 3\u00d710 done. Up to 25 today. Don't chase depth; drop to 20 if your back rounds."
         },
         {
           "id": "reverse-lunge",
@@ -426,7 +426,7 @@
             "Drive your hips up, squeeze 1 second, lower slowly"
           ],
           "avoid": "Arching your lower back at the top. This stays on the floor, never on the bench.",
-          "lastTime": "Mon Nov 9: 25 lb, 3\u00d712. Same today."
+          "lastTime": "Fri Nov 6: 20 lb, 3\u00d712. Up to 25 today."
         },
         {
           "id": "calf-raise",
@@ -460,7 +460,7 @@
             "Slowly reach one arm back and the opposite leg out, then switch"
           ],
           "avoid": "Letting your lower back pop off the floor.",
-          "lastTime": "Mon Nov 9: bodyweight, 8 each side."
+          "lastTime": "Fri Nov 6: bodyweight, 8 each side."
         },
         {
           "id": "chin-tuck",
