@@ -15,7 +15,7 @@
     if (Array.isArray(raw.days)) {
       const days = raw.days.filter(function (d) {
         return d && Array.isArray(d.exercises) && d.exercises.length;
-      }).slice().sort(function (a, b) {
+      }).toSorted(function (a, b) {
         return String(a.date).localeCompare(String(b.date));
       });
       if (!days.length) throw new Error('Week file has no workouts');

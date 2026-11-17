@@ -1254,7 +1254,7 @@
     (pose.glow || []).forEach(function (g) {
       parts.push('<circle cx="' + g[0] + '" cy="' + g[1] + '" r="16" fill="' + hot + '" opacity=".22"/>');
     });
-    const dbs = (pose.dbs || []).slice().sort(function (a, b) { return (a.opacity || 1) - (b.opacity || 1); });
+    const dbs = (pose.dbs || []).toSorted(function (a, b) { return (a.opacity || 1) - (b.opacity || 1); });
     dbs.filter(function (d) { return d.under; }).forEach(function (d) { parts.push(dbMarkup(d)); });
     if (pose.torso && pose.torso.length === 4) {
       const t = pose.torso;
@@ -1347,7 +1347,6 @@
     document.querySelectorAll('.dplay').forEach(function (b) {
       b.textContent = playing ? '❚❚ Pause' : '▶ Play';
       b.setAttribute('aria-pressed', String(playing));
-      b.setAttribute('aria-label', playing ? 'Pause animation' : 'Play animation');
     });
   }
 
