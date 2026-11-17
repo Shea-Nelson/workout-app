@@ -3,17 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Log today's strength workout, rest between sets, and send the log when you finish.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Workout">
 <meta name="theme-color" content="#1b1730">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <title>Workout</title>
 <style>
 :root{
+  color-scheme:light;
   --paper:#f3f1ec;--card:#faf9f6;--ink:#1c1916;--sub:#4f4942;--line:#e4dfd6;
   --acc:#3a3178;--acc-soft:#eeecf6;--ok:#0e6a44;--warn:#8d2c1e;
   --bar-bg:#1b1730;--bar:76px;
@@ -22,12 +25,13 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
-body{font:17px/1.55 var(--sans);color:var(--ink);min-height:100vh;background:var(--paper);
+body{font:17px/1.55 var(--sans);color:var(--ink);min-height:100vh;min-height:100dvh;background:var(--paper);
  padding:calc(var(--bar) + env(safe-area-inset-top) + 20px) 0 calc(56px + env(safe-area-inset-bottom))}
 button,input,textarea{font-family:inherit;color:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.55;cursor:default}
 :focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+#timer :focus-visible{outline-color:#fff}
 #timer{position:fixed;top:0;left:0;right:0;z-index:50;padding:calc(env(safe-area-inset-top) + 8px) 16px 8px;
  background:var(--bar-bg);color:#fff;display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
 #timer.running{background:var(--acc)}
@@ -61,7 +65,7 @@ button:disabled{opacity:.55;cursor:default}
 .rest button{min-height:48px;padding:0 16px;border-radius:999px;border:0;background:var(--card);color:var(--ink);font-weight:700;font-size:16px}
 .rest button.on{background:var(--acc);color:#fff}
 .block{padding:32px 0 4px}
-.block h2,.card h2{font-family:var(--serif);font-weight:700;font-size:28px;line-height:1.15;margin:0 0 10px}
+.block h2,.card h2,#syncTitle{font-family:var(--serif);font-weight:700;font-size:28px;line-height:1.15;margin:0 0 10px}
 .card{background:var(--card);border-radius:20px;padding:26px 22px 22px;margin:18px 0;box-shadow:none}
 .hero,.block{padding-left:22px;padding-right:22px}
 .meta{color:var(--sub);font-size:16px;line-height:1.45}
@@ -94,8 +98,8 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
 .hidden{display:none!important}
 .small{font-size:15px;line-height:1.45;color:var(--sub)}
 .danger{background:none;border:0;color:var(--warn);text-decoration:underline;text-underline-offset:3px;font-size:15px;font-weight:700;padding:16px 22px;display:block;margin:8px 0 0;text-align:left}
-#overlay{position:fixed;inset:0;z-index:100;background:rgba(27,23,48,.46);display:flex;flex-direction:column;align-items:center;overflow:auto;-webkit-overflow-scrolling:touch;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
-#overlay .card{width:100%;max-width:520px;margin:auto;position:relative;padding:28px 24px 24px}
+#overlay{width:min(520px,calc(100% - 32px));max-width:min(520px,calc(100% - 32px));max-height:calc(100% - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));margin:auto;border:0;border-radius:20px;padding:28px 24px 24px;background:var(--card);color:var(--ink);font:inherit;box-shadow:none;overscroll-behavior:contain}
+#overlay::backdrop{background:rgba(27,23,48,.46);overflow:hidden;overscroll-behavior:contain}
 #syncActions{position:sticky;bottom:0;background:var(--card);padding-top:4px;z-index:1}
 #overlay .close{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:22px;border:0;background:var(--paper);color:var(--ink);font-size:18px}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:90;background:var(--bar-bg);color:#fff;border-radius:16px;padding:10px 10px 10px 16px;display:flex;gap:12px;align-items:center;font-size:16px;font-weight:600;max-width:92vw}
@@ -107,7 +111,7 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
   .wrap{width:min(680px,calc(100% - 32px))}
   .hero,.block{padding-left:4px;padding-right:4px}
   .card{padding:22px 4px;border-radius:0;background:transparent;border-top:1px solid var(--line);margin:8px 0}
-  #overlay .card{border-radius:20px;background:var(--card);border-top:0;padding:28px 20px 22px}
+  #overlay{border-radius:20px;background:var(--card);padding:28px 20px 22px}
   .set{grid-template-columns:44px minmax(0,1fr) minmax(0,1fr) 68px;gap:8px}
   .set.bw{grid-template-columns:44px minmax(0,1fr) 68px}
   .chk{width:68px;height:56px}
@@ -156,7 +160,7 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
 .done{background:var(--card);border:2px solid var(--acc);border-radius:20px;padding:18px 18px 8px;margin-top:16px}
 .done.ok{border-color:var(--ok)}
 .done.bad{border-color:var(--warn)}
-.done h2{font-family:var(--serif);font-size:28px;line-height:1.15;margin:0 0 8px;color:var(--ink)}
+.done h3{font-family:var(--serif);font-size:28px;font-weight:700;line-height:1.15;margin:0 0 8px;color:var(--ink)}
 .done p{margin:0 0 8px;font-size:17px;line-height:1.45;color:var(--ink)}
 .done.ok #doneSync{color:var(--ok);font-weight:700}
 .done.bad #doneSync{color:var(--warn);font-weight:700}
@@ -169,31 +173,39 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
   #timer.done,#timer.flash{animation:none}
   .sk::after{animation:none}
 }
+.visually-hidden:where(:not(:focus-within, :active)){position:absolute !important;clip-path:inset(50%) !important;overflow:hidden !important;width:1px !important;height:1px !important;margin:-1px !important;padding:0 !important;border:0 !important;white-space:nowrap !important}
+.skip-link:focus{position:fixed;z-index:70;top:calc(env(safe-area-inset-top) + 8px);left:12px;background:#fff;color:var(--bar-bg);padding:12px 16px;border-radius:999px;font-weight:700;text-decoration:none}
+@media (forced-colors: active){
+  :focus-visible{outline:3px solid CanvasText}
+  .daytabs button[aria-selected="true"],.rest button.on,.chk.on,#timer button.primary,.btn.p,.btn.g{border:2px solid ButtonText}
+  #overlay{border:1px solid CanvasText}
+}
 </style>
 </head>
 <body>
-<div id="timer" role="timer" aria-label="Rest timer">
-  <div class="tbox"><small>Rest</small><b id="tval">1:30</b></div>
-  <button class="primary" id="tstart">Start</button>
-  <button id="treset">Reset</button>
+<a class="skip-link visually-hidden" href="#title">Skip to workout</a>
+<header id="timer">
+  <div class="tbox"><small>Rest</small><b id="tval" role="timer">1:30</b></div>
+  <button class="primary" id="tstart" type="button">Start</button>
+  <button id="treset" type="button">Reset</button>
   <span class="sp"></span>
   <div id="count">0/0<small>sets done</small></div>
-  <button id="gear" aria-label="Settings">⚙ Settings</button>
-</div>
+  <button id="gear" type="button">⚙ Settings</button>
+</header>
 
-<div class="wrap">
+<main class="wrap">
   <div class="hero">
     <div class="restbanner hidden" id="restBanner" role="status"></div>
     <div class="k" id="kicker">&nbsp;</div>
-    <h1 id="title">Today's workout</h1>
+    <h1 id="title" tabindex="-1">Today's workout</h1>
     <div id="sub">Loading your exercises…</div>
     <div class="daytabs" id="daytabs" role="tablist" aria-label="Strength workouts this week"></div>
     <p class="viewnote hidden" id="viewNote"></p>
     <div class="prog" aria-hidden="true"><i id="progbar"></i><s id="progskip"></s></div>
     <div class="progtxt" id="progtxt"></div>
     <p class="syncLine hidden" id="syncLine" role="status"></p>
-    <div class="rest" id="rest"><span>Rest:</span><button data-rest="60">60 sec</button><button data-rest="90">90 sec</button><button data-rest="120">2 min</button></div>
-    <div class="hint hidden" id="hint">👉 Do a set, then tap its box. Rest timer starts automatically.<button id="hintX" aria-label="Hide tip">✕</button></div>
+    <div class="rest" id="rest" role="group" aria-labelledby="restLabel"><span id="restLabel">Rest:</span><button type="button" data-rest="60" aria-pressed="false">60 sec</button><button type="button" data-rest="90" aria-pressed="false">90 sec</button><button type="button" data-rest="120" aria-pressed="false">2 min</button></div>
+    <div class="hint hidden" id="hint">👉 Do a set, then tap its box. Rest timer starts automatically.<button id="hintX" type="button" aria-label="Hide tip">✕</button></div>
     <button class="chip hidden" id="syncChip">Turn on auto-sync in ⚙ Settings <span class="x" id="syncChipX" aria-label="Dismiss">✕</span></button>
   </div>
 
@@ -206,7 +218,7 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
     <h2>Finish</h2>
     <div class="row"><button class="btn g" id="finish" type="button">Finish workout</button><button class="btn" id="copy" type="button">Copy my log</button></div>
     <div id="donePanel" class="done hidden" role="status" aria-live="polite">
-      <h2 id="doneTitle">Workout saved</h2>
+      <h3 id="doneTitle">Workout saved</h3>
       <p id="doneSummary"></p>
       <p id="doneSync"></p>
       <div class="row">
@@ -215,26 +227,25 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
       </div>
     </div>
     <p class="small" id="finMsg" role="status"></p>
-    <textarea id="logtxt" rows="9" readonly aria-label="Your log"></textarea>
+    <label for="logtxt" class="visually-hidden">Your log</label>
+    <textarea id="logtxt" rows="9" readonly></textarea>
   </section>
-  <button class="danger" id="resetDay">Clear today's entries…</button>
-</div>
+  <button class="danger" id="resetDay" type="button">Clear today's entries…</button>
+</main>
 
-<div id="overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="syncTitle">
-  <section class="card">
-    <button class="close" id="sClose" type="button" aria-label="Close settings">✕</button>
-    <h2 id="syncTitle">Auto-sync</h2>
-    <p class="meta" style="padding-right:50px">The relay address is already filled in. Leave the Authorization header blank, tap Save, then Send test. A key is only needed for a different webhook. Settings stay on this phone. The confirmation stays on this screen.</p>
-    <form id="syncForm" autocomplete="off" novalidate>
-      <div class="field"><label for="sUrl">Webhook URL</label><input id="sUrl" type="text" inputmode="url" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://workout-relay.shea-nelson.workers.dev" enterkeyhint="done"></div>
-      <div class="field"><label for="sAuth">Authorization header value (optional)</label><input id="sAuth" type="password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Leave blank for the relay" enterkeyhint="done"></div>
-      <div class="row" id="syncActions"><button class="btn p" id="sSave" type="submit">Save</button><button class="btn p" id="sTest" type="button">Send test</button><button class="btn s" id="sClear" type="button">Clear</button></div>
-    </form>
-    <p class="banner info" id="sMsg" role="status" aria-live="assertive"></p>
-    <p class="small">Sync status: <b id="syncTxt">—</b></p>
-  </section>
-</div>
-<div id="toast" class="hidden"><span id="toastTxt"></span><button id="toastBtn" class="hidden">Undo</button></div>
+<dialog id="overlay" closedby="any" aria-labelledby="syncTitle">
+  <button class="close" id="sClose" type="button" aria-label="Close settings">✕</button>
+  <h2 id="syncTitle">Auto-sync</h2>
+  <p class="meta" style="padding-right:50px">The relay address is already filled in. Leave the Authorization header blank, tap Save, then Send test. A key is only needed for a different webhook. Settings stay on this phone. The confirmation stays on this screen.</p>
+  <form id="syncForm" autocomplete="off" novalidate>
+    <div class="field"><label for="sUrl">Webhook URL</label><input id="sUrl" type="text" inputmode="url" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://workout-relay.shea-nelson.workers.dev" enterkeyhint="done" aria-describedby="sMsg"></div>
+    <div class="field"><label for="sAuth">Authorization header value (optional)</label><input id="sAuth" type="password" autocomplete="new-password" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Leave blank for the relay" enterkeyhint="done"></div>
+    <div class="row" id="syncActions"><button class="btn p" id="sSave" type="submit" autofocus>Save</button><button class="btn p" id="sTest" type="button">Send test</button><button class="btn s" id="sClear" type="button">Clear</button></div>
+  </form>
+  <p class="banner info" id="sMsg" role="status" aria-live="assertive"></p>
+  <p class="small">Sync status: <b id="syncTxt">—</b></p>
+</dialog>
+<div id="toast" class="hidden" role="status"><span id="toastTxt"></span><button id="toastBtn" class="hidden" type="button">Undo</button></div>
 
 <script src="week.js"></script>
 <script src="demos.js"></script>
@@ -353,12 +364,12 @@ function render(){
       ${e.safety?`<div class="safety"><b>Safety:</b> ${esc(e.safety)}</div>`:''}
       ${s.skipped?'':s.sets.map((st,j)=>`<div class="set ${bw?'bw':''}">
         <div class="n">Set ${j+1}</div>
-        ${bw?'':`<div><label>Weight (lb)</label><input type="number" inputmode="decimal" data-i="${i}" data-j="${j}" data-f="weight" value="${esc(st.weight)}"></div>`}
-        <div><label>Reps</label><input type="number" inputmode="numeric" data-i="${i}" data-j="${j}" data-f="reps" value="${esc(st.reps)}"></div>
-        <button class="chk ${st.done?'on':''}" data-chk="${i},${j}" aria-pressed="${st.done}" aria-label="Set ${j+1} done"><span class="bx">${st.done?'✓':'☐'}</span>Done</button>
+        ${bw?'':`<div><label for="wt${i}-${j}">Weight (lb)</label><input id="wt${i}-${j}" type="number" inputmode="decimal" autocomplete="off" data-i="${i}" data-j="${j}" data-f="weight" value="${esc(st.weight)}"></div>`}
+        <div><label for="rp${i}-${j}">Reps</label><input id="rp${i}-${j}" type="number" inputmode="numeric" autocomplete="off" data-i="${i}" data-j="${j}" data-f="reps" value="${esc(st.reps)}"></div>
+        <button type="button" class="chk ${st.done?'on':''}" data-chk="${i},${j}" aria-pressed="${st.done}" aria-label="Set ${j+1} Done"><span class="bx">${st.done?'✓':'☐'}</span>Done</button>
       </div>`).join('')}
       </div>
-      <div class="row"><button class="btn s" data-skip="${i}">${s.skipped?'Undo skip':'Skip exercise'}</button></div>
+      <div class="row"><button type="button" class="btn s" data-skip="${i}">${s.skipped?'Undo skip':'Skip exercise'}</button></div>
       ${s.skipped?`<div class="field"><label for="note${i}">Why skipped? (optional)</label><input id="note${i}" data-note="${i}" value="${esc(s.note)}" placeholder="e.g. shoulder felt off"></div>`:''}
     </section>`;}).join('');
   if(window.Demos) Demos.mount($('exercises'));
@@ -500,8 +511,6 @@ function send(body){
 async function postBody(url, auth, body){
   const headers = { 'Content-Type': 'application/json' };
   if (auth) headers.Authorization = auth;
-  const ctrl = new AbortController();
-  const timer = setTimeout(function () { ctrl.abort(); }, 20000);
   try {
     const r = await fetch(url, {
       method: 'POST',
@@ -512,14 +521,15 @@ async function postBody(url, auth, body){
       cache: 'no-store',
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
-      signal: ctrl.signal
+      signal: AbortSignal.timeout(20000)
     });
     let detail = '';
     try { detail = await r.text(); } catch (e) { detail = ''; }
     return { ok: r.ok, kind: 'http', status: r.status, detail: WorkoutSync.safeDetail(detail, auth), online: navigator.onLine !== false };
   } catch (e) {
-    return { ok: false, kind: e && e.name === 'AbortError' ? 'timeout' : 'network', status: 0, detail: '', online: navigator.onLine !== false };
-  } finally { clearTimeout(timer); }
+    const timedOut = e && (e.name === 'TimeoutError' || e.name === 'AbortError');
+    return { ok: false, kind: timedOut ? 'timeout' : 'network', status: 0, detail: '', online: navigator.onLine !== false };
+  }
 }
 function scheduleRetry(){
   clearTimeout(retryTimer);
@@ -597,7 +607,8 @@ function saveSettings(){
   draftUrl = null;
   draftAuth = null;
   const check = WorkoutSync.validateWebhookUrl(typedUrl);
-  if (!check.ok) { setBanner('bad', WorkoutSync.urlError(check.code)); lastSaveOk = false; return false; }
+  if (!check.ok) { setBanner('bad', WorkoutSync.urlError(check.code)); $('sUrl').setAttribute('aria-invalid', 'true'); lastSaveOk = false; return false; }
+  $('sUrl').removeAttribute('aria-invalid');
   let existing = '';
   try { existing = localStorage.getItem(LS.auth) || ''; } catch (e) { existing = ''; }
   const auth = WorkoutSync.authKeptOnSave(check.url, typedAuth, existing);
@@ -657,7 +668,8 @@ function openSettings(){
   } else {
     setBanner(url ? 'ok' : 'info', WorkoutSync.configuredNote(url, auth));
   }
-  $('overlay').classList.remove('hidden');
+  const dialog = $('overlay');
+  if (!dialog.open) dialog.showModal();
 }
 function clearSettings(){
   try { localStorage.removeItem(LS.url); localStorage.removeItem(LS.auth); }
@@ -672,13 +684,22 @@ function clearSettings(){
   updateChrome();
   if (state && state.finished) paintDone();
 }
-const closeSettings = () => $('overlay').classList.add('hidden');
+const closeSettings = () => { const dialog = $('overlay'); if (dialog.open) dialog.close(); };
 $('gear').onclick = openSettings;
 $('syncChip').onclick = ev => { if (ev.target.id === 'syncChipX') { localStorage.setItem(LS.chip, '1'); $('syncChip').classList.add('hidden'); } else openSettings(); };
 $('sClose').onclick = closeSettings;
-$('overlay').onclick = ev => { if (ev.target.id === 'overlay') closeSettings(); };
+if (!('closedBy' in HTMLDialogElement.prototype)) {
+  const dialog = $('overlay');
+  const outside = (e) => {
+    const r = dialog.getBoundingClientRect();
+    return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+  };
+  let pressedOutside = false;
+  dialog.addEventListener('pointerdown', (e) => { pressedOutside = outside(e); });
+  dialog.addEventListener('pointerup', (e) => { if (pressedOutside && outside(e)) dialog.close(); });
+}
 $('syncForm').addEventListener('submit', ev => { ev.preventDefault(); saveSettings(); });
-$('sUrl').addEventListener('input', rememberDraft);
+$('sUrl').addEventListener('input', () => { $('sUrl').removeAttribute('aria-invalid'); rememberDraft(); });
 $('sAuth').addEventListener('input', rememberDraft);
 $('sSave').addEventListener('pointerdown', rememberDraft);
 $('sTest').addEventListener('pointerdown', rememberDraft);
@@ -697,7 +718,11 @@ $('doneSettings').onclick = openSettings;
 let dur=90000, left=90000, endAt=null, running=false, tick=null, actx=null;
 function fmt(ms){const s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
 function paint(){
-  document.querySelectorAll('[data-rest]').forEach(b=>b.classList.toggle('on',+b.dataset.rest*1000===dur));
+  document.querySelectorAll('[data-rest]').forEach(b=>{
+    const on = +b.dataset.rest*1000===dur;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
   if(!$('timer').classList.contains('done')) $('tval').textContent=fmt(left);
   $('tstart').textContent=running?'Pause':(left<dur&&left>0?'Resume':'Start');
   $('timer').classList.toggle('running',running);
