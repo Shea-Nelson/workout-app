@@ -3,9 +3,9 @@
   "schemaVersion": 1,
   "timezone": "America/New_York",
   "weekStart": "2026-11-16",
-  "weekEnd": "2026-11-22",
-  "title": "Week of Nov 16, 2026",
-  "authoring": "Edit this file once a week or the night before, then push. Three strength days: Monday, Wednesday, and Friday at 8:00 AM America/New_York. Each day needs its own id (2026-11-11-upper), date, dateLabel, time, title, notes, warmup, cooldown, and exercises. Each exercise needs sets, reps, weight, cues, and avoid (the common mistake). Shea is 50, rebuilding fitness, type 2 diabetes, dumbbells (one pair is 30 lb) and an adjustable bench, no barbell. Keep loads conservative. Never program a bench hip thrust or any move where he balances or could slide on the bench edge. Glutes are a floor glute bridge with one dumbbell on the hips, 3 x 12. A single-day object (exercises at the top, no days array) still loads.",
+  "weekEnd": "2026-11-29",
+  "title": "Nov 16–29, 2026",
+  "authoring": "Edit this file once a week or the night before, then push. Starting Mon Nov 23 the standing split is Monday lower body, Wednesday upper body, and Friday full body, all at 8:00 AM America/New_York. Tuesday and Thursday stay treadmill days. Fri Nov 20 stays lower body (it was first entered as full body). Each day needs its own id (2026-11-23-lower), date, dateLabel, time, title, notes, warmup, cooldown, and exercises. Each exercise needs sets, reps, weight, cues, and avoid (the common mistake). Shea is 50, rebuilding fitness, type 2 diabetes, dumbbells (one pair is 30 lb) and an adjustable bench, no barbell. Keep loads conservative. Never program a bench hip thrust, a Bulgarian split squat, reverse lunges, or any move where he balances or could slide on the bench edge. Use step-ups instead of lunges, and hold a rail. Glutes are a floor glute bridge with one dumbbell on the hips, 3 x 12. Current starting loads: goblet squat / RDL / glute bridge 30, calf raise 25, step-ups bodyweight, floor press 20, row 25, seated press 15, curl 15, triceps extension 15, rear-delt fly 10. Dumbbells only in 5 lb steps. A single-day object (exercises at the top, no days array) still loads.",
   "schedule": {
     "strengthDays": [
       "Monday",
@@ -14,25 +14,30 @@
     ],
     "time": "08:00",
     "timeLabel": "8:00 AM",
-    "offDays": "Rest or treadmill day. No strength workout."
+    "offDays": "Rest or treadmill day. No strength workout. Treadmill days are Tuesday and Thursday.",
+    "split": {
+      "effective": "2026-11-23",
+      "Monday": "Lower Body",
+      "Wednesday": "Upper Body",
+      "Friday": "Full Body"
+    }
   },
   "days": [
     {
-      "id": "2026-11-16-lower",
-      "date": "2026-11-16",
-      "dateLabel": "Mon Nov 16",
-      "weekday": "Monday",
+      "id": "2026-11-20-lower",
+      "date": "2026-11-20",
+      "dateLabel": "Fri Nov 20",
       "time": "08:00",
       "timeLabel": "8:00 AM",
       "title": "Lower Body Day",
-      "subtitle": "Monday · 8:00 AM · about 45 min · dumbbells + bench",
+      "subtitle": "Friday · 8:00 AM · about 45 min · dumbbells + a sturdy step",
       "defaultRestSec": 90,
       "notes": [
         "Keep a quick carb nearby (glucose tabs or juice). Stop if you feel dizzy or have chest pain.",
         "After lifting, a short rise in sugar is common. An easy 10-minute walk afterward helps.",
         "First set of each move on the light end. Slow, clean reps beat heavy ones.",
-        "Lower body today, since Friday's lower day was skipped for the trip. Soften the knees on the deadlift. Stop a set if a rep gets sloppy.",
-        "Back from the road trip, so ease in. If a 25 lb set feels rough, drop to 20 and finish clean.",
+        "Lower body today, as planned. The app had listed a full-body day; use this lower session instead.",
+        "Goblet squat, Romanian deadlift, and glute bridge are 30 lb. Calf raises are 25 lb. Step-ups replace lunges: bodyweight, and hold a rail.",
         "Chin tucks and a light rear-delt fly at the end for posture. Keep them gentle."
       ],
       "warmup": [
@@ -41,13 +46,20 @@
         "10 hip hinges, hands on your thighs",
         "10 floor glute bridges, no weight"
       ],
+      "cooldown": [
+        "3-minute easy walk",
+        "Doorway pec stretch, 30 s each side",
+        "Hamstring stretch, heel on the bench, 30 s each",
+        "Figure-4 glute stretch on the floor, 30 s each",
+        "Standing quad stretch, one hand on the bench, 30 s each"
+      ],
       "exercises": [
         {
           "id": "goblet-squat",
           "name": "Goblet squat",
           "sets": 3,
           "reps": 10,
-          "weight": 25,
+          "weight": 30,
           "weightNote": "One dumbbell held at your chest",
           "muscles": "Thighs, glutes, core",
           "restSec": 90,
@@ -57,14 +69,14 @@
             "Sit back and down, then drive up through your whole foot"
           ],
           "avoid": "Knees caving in. Push them out over your toes.",
-          "lastTime": "Fri Nov 6: 20 lb, all 3×10 done (Friday's 25 lb day was skipped). Try 25 today; drop to 20 if a rep gets sloppy."
+          "lastTime": "Mon Nov 16: 25 lb, 3×10, all done. Up to 30 today; drop to 25 if a rep gets sloppy."
         },
         {
           "id": "rdl",
           "name": "Dumbbell Romanian deadlift",
           "sets": 3,
           "reps": 10,
-          "weight": 25,
+          "weight": 30,
           "weightNote": "Per hand",
           "muscles": "Hamstrings, glutes, lower back",
           "restSec": 90,
@@ -74,31 +86,32 @@
             "Slide the dumbbells down your thighs to mid-shin, squeeze glutes to stand"
           ],
           "avoid": "Rounding your back to reach lower.",
-          "lastTime": "Fri Nov 6: 20 lb per hand, all 3×10. Try 25 today. Don't chase depth; drop to 20 if your back rounds."
+          "lastTime": "Mon Nov 16: 25 lb per hand, 3×10. Up to 30 today. Don’t chase depth; drop to 25 if your back rounds."
         },
         {
-          "id": "reverse-lunge",
-          "name": "Reverse lunge",
+          "id": "step-up",
+          "name": "Step-up",
           "sets": 3,
           "reps": 8,
-          "weight": 10,
-          "weightNote": "Per hand · each side",
+          "weight": 0,
+          "weightNote": "Bodyweight · each side. Hold a rail or a wall",
           "muscles": "Thighs, glutes",
           "restSec": 90,
           "cues": [
-            "Dumbbells hang at your sides, palms facing each other",
-            "Step one foot straight back and lower the back knee toward the floor",
-            "Push through the front foot to stand. A hand on the bench is fine if you wobble"
+            "Face a sturdy step. Hold a rail or a wall with one hand",
+            "Step up with one foot, stand tall on the step, then step down with control",
+            "Finish all reps on one leg, then switch. The working leg does the work"
           ],
-          "avoid": "Don't put your back foot up on the bench. Both feet stay on the floor.",
-          "lastTime": "New for you (planned Fri Nov 13, skipped). 10 lb per hand. Balance comes before load."
+          "avoid": "Don't push off the trailing leg, and don't use a wobbly step or the bench edge.",
+          "safety": "Hold the rail or a wall. Add weight next time only if every rep felt easy. Stop if a knee or hip hurts.",
+          "lastTime": "New today, in place of reverse lunges. Bodyweight only. Hold a rail."
         },
         {
           "id": "glute-bridge",
           "name": "Floor glute bridge",
           "sets": 3,
           "reps": 12,
-          "weight": 25,
+          "weight": 30,
           "weightNote": "One dumbbell on your hip bones",
           "muscles": "Glutes, hamstrings",
           "restSec": 60,
@@ -108,14 +121,14 @@
             "Drive your hips up, squeeze 1 second, lower slowly"
           ],
           "avoid": "Arching your lower back at the top. This stays on the floor, never on the bench.",
-          "lastTime": "Fri Nov 6: 20 lb, 3×12. Up to 25 today."
+          "lastTime": "Mon Nov 16: 25 lb, 3×12. Up to 30 today."
         },
         {
           "id": "calf-raise",
           "name": "Standing calf raise",
           "sets": 3,
           "reps": 12,
-          "weight": 20,
+          "weight": 25,
           "weightNote": "Per hand, on the floor",
           "muscles": "Calves",
           "restSec": 60,
@@ -125,47 +138,12 @@
             "Stay tall. A fingertip on the bench is fine if you sway"
           ],
           "avoid": "Don't do these on a step or the bench edge. Nothing to slip off.",
-          "lastTime": "New for you (planned Fri Nov 13, skipped). 20 lb per hand. The floor is the platform."
-        },
-        {
-          "id": "dead-bug",
-          "name": "Dead bug (core finisher)",
-          "sets": 2,
-          "reps": 10,
-          "weight": 0,
-          "weightNote": "Reps per side",
-          "muscles": "Deep core",
-          "restSec": 60,
-          "cues": [
-            "Lie on your back, arms up, knees bent 90° over your hips",
-            "Press your lower back into the floor",
-            "Slowly reach one arm back and the opposite leg out, then switch"
-          ],
-          "avoid": "Letting your lower back pop off the floor.",
-          "lastTime": "Fri Nov 6: bodyweight, 2×8. Up to 10 each side today."
-        },
-        {
-          "id": "chin-tuck",
-          "name": "Chin tuck",
-          "sets": 2,
-          "reps": 10,
-          "weight": 0,
-          "weightNote": "Hold 3 seconds each rep. Against a wall, or lie on your back",
-          "muscles": "Deep neck flexors, posture",
-          "restSec": 45,
-          "cues": [
-            "Stand with the back of your head, shoulders, and hips against a wall, or lie on your back with knees bent",
-            "Eyes stay level. Make a gentle double chin and slide your head straight back",
-            "Hold 3 seconds, then ease back to the start. Breathe through the hold"
-          ],
-          "avoid": "Don't tip your chin down or poke your head forward to start the rep. This is a slide back, not a nod.",
-          "safety": "Keep this gentle. Don't press on or load the neck. Stop if you feel pain, numbness, or tingling.",
-          "lastTime": "Wed Nov 11: 2×10, all done. Same today, slow and controlled."
+          "lastTime": "Mon Nov 16: 20 lb per hand, 3×12. Up to 25 today. Stay on the floor, not on a step."
         },
         {
           "id": "rear-delt-fly",
           "name": "Dumbbell rear-delt fly",
-          "sets": 2,
+          "sets": 3,
           "reps": 10,
           "weight": 10,
           "weightNote": "Per hand. Light on purpose. Use 5 lb if 10 feels heavy",
@@ -178,46 +156,30 @@
           ],
           "avoid": "Don't swing your torso or turn this into a shrug. The torso stays still.",
           "safety": "Keep it light. Neck stays long, eyes on the floor. Stop if you feel pain, numbness, or tingling.",
-          "lastTime": "New for you. 10 lb is a ceiling, not a goal. 5 lb is fine."
-        }
-      ],
-      "cooldown": [
-        "3-minute easy walk",
-        "Doorway pec stretch, 30 s each side",
-        "Hamstring stretch, heel on the bench, 30 s each",
-        "Figure-4 glute stretch on the floor, 30 s each",
-        "Standing quad stretch, one hand on the bench, 30 s each"
-      ]
-    },
-    {
-      "id": "2026-11-18-upper",
-      "date": "2026-11-18",
-      "dateLabel": "Wed Nov 18",
-      "weekday": "Wednesday",
-      "time": "08:00",
-      "timeLabel": "8:00 AM",
-      "title": "Upper Body Day",
-      "subtitle": "Wednesday · 8:00 AM · about 45 min · dumbbells + bench",
-      "defaultRestSec": 90,
-      "notes": [
-        "Keep a quick carb nearby (glucose tabs or juice). Stop if you feel dizzy or have chest pain.",
-        "After lifting, a short rise in sugar is common. An easy 10-minute walk afterward helps.",
-        "First set of each move on the light end. Slow, clean reps beat heavy ones.",
-        "Upper body today. If a shoulder pinches, skip that move and jot a note.",
-        "Two short posture moves today for forward-head posture. Keep them gentle."
-      ],
-      "warmup": [
-        "5-minute easy walk on the Peloton Tread",
-        "10 arm circles each direction",
-        "10 easy push-ups with hands on the bench, body in a straight line",
-        "10 shoulder-blade squeezes, arms at your sides"
-      ],
-      "exercises": [
+          "lastTime": "Mon Nov 16: 10 lb, 2×10. Same weight, add a third set today."
+        },
+        {
+          "id": "dead-bug",
+          "name": "Dead bug (core finisher)",
+          "sets": 2,
+          "reps": 12,
+          "weight": 0,
+          "weightNote": "Reps per side",
+          "muscles": "Deep core",
+          "restSec": 60,
+          "cues": [
+            "Lie on your back, arms up, knees bent 90° over your hips",
+            "Press your lower back into the floor",
+            "Slowly reach one arm back and the opposite leg out, then switch"
+          ],
+          "avoid": "Letting your lower back pop off the floor.",
+          "lastTime": "Mon Nov 16: 2×10. Go for 2×12 today."
+        },
         {
           "id": "chin-tuck",
           "name": "Chin tuck",
           "sets": 2,
-          "reps": 10,
+          "reps": 12,
           "weight": 0,
           "weightNote": "Hold 3 seconds each rep. Against a wall, or lie on your back",
           "muscles": "Deep neck flexors, posture",
@@ -229,158 +191,39 @@
           ],
           "avoid": "Don't tip your chin down or poke your head forward to start the rep. This is a slide back, not a nod.",
           "safety": "Keep this gentle. Don't press on or load the neck. Stop if you feel pain, numbness, or tingling.",
-          "lastTime": "Wed Nov 11: 2×10, all done. Same today, slow and controlled."
-        },
-        {
-          "id": "bench-press",
-          "name": "Dumbbell bench press",
-          "sets": 3,
-          "reps": 10,
-          "weight": 25,
-          "weightNote": "Per hand",
-          "muscles": "Chest, front shoulders, triceps",
-          "restSec": 90,
-          "cues": [
-            "Lie flat, feet planted, shoulder blades pinched back",
-            "Lower the dumbbells to chest level, elbows about 45° from your sides",
-            "Press up and slightly together, don't clank them"
-          ],
-          "avoid": "Flaring elbows straight out to the sides.",
-          "lastTime": "Wed Nov 11: 20 lb per hand, 3×10, all done. Up to 25 today; back to 20 if the last reps grind."
-        },
-        {
-          "id": "one-arm-row",
-          "name": "One-arm dumbbell row",
-          "sets": 3,
-          "reps": 12,
-          "weight": 25,
-          "weightNote": "Per side",
-          "muscles": "Upper back, lats, biceps",
-          "restSec": 60,
-          "cues": [
-            "One knee and one hand on the bench, back flat like a table",
-            "Pull the dumbbell toward your hip, not your chest",
-            "Lower slowly until your arm is straight"
-          ],
-          "avoid": "Twisting your torso to heave the weight up.",
-          "lastTime": "Wed Nov 11: 25 lb, 3×10, all done. Stay at 25 and go for 12 reps (30 slipped on Nov 2)."
-        },
-        {
-          "id": "seated-press",
-          "name": "Seated shoulder press",
-          "sets": 3,
-          "reps": 12,
-          "weight": 15,
-          "weightNote": "Per hand",
-          "muscles": "Shoulders, triceps",
-          "restSec": 75,
-          "cues": [
-            "Bench upright, whole back against the pad, feet flat",
-            "Start with dumbbells at ear height, palms forward",
-            "Press straight up, then lower under control"
-          ],
-          "avoid": "Arching your lower back off the pad.",
-          "lastTime": "Wed Nov 11: 15 lb per hand, 3×10. Same weight, go for 12 reps."
-        },
-        {
-          "id": "incline-fly",
-          "name": "Incline dumbbell fly",
-          "sets": 3,
-          "reps": 12,
-          "weight": 10,
-          "weightNote": "Per hand",
-          "muscles": "Chest, front shoulders",
-          "restSec": 60,
-          "cues": [
-            "Low incline, one notch. Head, back, and hips all on the pad, feet flat",
-            "Soft bend in the elbows. Open until you feel the chest",
-            "Hug the dumbbells back together over your chest"
-          ],
-          "avoid": "Don't perch on the edge, and don't let the weights sink behind your shoulders.",
-          "lastTime": "Wed Nov 11: 10 lb, 3×12. Stay at 10 with a slow tempo."
-        },
-        {
-          "id": "hammer-curl",
-          "name": "Hammer curl",
-          "sets": 3,
-          "reps": 12,
-          "weight": 15,
-          "weightNote": "Per hand",
-          "muscles": "Biceps, forearms",
-          "restSec": 60,
-          "cues": [
-            "Stand tall, elbows pinned near your ribs",
-            "Palms face each other the whole time, thumbs up",
-            "Curl to shoulder height, then lower for a full 3 seconds"
-          ],
-          "avoid": "Swinging your torso to start the weight.",
-          "lastTime": "Wed Nov 11: 15 lb per hand, 3×10. Same weight, go for 12 reps."
-        },
-        {
-          "id": "overhead-triceps",
-          "name": "Seated overhead triceps extension",
-          "sets": 3,
-          "reps": 12,
-          "weight": 15,
-          "weightNote": "One dumbbell, both hands",
-          "muscles": "Triceps",
-          "restSec": 60,
-          "cues": [
-            "Bench upright, whole back against the pad",
-            "Both hands cup one end of the dumbbell over your head",
-            "Bend the elbows to lower it behind your head, then straighten"
-          ],
-          "avoid": "Flaring the elbows wide, or arching your lower back off the pad.",
-          "lastTime": "Wed Nov 11: 15 lb, 3×10. Stay at 15, aim for 12 reps. Skip it if the shoulder pinches."
-        },
-        {
-          "id": "yt-raise",
-          "name": "Chest-supported Y-T raise",
-          "sets": 2,
-          "reps": 10,
-          "weight": 0,
-          "weightNote": "Empty hands, or 5 lb per hand if that is easy. 10 of Y, then 10 of T each set",
-          "muscles": "Mid-back, rear shoulders, lower traps",
-          "restSec": 60,
-          "cues": [
-            "Low incline. Lie face down, chest on the pad, feet on the floor, neck long in a light chin tuck",
-            "Thumbs up. Raise your arms into a Y, lower, then out into a T. Slow and even",
-            "Squeeze the shoulder blades toward your back pockets. Don't shrug"
-          ],
-          "avoid": "Don't yank the arms up with your upper traps, and don't lift your chest or head off the pad.",
-          "safety": "Very light or no weight. Keep the neck relaxed; don't crane to look up. Stop if you feel pain, numbness, or tingling.",
-          "lastTime": "Wed Nov 11: empty hands, 2×10. Same today; add 5 lb only if every rep is smooth."
+          "lastTime": "Mon Nov 16: 2×10. Go for 2×12 today. Keep it gentle."
         }
-      ],
-      "cooldown": [
-        "3-minute easy walk",
-        "Chest stretch in a doorway, 30 s",
-        "Cross-body shoulder stretch, 30 s each",
-        "Lat stretch: both hands on the bench, sit your hips back, 30 s"
       ]
     },
     {
-      "id": "2026-11-20-full",
-      "date": "2026-11-20",
-      "dateLabel": "Fri Nov 20",
-      "weekday": "Friday",
+      "id": "2026-11-23-lower",
+      "date": "2026-11-23",
+      "dateLabel": "Mon Nov 23",
       "time": "08:00",
       "timeLabel": "8:00 AM",
-      "title": "Full Body Day",
-      "subtitle": "Friday · 8:00 AM · about 40 min · dumbbells + bench",
+      "title": "Lower Body Day",
+      "subtitle": "Monday · 8:00 AM · about 45 min · dumbbells + a sturdy step",
       "defaultRestSec": 90,
       "notes": [
         "Keep a quick carb nearby (glucose tabs or juice). Stop if you feel dizzy or have chest pain.",
         "After lifting, a short rise in sugar is common. An easy 10-minute walk afterward helps.",
         "First set of each move on the light end. Slow, clean reps beat heavy ones.",
-        "Weights here are a starting point. I'll adjust them Thursday night from Monday's and Wednesday's logs.",
-        "Chin tucks at the end and a doorway pec stretch in the cool-down for posture. Keep them gentle."
+        "Starting this week, Monday is lower body, Wednesday is upper body, and Friday is full body. Tuesday and Thursday stay treadmill days.",
+        "Goblet squat, Romanian deadlift, and glute bridge are 30 lb. Calf raises are 25 lb. Step-ups stay bodyweight; hold a rail.",
+        "Chin tucks and a light rear-delt fly at the end for posture. Keep them gentle."
       ],
       "warmup": [
         "5-minute easy walk on the Peloton Tread",
         "10 bodyweight squats to the bench",
-        "10 arm circles each direction",
+        "10 hip hinges, hands on your thighs",
         "10 floor glute bridges, no weight"
+      ],
+      "cooldown": [
+        "3-minute easy walk",
+        "Doorway pec stretch, 30 s each side",
+        "Hamstring stretch, heel on the bench, 30 s each",
+        "Figure-4 glute stretch on the floor, 30 s each",
+        "Standing quad stretch, one hand on the bench, 30 s each"
       ],
       "exercises": [
         {
@@ -388,7 +231,7 @@
           "name": "Goblet squat",
           "sets": 3,
           "reps": 10,
-          "weight": 25,
+          "weight": 30,
           "weightNote": "One dumbbell held at your chest",
           "muscles": "Thighs, glutes, core",
           "restSec": 90,
@@ -398,48 +241,14 @@
             "Sit back and down, then drive up through your whole foot"
           ],
           "avoid": "Knees caving in. Push them out over your toes.",
-          "lastTime": "Planned 25 lb on Mon Nov 16. Match Monday's weight if it went well."
-        },
-        {
-          "id": "bench-press",
-          "name": "Dumbbell bench press",
-          "sets": 3,
-          "reps": 10,
-          "weight": 25,
-          "weightNote": "Per hand",
-          "muscles": "Chest, front shoulders, triceps",
-          "restSec": 90,
-          "cues": [
-            "Lie flat, feet planted, shoulder blades pinched back",
-            "Lower the dumbbells to chest level, elbows about 45° from your sides",
-            "Press up and slightly together, don't clank them"
-          ],
-          "avoid": "Flaring elbows straight out to the sides.",
-          "lastTime": "Planned 25 lb on Wed Nov 18. Match Wednesday's weight."
-        },
-        {
-          "id": "one-arm-row",
-          "name": "One-arm dumbbell row",
-          "sets": 3,
-          "reps": 10,
-          "weight": 25,
-          "weightNote": "Per side",
-          "muscles": "Upper back, lats, biceps",
-          "restSec": 60,
-          "cues": [
-            "One knee and one hand on the bench, back flat like a table",
-            "Pull the dumbbell toward your hip, not your chest",
-            "Lower slowly until your arm is straight"
-          ],
-          "avoid": "Twisting your torso to heave the weight up.",
-          "lastTime": "Wed Nov 11: 25 lb, 3×10. Stay at 25."
+          "lastTime": "Mon Nov 16: 25 lb, 3×10. Planned 30 on Fri Nov 20. Stay at 30 if Friday went well; drop to 25 if a rep got sloppy."
         },
         {
           "id": "rdl",
           "name": "Dumbbell Romanian deadlift",
           "sets": 3,
           "reps": 10,
-          "weight": 25,
+          "weight": 30,
           "weightNote": "Per hand",
           "muscles": "Hamstrings, glutes, lower back",
           "restSec": 90,
@@ -449,31 +258,32 @@
             "Slide the dumbbells down your thighs to mid-shin, squeeze glutes to stand"
           ],
           "avoid": "Rounding your back to reach lower.",
-          "lastTime": "Planned 25 lb on Mon Nov 16. Match Monday's weight if your back stayed flat."
+          "lastTime": "Mon Nov 16: 25 lb per hand, 3×10. Planned 30 on Fri Nov 20. Stay at 30 if your back stayed flat."
         },
         {
-          "id": "seated-press",
-          "name": "Seated shoulder press",
+          "id": "step-up",
+          "name": "Step-up",
           "sets": 3,
-          "reps": 10,
-          "weight": 15,
-          "weightNote": "Per hand",
-          "muscles": "Shoulders, triceps",
-          "restSec": 75,
+          "reps": 8,
+          "weight": 0,
+          "weightNote": "Bodyweight · each side. Hold a rail or a wall",
+          "muscles": "Thighs, glutes",
+          "restSec": 90,
           "cues": [
-            "Bench upright, whole back against the pad, feet flat",
-            "Start with dumbbells at ear height, palms forward",
-            "Press straight up, then lower under control"
+            "Face a sturdy step. Hold a rail or a wall with one hand",
+            "Step up with one foot, stand tall on the step, then step down with control",
+            "Finish all reps on one leg, then switch. The working leg does the work"
           ],
-          "avoid": "Arching your lower back off the pad.",
-          "lastTime": "15 lb per hand. Same as Wednesday."
+          "avoid": "Don't push off the trailing leg, and don't use a wobbly step or the bench edge.",
+          "safety": "Hold the rail or a wall. Add weight next time only if every rep felt easy. Stop if a knee or hip hurts.",
+          "lastTime": "First programmed Fri Nov 20, bodyweight, 3×8 each side. Same today. Hold a rail. Add 5 lb only if Friday felt easy."
         },
         {
           "id": "glute-bridge",
           "name": "Floor glute bridge",
           "sets": 3,
           "reps": 12,
-          "weight": 25,
+          "weight": 30,
           "weightNote": "One dumbbell on your hip bones",
           "muscles": "Glutes, hamstrings",
           "restSec": 60,
@@ -483,13 +293,48 @@
             "Drive your hips up, squeeze 1 second, lower slowly"
           ],
           "avoid": "Arching your lower back at the top. This stays on the floor, never on the bench.",
-          "lastTime": "Planned 25 lb on Mon Nov 16. Same today."
+          "lastTime": "Mon Nov 16: 25 lb, 3×12. Planned 30 on Fri Nov 20. Stay at 30."
+        },
+        {
+          "id": "calf-raise",
+          "name": "Standing calf raise",
+          "sets": 3,
+          "reps": 12,
+          "weight": 25,
+          "weightNote": "Per hand, on the floor",
+          "muscles": "Calves",
+          "restSec": 60,
+          "cues": [
+            "Dumbbells at your sides. Feet hip-width, whole foot on the floor",
+            "Rise onto the balls of your feet, pause, then lower for 2 seconds",
+            "Stay tall. A fingertip on the bench is fine if you sway"
+          ],
+          "avoid": "Don't do these on a step or the bench edge. Nothing to slip off.",
+          "lastTime": "Mon Nov 16: 20 lb per hand, 3×12. Planned 25 on Fri Nov 20. Stay at 25, on the floor."
+        },
+        {
+          "id": "rear-delt-fly",
+          "name": "Dumbbell rear-delt fly",
+          "sets": 3,
+          "reps": 10,
+          "weight": 10,
+          "weightNote": "Per hand. Light on purpose. Use 5 lb if 10 feels heavy",
+          "muscles": "Rear shoulders, mid-back",
+          "restSec": 60,
+          "cues": [
+            "Soft knees, hinge at the hips, back flat, arms hang under your shoulders",
+            "Slight bend in the elbows. Raise the dumbbells out to the sides until they line up with your shoulders",
+            "Lead with the elbows, squeeze the rear shoulders, then lower for 2 seconds"
+          ],
+          "avoid": "Don't swing your torso or turn this into a shrug. The torso stays still.",
+          "safety": "Keep it light. Neck stays long, eyes on the floor. Stop if you feel pain, numbness, or tingling.",
+          "lastTime": "Mon Nov 16: 10 lb, 2×10. Planned a third set on Fri Nov 20. Stay at 10 lb, 3×10."
         },
         {
           "id": "dead-bug",
           "name": "Dead bug (core finisher)",
           "sets": 2,
-          "reps": 10,
+          "reps": 12,
           "weight": 0,
           "weightNote": "Reps per side",
           "muscles": "Deep core",
@@ -500,13 +345,354 @@
             "Slowly reach one arm back and the opposite leg out, then switch"
           ],
           "avoid": "Letting your lower back pop off the floor.",
-          "lastTime": "Bodyweight, 10 each side like Monday."
+          "lastTime": "Mon Nov 16: 2×10. Planned 2×12 on Fri Nov 20. Stay at 2×12."
         },
         {
           "id": "chin-tuck",
           "name": "Chin tuck",
           "sets": 2,
+          "reps": 12,
+          "weight": 0,
+          "weightNote": "Hold 3 seconds each rep. Against a wall, or lie on your back",
+          "muscles": "Deep neck flexors, posture",
+          "restSec": 45,
+          "cues": [
+            "Stand with the back of your head, shoulders, and hips against a wall, or lie on your back with knees bent",
+            "Eyes stay level. Make a gentle double chin and slide your head straight back",
+            "Hold 3 seconds, then ease back to the start. Breathe through the hold"
+          ],
+          "avoid": "Don't tip your chin down or poke your head forward to start the rep. This is a slide back, not a nod.",
+          "safety": "Keep this gentle. Don't press on or load the neck. Stop if you feel pain, numbness, or tingling.",
+          "lastTime": "Mon Nov 16 and Wed Nov 18: 2×10. Planned 2×12 on Fri Nov 20. Stay at 2×12."
+        }
+      ]
+    },
+    {
+      "id": "2026-11-25-upper",
+      "date": "2026-11-25",
+      "dateLabel": "Wed Nov 25",
+      "time": "08:00",
+      "timeLabel": "8:00 AM",
+      "title": "Upper Body Day",
+      "subtitle": "Wednesday · 8:00 AM · about 45 min · dumbbells + bench",
+      "defaultRestSec": 90,
+      "notes": [
+        "Keep a quick carb nearby (glucose tabs or juice). Stop if you feel dizzy or have chest pain.",
+        "After lifting, a short rise in sugar is common. An easy 10-minute walk afterward helps.",
+        "First set of each move on the light end. Slow, clean reps beat heavy ones.",
+        "Upper body today. The chest move is a floor press, not a bench press. If a shoulder pinches, skip that move and jot a note.",
+        "Dumbbells stay in 5 lb steps. Leave about 2 reps in the tank.",
+        "Chin tucks and a light rear-delt fly at the end for posture. Keep them gentle."
+      ],
+      "warmup": [
+        "5-minute easy walk on the Peloton Tread",
+        "10 arm circles each direction",
+        "10 wall push-ups, or hands on the bench",
+        "10 shoulder-blade squeezes, arms at your sides"
+      ],
+      "cooldown": [
+        "3-minute easy walk",
+        "Chest stretch in a doorway, 30 s",
+        "Cross-body shoulder stretch, 30 s each",
+        "Lat stretch: both hands on the bench, sit your hips back, 30 s"
+      ],
+      "exercises": [
+        {
+          "id": "floor-press",
+          "name": "Dumbbell floor press",
+          "sets": 3,
           "reps": 10,
+          "weight": 20,
+          "weightNote": "Per hand",
+          "muscles": "Chest, front shoulders, triceps",
+          "restSec": 90,
+          "cues": [
+            "Lie on the floor, knees bent, feet flat. Shoulder blades pinched back",
+            "Start with the dumbbells over your chest. Lower until your elbows rest on the floor, about 45° from your sides",
+            "Press to straight arms, then lower under control. Pause on the floor, do not bounce"
+          ],
+          "avoid": "Bouncing your elbows off the floor, or flaring them straight out to the sides.",
+          "safety": "Keep your lower back gently pressed toward the floor. Stop if a shoulder pinches.",
+          "lastTime": "Wed Nov 18 was a bench press, 25 lb, 3×10. Today is a floor press at 20 lb per hand."
+        },
+        {
+          "id": "one-arm-row",
+          "name": "One-arm dumbbell row",
+          "sets": 3,
+          "reps": 10,
+          "weight": 25,
+          "weightNote": "Per side",
+          "muscles": "Upper back, lats, biceps",
+          "restSec": 60,
+          "cues": [
+            "One knee and one hand on the bench, back flat like a table",
+            "Pull the dumbbell toward your hip, not your chest",
+            "Lower slowly until your arm is straight"
+          ],
+          "avoid": "Twisting your torso to heave the weight up.",
+          "lastTime": "Wed Nov 18: 25 lb, 3×12, all done. Stay at 25 today. 30 is next only if every rep is clean."
+        },
+        {
+          "id": "seated-press",
+          "name": "Seated shoulder press",
+          "sets": 3,
+          "reps": 10,
+          "weight": 15,
+          "weightNote": "Per hand",
+          "muscles": "Shoulders, triceps",
+          "restSec": 75,
+          "cues": [
+            "Bench upright, whole back against the pad, feet flat",
+            "Start with dumbbells at ear height, palms forward",
+            "Press straight up, then lower under control"
+          ],
+          "avoid": "Arching your lower back off the pad.",
+          "lastTime": "Wed Nov 18: 15 lb, 12, 12, and 11. Stay at 15 until every set hits 12."
+        },
+        {
+          "id": "biceps-curl",
+          "name": "Dumbbell biceps curl",
+          "sets": 3,
+          "reps": 10,
+          "weight": 15,
+          "weightNote": "Per hand",
+          "muscles": "Biceps",
+          "restSec": 60,
+          "cues": [
+            "Stand tall, elbows pinned near your ribs, palms facing forward",
+            "Curl the dumbbells to shoulder height without swinging",
+            "Lower for a full 3 seconds"
+          ],
+          "avoid": "Swinging your torso or letting the elbows drift forward.",
+          "lastTime": "Wed Nov 18 was hammer curl, 15 lb, 3×12. Today is a regular curl at 15 lb, 3×10."
+        },
+        {
+          "id": "overhead-triceps",
+          "name": "Seated overhead triceps extension",
+          "sets": 3,
+          "reps": 10,
+          "weight": 15,
+          "weightNote": "One dumbbell, both hands",
+          "muscles": "Triceps",
+          "restSec": 60,
+          "cues": [
+            "Bench upright, whole back against the pad",
+            "Both hands cup one end of the dumbbell over your head",
+            "Bend the elbows to lower it behind your head, then straighten"
+          ],
+          "avoid": "Flaring the elbows wide, or arching your lower back off the pad.",
+          "lastTime": "Wed Nov 18: 15 lb, 2×12, third set skipped. Stay at 15 and finish all 3 sets."
+        },
+        {
+          "id": "rear-delt-fly",
+          "name": "Dumbbell rear-delt fly",
+          "sets": 3,
+          "reps": 10,
+          "weight": 10,
+          "weightNote": "Per hand. Light on purpose. Use 5 lb if 10 feels heavy",
+          "muscles": "Rear shoulders, mid-back",
+          "restSec": 60,
+          "cues": [
+            "Soft knees, hinge at the hips, back flat, arms hang under your shoulders",
+            "Slight bend in the elbows. Raise the dumbbells out to the sides until they line up with your shoulders",
+            "Lead with the elbows, squeeze the rear shoulders, then lower for 2 seconds"
+          ],
+          "avoid": "Don't swing your torso or turn this into a shrug. The torso stays still.",
+          "safety": "Keep it light. Neck stays long, eyes on the floor. Stop if you feel pain, numbness, or tingling.",
+          "lastTime": "Mon Nov 16: 10 lb, 2×10. 10 lb, 3×10 today. Use 5 lb if 10 feels heavy."
+        },
+        {
+          "id": "dead-bug",
+          "name": "Dead bug (core finisher)",
+          "sets": 2,
+          "reps": 12,
+          "weight": 0,
+          "weightNote": "Reps per side",
+          "muscles": "Deep core",
+          "restSec": 60,
+          "cues": [
+            "Lie on your back, arms up, knees bent 90° over your hips",
+            "Press your lower back into the floor",
+            "Slowly reach one arm back and the opposite leg out, then switch"
+          ],
+          "avoid": "Letting your lower back pop off the floor.",
+          "lastTime": "Mon Nov 16: 2×10. Go for 2×12."
+        },
+        {
+          "id": "chin-tuck",
+          "name": "Chin tuck",
+          "sets": 2,
+          "reps": 12,
+          "weight": 0,
+          "weightNote": "Hold 3 seconds each rep. Against a wall, or lie on your back",
+          "muscles": "Deep neck flexors, posture",
+          "restSec": 45,
+          "cues": [
+            "Stand with the back of your head, shoulders, and hips against a wall, or lie on your back with knees bent",
+            "Eyes stay level. Make a gentle double chin and slide your head straight back",
+            "Hold 3 seconds, then ease back to the start. Breathe through the hold"
+          ],
+          "avoid": "Don't tip your chin down or poke your head forward to start the rep. This is a slide back, not a nod.",
+          "safety": "Keep this gentle. Don't press on or load the neck. Stop if you feel pain, numbness, or tingling.",
+          "lastTime": "Wed Nov 18: 2×10. Go for 2×12. Keep it gentle."
+        }
+      ]
+    },
+    {
+      "id": "2026-11-27-full",
+      "date": "2026-11-27",
+      "dateLabel": "Fri Nov 27",
+      "time": "08:00",
+      "timeLabel": "8:00 AM",
+      "title": "Full Body Day",
+      "subtitle": "Friday · 8:00 AM · about 40 min · dumbbells + bench",
+      "defaultRestSec": 90,
+      "notes": [
+        "Keep a quick carb nearby (glucose tabs or juice). Stop if you feel dizzy or have chest pain.",
+        "After lifting, a short rise in sugar is common. An easy 10-minute walk afterward helps.",
+        "First set of each move on the light end. Slow, clean reps beat heavy ones.",
+        "Full body today: three lower moves, three upper moves, then core. Lower weights stay at 30 lb for the squat, deadlift, and bridge. The chest move is a floor press at 20 lb.",
+        "Dumbbells stay in 5 lb steps. Leave about 2 reps in the tank.",
+        "Chin tucks at the end and a doorway pec stretch in the cool-down for posture. Keep them gentle."
+      ],
+      "warmup": [
+        "5-minute easy walk on the Peloton Tread",
+        "10 bodyweight squats to the bench",
+        "10 arm circles each direction",
+        "10 floor glute bridges, no weight"
+      ],
+      "cooldown": [
+        "3-minute easy walk",
+        "Doorway pec stretch, 30 s each side (gentle, stop if you feel tingling)",
+        "Hamstring stretch, heel on the bench, 30 s each",
+        "Figure-4 glute stretch on the floor, 30 s each"
+      ],
+      "exercises": [
+        {
+          "id": "goblet-squat",
+          "name": "Goblet squat",
+          "sets": 3,
+          "reps": 10,
+          "weight": 30,
+          "weightNote": "One dumbbell held at your chest",
+          "muscles": "Thighs, glutes, core",
+          "restSec": 90,
+          "cues": [
+            "Hold one dumbbell upright against your chest",
+            "Feet shoulder-width, toes slightly out",
+            "Sit back and down, then drive up through your whole foot"
+          ],
+          "avoid": "Knees caving in. Push them out over your toes.",
+          "lastTime": "Mon Nov 16: 25 lb, 3×10. Planned 30 on Fri Nov 20 and Mon Nov 23. Stay at 30 if those days went well."
+        },
+        {
+          "id": "floor-press",
+          "name": "Dumbbell floor press",
+          "sets": 3,
+          "reps": 10,
+          "weight": 20,
+          "weightNote": "Per hand",
+          "muscles": "Chest, front shoulders, triceps",
+          "restSec": 90,
+          "cues": [
+            "Lie on the floor, knees bent, feet flat. Shoulder blades pinched back",
+            "Start with the dumbbells over your chest. Lower until your elbows rest on the floor, about 45° from your sides",
+            "Press to straight arms, then lower under control. Pause on the floor, do not bounce"
+          ],
+          "avoid": "Bouncing your elbows off the floor, or flaring them straight out to the sides.",
+          "safety": "Keep your lower back gently pressed toward the floor. Stop if a shoulder pinches.",
+          "lastTime": "Wed Nov 25 is a floor press at 20 lb, 3×10. Match that weight."
+        },
+        {
+          "id": "one-arm-row",
+          "name": "One-arm dumbbell row",
+          "sets": 3,
+          "reps": 10,
+          "weight": 25,
+          "weightNote": "Per side",
+          "muscles": "Upper back, lats, biceps",
+          "restSec": 60,
+          "cues": [
+            "One knee and one hand on the bench, back flat like a table",
+            "Pull the dumbbell toward your hip, not your chest",
+            "Lower slowly until your arm is straight"
+          ],
+          "avoid": "Twisting your torso to heave the weight up.",
+          "lastTime": "Wed Nov 18: 25 lb, 3×12. Stay at 25 on Wed Nov 25 and today."
+        },
+        {
+          "id": "rdl",
+          "name": "Dumbbell Romanian deadlift",
+          "sets": 3,
+          "reps": 10,
+          "weight": 30,
+          "weightNote": "Per hand",
+          "muscles": "Hamstrings, glutes, lower back",
+          "restSec": 90,
+          "cues": [
+            "Soft bend in the knees, then keep them still",
+            "Push your hips back like closing a car door with your butt",
+            "Slide the dumbbells down your thighs to mid-shin, squeeze glutes to stand"
+          ],
+          "avoid": "Rounding your back to reach lower.",
+          "lastTime": "Mon Nov 16: 25 lb per hand, 3×10. Planned 30 on Fri Nov 20 and Mon Nov 23. Stay at 30 if your back stayed flat."
+        },
+        {
+          "id": "seated-press",
+          "name": "Seated shoulder press",
+          "sets": 3,
+          "reps": 10,
+          "weight": 15,
+          "weightNote": "Per hand",
+          "muscles": "Shoulders, triceps",
+          "restSec": 75,
+          "cues": [
+            "Bench upright, whole back against the pad, feet flat",
+            "Start with dumbbells at ear height, palms forward",
+            "Press straight up, then lower under control"
+          ],
+          "avoid": "Arching your lower back off the pad.",
+          "lastTime": "Wed Nov 18: 15 lb, 12, 12, and 11. Stay at 15 until every set hits 12."
+        },
+        {
+          "id": "glute-bridge",
+          "name": "Floor glute bridge",
+          "sets": 3,
+          "reps": 12,
+          "weight": 30,
+          "weightNote": "One dumbbell on your hip bones",
+          "muscles": "Glutes, hamstrings",
+          "restSec": 60,
+          "cues": [
+            "Lie on your back on the floor, knees bent, feet flat",
+            "Rest the dumbbell across your hip bones and hold it",
+            "Drive your hips up, squeeze 1 second, lower slowly"
+          ],
+          "avoid": "Arching your lower back at the top. This stays on the floor, never on the bench.",
+          "lastTime": "Mon Nov 16: 25 lb, 3×12. Planned 30 on Fri Nov 20 and Mon Nov 23. Stay at 30."
+        },
+        {
+          "id": "dead-bug",
+          "name": "Dead bug (core finisher)",
+          "sets": 2,
+          "reps": 12,
+          "weight": 0,
+          "weightNote": "Reps per side",
+          "muscles": "Deep core",
+          "restSec": 60,
+          "cues": [
+            "Lie on your back, arms up, knees bent 90° over your hips",
+            "Press your lower back into the floor",
+            "Slowly reach one arm back and the opposite leg out, then switch"
+          ],
+          "avoid": "Letting your lower back pop off the floor.",
+          "lastTime": "Bodyweight, 12 each side, same as the other days this week."
+        },
+        {
+          "id": "chin-tuck",
+          "name": "Chin tuck",
+          "sets": 2,
+          "reps": 12,
           "weight": 0,
           "weightNote": "Hold 3 seconds each rep. Against a wall, or lie on your back",
           "muscles": "Deep neck flexors, posture",
@@ -520,12 +706,6 @@
           "safety": "Keep this gentle. Don't press on or load the neck. Stop if you feel pain, numbness, or tingling.",
           "lastTime": "Same as Monday and Wednesday. Two easy sets is enough."
         }
-      ],
-      "cooldown": [
-        "3-minute easy walk",
-        "Doorway pec stretch, 30 s each side (gentle, stop if you feel tingling)",
-        "Hamstring stretch, heel on the bench, 30 s each",
-        "Figure-4 glute stretch on the floor, 30 s each"
       ]
     }
   ]

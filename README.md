@@ -53,7 +53,7 @@ Each exercise:
 
 | Field | Required | What it is |
 | --- | --- | --- |
-| `id` | yes | Demo and log id. Use a known id when you can: `goblet-squat`, `bench-press`, `one-arm-row`, `rdl`, `seated-press`, `glute-bridge`, `dead-bug`, `reverse-lunge`, `calf-raise`, `hammer-curl`, `biceps-curl`, `overhead-triceps`, `incline-fly`, `push-up`, `chin-tuck`, `yt-raise`, `rear-delt-fly`. Anything else gets a generic figure. |
+| `id` | yes | Demo and log id. Use a known id when you can: `goblet-squat`, `bench-press`, `one-arm-row`, `rdl`, `seated-press`, `glute-bridge`, `dead-bug`, `reverse-lunge`, `calf-raise`, `hammer-curl`, `biceps-curl`, `overhead-triceps`, `incline-fly`, `push-up`, `chin-tuck`, `yt-raise`, `rear-delt-fly`. `step-up` and `floor-press` are in the current plan and get a generic figure until a demo is added. Anything else also gets a generic figure. |
 | `name` | yes | What he reads on the card. |
 | `sets`, `reps`, `weight` | yes | `weight` is pounds per hand, or the one dumbbell, or `0` for bodyweight. |
 | `weightNote` | yes | `Per hand`, `One dumbbell held at your chest`, `Reps per side`, and so on. |
@@ -100,9 +100,9 @@ Finish, and each completed set, POST JSON to the saved webhook when the browser 
 
 Shea is 50, has type 2 diabetes, and is rebuilding fitness. Equipment is dumbbells (one pair is 30 lb) and an adjustable bench. No barbell.
 
-Keep loads conservative, and base them on what he has already done in this file: goblet squat 20 lb, bench press 20 lb per hand, one-arm row 25 lb (30 lb fell apart), Romanian deadlift 20 lb per hand, seated press 15 lb per hand, floor glute bridge 25 lb.
+Keep loads conservative, and base them on what he has already done in this file. Current starting loads: goblet squat 30 lb, Romanian deadlift 30 lb per hand, floor glute bridge 30 lb, calf raise 25 lb per hand, step-ups bodyweight, floor press 20 lb per hand, one-arm row 25 lb (30 lb fell apart earlier), seated press 15 lb per hand, curl 15 lb, triceps extension 15 lb, rear-delt fly 10 lb. Dumbbells only in 5 lb steps.
 
-Do not program a bench hip thrust, a Bulgarian split squat, or any move where he balances or could slide on the bench edge. Glutes are a floor glute bridge with one dumbbell on the hip bones, 3×12. A hand on the bench for balance is fine. A foot on the bench is not.
+Starting Monday, November 23, 2026, the standing split is lower body on Monday, upper body on Wednesday, and full body on Friday. Tuesday and Thursday stay treadmill days. Do not program a bench hip thrust, a Bulgarian split squat, reverse lunges, or any move where he balances or could slide on the bench edge. Use step-ups instead of lunges, and hold a rail. Glutes are a floor glute bridge with one dumbbell on the hip bones, 3×12. A hand on the bench for balance is fine. A foot on the bench is not.
 
 ## Motion graphics
 
