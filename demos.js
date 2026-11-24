@@ -1204,79 +1204,117 @@
     };
   }
 
-  function dbMarkup(d) {
-    const op = d.opacity == null ? 1 : d.opacity;
-    if (d.end) {
-      return '<g transform="translate(' + d.x + ',' + d.y + ')" opacity="' + op + '">' +
-        '<circle r="9" fill="#e09a12"/><circle r="5.2" fill="#f6c453"/><circle r="2" fill="#8a5a00"/></g>';
-    }
-    const sx = d.sx == null ? 1 : d.sx;
-    return '<g transform="translate(' + d.x + ',' + d.y + ') rotate(' + (d.rot || 0) + ')' + (sx !== 1 ? ' scale(' + sx + ',1)' : '') + '" opacity="' + op + '">' +
-      '<rect x="-16" y="-2.3" width="32" height="4.6" rx="2" fill="#f2c14b"/>' +
-      '<rect x="-20" y="-8" width="7.5" height="16" rx="2" fill="#d4920a"/>' +
-      '<rect x="-18.6" y="-6" width="2.2" height="12" rx="1" fill="#f8dc9a"/>' +
-      '<rect x="12.5" y="-8" width="7.5" height="16" rx="2" fill="#d4920a"/>' +
-      '<rect x="14" y="-6" width="2.2" height="12" rx="1" fill="#f8dc9a"/></g>';
-  }
-
-  function headMarkup(h, face) {
-    if (!h) return '';
-    const x = h[0], y = h[1];
-    const skull = '<circle cx="' + x + '" cy="' + y + '" r="' + L.head + '" fill="' + INK + '"/>';
-    if (face === 'front' || face === 'up') {
-      const dy = face === 'up' ? -3 : -1;
-      return skull +
-        '<circle cx="' + (x - 3.1) + '" cy="' + (y + dy) + '" r="1.35" fill="#fff"/>' +
-        '<circle cx="' + (x + 3.1) + '" cy="' + (y + dy) + '" r="1.35" fill="#fff"/>';
-    }
-    const dir = face === 'left' ? -1 : 1;
-    return skull +
-      '<circle cx="' + (x + dir * 2.4) + '" cy="' + (y - 1.6) + '" r="1.3" fill="#fff"/>' +
-      '<circle cx="' + (x + dir * 8) + '" cy="' + (y + 0.6) + '" r="2.3" fill="' + SKIN + '"/>';
-  }
-
-  function draw(svg, pose, col) {
+  function poseParts(pose, col) {
     const hot = tint(col);
     const parts = [];
     if (pose.ground !== false) {
-      parts.push('<line x1="14" y1="' + FLOOR + '" x2="186" y2="' + FLOOR + '" stroke="' + FLOORC + '" stroke-width="3" stroke-linecap="round"/>');
+      parts.push({ t: 'line', k: 'floor', attrs: { x1: '14', y1: String(FLOOR), x2: '186', y2: String(FLOOR), stroke: FLOORC, 'stroke-width': '3', 'stroke-linecap': 'round' } });
     }
     if (pose.ground !== false && pose.shadow) {
-      parts.push('<ellipse cx="' + pose.shadow[0] + '" cy="' + FLOOR + '" rx="26" ry="3.5" fill="' + INK + '" opacity=".08"/>');
+      parts.push({ t: 'ellipse', k: 'shadow', attrs: { cx: String(pose.shadow[0]), cy: String(FLOOR), rx: '26', ry: '3.5', fill: INK, opacity: '.08' } });
     }
-    (pose.props || []).forEach(function (p) {
-      if (p.k === 'rot') {
-        parts.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '" rx="3" fill="' + (p.fill || BENCH) + '" transform="rotate(' + p.deg + ' ' + p.x + ' ' + (p.y + 4) + ')"/>');
-      } else {
-        parts.push('<rect x="' + p.x + '" y="' + p.y + '" width="' + p.w + '" height="' + p.h + '" rx="3" fill="' + (p.fill || BENCH) + '"/>');
-      }
+    (pose.props || []).forEach(function (pr, i) {
+      const attrs = { x: String(pr.x), y: String(pr.y), width: String(pr.w), height: String(pr.h), rx: '3', fill: pr.fill || BENCH };
+      if (pr.k === 'rot') attrs.transform = 'rotate(' + pr.deg + ' ' + pr.x + ' ' + (pr.y + 4) + ')';
+      parts.push({ t: 'rect', k: 'prop' + i + (pr.k === 'rot' ? 'R' : 'P'), attrs: attrs });
     });
-    (pose.glow || []).forEach(function (g) {
-      parts.push('<circle cx="' + g[0] + '" cy="' + g[1] + '" r="16" fill="' + hot + '" opacity=".22"/>');
+    (pose.glow || []).forEach(function (g, i) {
+      parts.push({ t: 'circle', k: 'glow' + i, attrs: { cx: String(g[0]), cy: String(g[1]), r: '16', fill: hot, opacity: '.22' } });
     });
     const dbs = (pose.dbs || []).toSorted(function (a, b) { return (a.opacity || 1) - (b.opacity || 1); });
-    dbs.filter(function (d) { return d.under; }).forEach(function (d) { parts.push(dbMarkup(d)); });
+    function dbInner(d) {
+      if (d.end) {
+        return '<circle r="9" fill="#e09a12"/><circle r="5.2" fill="#f6c453"/><circle r="2" fill="#8a5a00"/>';
+      }
+      const sx = d.sx == null ? 1 : d.sx;
+      const scale = sx !== 1 ? ' scale(' + sx + ',1)' : '';
+      return '<g transform="rotate(' + (d.rot || 0) + ')' + scale + '">' +
+        '<rect x="-16" y="-2.3" width="32" height="4.6" rx="2" fill="#f2c14b"/>' +
+        '<rect x="-20" y="-8" width="7.5" height="16" rx="2" fill="#d4920a"/>' +
+        '<rect x="-18.6" y="-6" width="2.2" height="12" rx="1" fill="#f8dc9a"/>' +
+        '<rect x="12.5" y="-8" width="7.5" height="16" rx="2" fill="#d4920a"/>' +
+        '<rect x="14" y="-6" width="2.2" height="12" rx="1" fill="#f8dc9a"/></g>';
+    }
+    dbs.filter(function (d) { return d.under; }).forEach(function (d, i) {
+      const op = d.opacity == null ? 1 : d.opacity;
+      parts.push({ t: 'g', k: 'dbu' + i + (d.end ? 'e' : 'b'), attrs: { transform: 'translate(' + d.x + ',' + d.y + ')', opacity: String(op) }, html: dbInner(d) });
+    });
     if (pose.torso && pose.torso.length === 4) {
       const t = pose.torso;
-      parts.push('<path d="M' + t[0][0] + ' ' + t[0][1] + ' L' + t[1][0] + ' ' + t[1][1] + ' L' + t[2][0] + ' ' + t[2][1] + ' L' + t[3][0] + ' ' + t[3][1] + ' Z" fill="' + TORSO + '"/>');
+      parts.push({ t: 'path', k: 'torso', attrs: { d: 'M' + t[0][0] + ' ' + t[0][1] + ' L' + t[1][0] + ' ' + t[1][1] + ' L' + t[2][0] + ' ' + t[2][1] + ' L' + t[3][0] + ' ' + t[3][1] + ' Z', fill: TORSO } });
     }
     const lines = pose.lines || [];
-    lines.filter(function (l) { return l.back; }).concat(lines.filter(function (l) { return !l.back; })).forEach(function (l) {
+    const ordered = lines.filter(function (l) { return l.back; }).concat(lines.filter(function (l) { return !l.back; }));
+    ordered.forEach(function (l, i) {
       const color = l.hot ? hot : INK;
       const op = l.back ? 0.38 : 1;
       const w = l.w || 6;
       if (l.hot && !l.back) {
-        parts.push('<line x1="' + l.a[0] + '" y1="' + l.a[1] + '" x2="' + l.b[0] + '" y2="' + l.b[1] + '" stroke="' + hot + '" stroke-width="' + (w + 7) + '" stroke-linecap="round" opacity=".22"/>');
+        parts.push({ t: 'line', k: 'halo' + i, attrs: { x1: String(l.a[0]), y1: String(l.a[1]), x2: String(l.b[0]), y2: String(l.b[1]), stroke: hot, 'stroke-width': String(w + 7), 'stroke-linecap': 'round', opacity: '.22' } });
       }
-      parts.push('<line x1="' + l.a[0] + '" y1="' + l.a[1] + '" x2="' + l.b[0] + '" y2="' + l.b[1] + '" stroke="' + color + '" stroke-width="' + w + '" stroke-linecap="round" opacity="' + op + '"/>');
+      parts.push({ t: 'line', k: 'ln' + i + (l.back ? 'b' : 'f') + (l.hot ? 'h' : ''), attrs: { x1: String(l.a[0]), y1: String(l.a[1]), x2: String(l.b[0]), y2: String(l.b[1]), stroke: color, 'stroke-width': String(w), 'stroke-linecap': 'round', opacity: String(op) } });
     });
-    lines.forEach(function (l) {
+    lines.forEach(function (l, i) {
       if (l.back) return;
-      parts.push('<circle cx="' + l.a[0] + '" cy="' + l.a[1] + '" r="2.3" fill="' + INK + '"/>');
+      parts.push({ t: 'circle', k: 'joint' + i, attrs: { cx: String(l.a[0]), cy: String(l.a[1]), r: '2.3', fill: INK } });
     });
-    parts.push(headMarkup(pose.head, pose.face));
-    dbs.filter(function (d) { return !d.under; }).forEach(function (d) { parts.push(dbMarkup(d)); });
-    svg.innerHTML = parts.join('');
+    if (pose.head) {
+      const h = pose.head, face = pose.face, x = h[0], y = h[1];
+      parts.push({ t: 'circle', k: 'skull', attrs: { cx: String(x), cy: String(y), r: String(L.head), fill: INK } });
+      if (face === 'front' || face === 'up') {
+        const dy = face === 'up' ? -3 : -1;
+        parts.push({ t: 'circle', k: 'eyeL', attrs: { cx: String(x - 3.1), cy: String(y + dy), r: '1.35', fill: '#fff' } });
+        parts.push({ t: 'circle', k: 'eyeR', attrs: { cx: String(x + 3.1), cy: String(y + dy), r: '1.35', fill: '#fff' } });
+      } else {
+        const dir = face === 'left' ? -1 : 1;
+        parts.push({ t: 'circle', k: 'eye', attrs: { cx: String(x + dir * 2.4), cy: String(y - 1.6), r: '1.3', fill: '#fff' } });
+        parts.push({ t: 'circle', k: 'nose', attrs: { cx: String(x + dir * 8), cy: String(y + 0.6), r: '2.3', fill: SKIN } });
+      }
+    }
+    dbs.filter(function (d) { return !d.under; }).forEach(function (d, i) {
+      const op = d.opacity == null ? 1 : d.opacity;
+      parts.push({ t: 'g', k: 'dbo' + i + (d.end ? 'e' : 'b'), attrs: { transform: 'translate(' + d.x + ',' + d.y + ')', opacity: String(op) }, html: dbInner(d) });
+    });
+    return parts;
+  }
+
+  function applyAttrs(el, attrs) {
+    for (const k in attrs) {
+      const v = attrs[k] == null ? '' : String(attrs[k]);
+      if (el.getAttribute(k) !== v) el.setAttribute(k, v);
+    }
+  }
+
+  function draw(svg, pose, col) {
+    const parts = poseParts(pose, col);
+    const key = parts.map(function (p) { return p.t + ':' + p.k; }).join('|');
+    const canUpdate = typeof document !== 'undefined' && svg && svg.namespaceURI === 'http://www.w3.org/2000/svg';
+    if (!canUpdate) {
+      svg.innerHTML = parts.map(function (p) {
+        const attr = Object.keys(p.attrs).map(function (k) { return k + '="' + p.attrs[k] + '"'; }).join(' ');
+        if (p.html) return '<' + p.t + ' ' + attr + '>' + p.html + '</' + p.t + '>';
+        return '<' + p.t + ' ' + attr + '/>';
+      }).join('');
+      return;
+    }
+    if (svg.dataset.sk !== key) {
+      const ns = 'http://www.w3.org/2000/svg';
+      const frag = document.createDocumentFragment();
+      parts.forEach(function (p) {
+        const el = document.createElementNS(ns, p.t);
+        applyAttrs(el, p.attrs);
+        if (p.html) el.innerHTML = p.html;
+        frag.appendChild(el);
+      });
+      svg.replaceChildren(frag);
+      svg.dataset.sk = key;
+      return;
+    }
+    const kids = svg.children;
+    for (let i = 0; i < parts.length; i++) {
+      applyAttrs(kids[i], parts[i].attrs);
+      if (parts[i].html != null && kids[i].innerHTML !== parts[i].html) kids[i].innerHTML = parts[i].html;
+    }
   }
 
   function niceName(id) {
@@ -1288,7 +1326,7 @@
     const views = d.views.map(function (v) {
       return '<figure><figcaption>' + v.label + '</figcaption><svg viewBox="0 -8 200 174" data-view="' + v.k + '" role="img" aria-label="' + v.label + ' view of ' + niceName(resolve(id)) + '"></svg></figure>';
     }).join('');
-    return '<div class="demo" data-demo="' + resolve(id) + '" data-col="' + (col || '') + '"><div class="dviews">' + views + '</div><div class="dbar"><span class="dlab">&nbsp;</span><button class="dplay" type="button">❚❚ Pause</button></div></div>';
+    return '<div class="demo" data-demo="' + resolve(id) + '" data-col="' + (col || '') + '"><div class="dviews">' + views + '</div><div class="dbar"><span class="dlab">&nbsp;</span><button class="dplay" type="button">Pause</button></div></div>';
   }
 
   const api = {
@@ -1315,6 +1353,8 @@
     kick();
   }, { rootMargin: '120px' }) : null;
 
+  const reduceMotion = function () { return !!(mq && mq.matches); };
+
   function paintOne(el, t) {
     const d = find(el.dataset.demo);
     const phase = playing ? at(d.seq, t) : stillPhase(d.seq);
@@ -1324,7 +1364,17 @@
     });
     const cue = phase.label || '';
     const lab = el.querySelector('.dlab');
-    if (lab) lab.textContent = playing ? (cue || '\u00a0') : ('Paused' + (cue ? ' · ' + cue : ''));
+    if (lab) {
+      const next = playing ? (cue || '\u00a0') : ('Paused' + (cue ? ' · ' + cue : ''));
+      if (lab.textContent !== next) {
+        lab.textContent = next;
+        if (!reduceMotion()) {
+          lab.classList.remove('cue-in');
+          void lab.offsetWidth;
+          lab.classList.add('cue-in');
+        }
+      }
+    }
   }
 
   function frame(now) {
@@ -1336,17 +1386,18 @@
     raf = playing && live.size ? requestAnimationFrame(frame) : 0;
   }
 
-  function kick() {
+  function kick(resetClock) {
     if (playing && live.size && !raf) {
-      t0 = performance.now();
+      if (resetClock || !t0) t0 = performance.now();
       raf = requestAnimationFrame(frame);
     }
   }
 
   function syncBtns() {
     document.querySelectorAll('.dplay').forEach(function (b) {
-      b.textContent = playing ? '❚❚ Pause' : '▶ Play';
-      b.setAttribute('aria-pressed', String(playing));
+      b.textContent = playing ? 'Pause' : 'Play';
+      b.removeAttribute('aria-pressed');
+      b.setAttribute('aria-label', playing ? 'Pause exercise demos' : 'Play exercise demos');
     });
   }
 
@@ -1364,7 +1415,7 @@
     playing = !playing;
     try { localStorage.setItem('wk.demoPlay', playing ? '1' : '0'); } catch (e) { /* private mode */ }
     syncBtns();
-    if (playing) kick();
+    if (playing) kick(true);
     else document.querySelectorAll('.demo').forEach(function (el) { paintOne(el, 0); });
   };
 

@@ -179,16 +179,26 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
   .done{outline:2px solid CanvasText}
 }
 
-/* Motion: opt in, compositor-friendly, purposeful. */
+/* Motion: opt in, compositor-friendly, purposeful. CSS first; no GSAP/video in the bundle. */
+#exercises{view-transition-name:wk-ex}
+:root{
+  --pop-ease:cubic-bezier(.34,1.45,.64,1);
+  --pop-ease-spring:linear(0, 0.12 8%, 1.16 28%, 0.94 48%, 1.04 66%, 0.99 84%, 1);
+}
 @media (prefers-reduced-motion: no-preference){
   .prog i,.prog s{transition:width .3s ease}
   #timer{transition:background-color .25s ease}
   #timer::after{transition:transform .2s linear}
-  #timer.done{animation:pulse .7s ease-in-out 2}
+  #timer.done #tval{animation:go-in .42s var(--pop-ease) both}
   #timer.flash{animation:flash .45s ease-out}
-  .chk.just-done{animation:chk-pop .32s ease-out}
+  .chk.just-done{animation:chk-pop .4s var(--pop-ease)}
+  @supports (animation-timing-function:linear(0,1)){
+    #timer.done #tval{animation-timing-function:var(--pop-ease-spring)}
+    .chk.just-done{animation-timing-function:var(--pop-ease-spring)}
+  }
   #toast:not(.hidden){animation:toast-in .28s ease-out}
   #donePanel:not(.hidden){animation:panel-in .32s ease-out}
+  .dlab.cue-in{animation:cue-in .2s ease-out}
   .sk::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);animation:sh 1.2s infinite}
   #overlay[open]{transform:scale(1);
     @starting-style{opacity:0;transform:scale(.96)}
@@ -197,16 +207,24 @@ ul.plain{margin:8px 0 0;padding-left:1.15em}ul.plain li{margin:8px 0;line-height
     #overlay[open]{opacity:0;transform:scale(.96)}
     #overlay[open]::backdrop{opacity:0}
   }
+  ::view-transition-old(root),
+  ::view-transition-new(root){animation:none}
+  ::view-transition-old(wk-ex){animation:wk-ex-out .2s ease-out both}
+  ::view-transition-new(wk-ex){animation:wk-ex-in .2s ease-out both}
 }
 @media (prefers-reduced-motion: reduce){
   #timer::after{transition:none}
+  #exercises{view-transition-name:none}
 }
-@keyframes pulse{50%{filter:brightness(1.1)}}
+@keyframes go-in{from{transform:scale(.88)}to{transform:scale(1)}}
 @keyframes flash{0%{transform:scale(1)}40%{transform:scale(1.012)}100%{transform:scale(1)}}
-@keyframes chk-pop{0%{transform:scale(.86)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes chk-pop{from{transform:scale(.88)}to{transform:scale(1)}}
 @keyframes toast-in{from{opacity:0;translate:-50% 12px}to{opacity:1;translate:-50% 0}}
 @keyframes panel-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes cue-in{from{opacity:0}to{opacity:1}}
 @keyframes sh{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+@keyframes wk-ex-out{to{opacity:0}}
+@keyframes wk-ex-in{from{opacity:0}}
 </style>
 </head>
 <body>
@@ -336,19 +354,25 @@ async function loadWorkout(){
   dur = (day.defaultRestSec || 90) * 1000; left = dur; paint();
   openDay(pick.index);
 }
+function reduceMotion(){ return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
 function openDay(i){
-  dayIndex = i;
-  W = WEEK.days[i];
-  const loaded = loadState(W);
-  stateKey = loaded.key;
-  state = loaded.state;
-  if (!running) {
-    dur = (W.defaultRestSec || 90) * 1000;
-    left = dur;
-    $('timer').classList.remove('done');
-    paint();
-  }
-  render();
+  const apply = () => {
+    dayIndex = i;
+    W = WEEK.days[i];
+    const loaded = loadState(W);
+    stateKey = loaded.key;
+    state = loaded.state;
+    if (!running) {
+      dur = (W.defaultRestSec || 90) * 1000;
+      left = dur;
+      $('timer').classList.remove('done');
+      paint();
+    }
+    render();
+  };
+  const canFade = document.startViewTransition && !reduceMotion() && $('exercises') && $('exercises').querySelector('.card');
+  if (canFade) document.startViewTransition(apply);
+  else apply();
 }
 const save = () => localStorage.setItem(stateKey, JSON.stringify(state));
 const isBW = e => WorkoutWeek.isBodyweight(e);
